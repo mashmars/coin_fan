@@ -45,7 +45,7 @@
 						<a href="#">《矿产链用户注册协议》</a>
 					</p>
 					<p class="tc reg-btn"><button class="lhbg mod-btn" id='register'>注册</button></p>
-					<p class="tr logbtn"><a href="<?php echo U('login/phone');?>">已有账号去登录</a></p>
+					<p class="tr logbtn"><a href="<?php echo U('login/password');?>">已有账号去登录</a></p>
 				</div>
 			
 		</div>
@@ -174,7 +174,7 @@ $(function(){
 			obj.prop('disabled',false);
 			return false;
 		}
-		obj.prop('disabled',false);
+		
 		$.post("<?php echo U('login/ajax_register');?>",{phone:phone,sms:sms,realname:realname,password:password,paypassword:paypassword,refer:refer,zone:zone},function(data){
 			if(data.info == 'success'){
 				layer.msg(data.msg,{time:2000,icon:1},function(){

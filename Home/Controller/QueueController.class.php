@@ -48,7 +48,7 @@ class QueueController extends Controller
                     echo 'confirmations <  c_zr_dz continue' . "\n";
 
                     if ($res = M('myzr')->where(array('txid' => $trans['txid']))->find()) {
-                        M('myzr')->save(array('id' => $res['id'], 'addtime' => time(), 'status' => intval($trans['confirmations'] - 5)));
+                        M('myzr')->save(array('id' => $res['id'], 'createtime' => time(), 'status' => intval($trans['confirmations'] - 5)));
                     }else {
                         M('myzr')->add(array('userid' => $user['id'], 'address' => $trans['address'] , 'txid' => $trans['txid'], 'num' => $true_amount, 'createdate' => time(), 'status' => intval($trans['confirmations'] - 5)));
                     }
