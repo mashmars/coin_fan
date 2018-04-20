@@ -136,8 +136,6 @@ class LoginController extends Controller
         }else{
             echo ajax_return(0, '修改失败');
         }
-
-
     }
 
 	public function register(){

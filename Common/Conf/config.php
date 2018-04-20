@@ -11,4 +11,8 @@ return array(
     'DB_PREFIX'             =>  '',    // 数据库表前缀
 	
 	//'URL_MODEL'          => '2', //URL模式
+	'wallet_host'	=> '127.0.0.1',
+	'wallet_port'	=> 31253,
+	'wallet_user'	=> 'abc',
+	'wallet_pwd'	=> '543',
 );

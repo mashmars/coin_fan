@@ -14,12 +14,12 @@ class IndexController extends Controller {
 			var_dump('a');
 			echo '<pre>';
 			//var_dump($client);
-			$res = $client->execute("listtransactions", ["*", 20, 0]);
+			//$res = $client->execute("listtransactions", ["*", 20, 0]);
 			//$res = $client->execute("getinfo");
 			//$res = $client->getnewaddress();//生成新地址			
-			var_dump($res);
-			//$res = $client->getaddressesbyaccount('15890143123');//获取新地址
-			//	var_dump($res);
+			//var_dump($res);
+			$res = $client->getaddressesbyaccount('15890143123');//获取新地址
+				var_dump($res);
 		}
 		var_dump('dd');exit;
 		$this->display();

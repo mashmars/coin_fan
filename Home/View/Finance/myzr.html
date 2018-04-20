@@ -42,7 +42,7 @@
 			<div class="charging-item">
 				<h3><i class="mon"></i>钱包地址</h3>
 				<h4 class="ovh">
-					<span class="fl copybox">{$address}</span>
+					<span class="fl copybox">{$qianbao}</span>
 					<span class="fr copy" data-clipboard-action="copy" data-clipboard-target=".copybox">复制</span>
 				</h4>
 			</div>
@@ -118,7 +118,7 @@
 	</script>
 	<script>
 	$(function(){
-		new QRCode(document.getElementById('qrcode'), "{$address}");
+		new QRCode(document.getElementById('qrcode'), "{$qianbao}");
 	})
 	</script>
 </html>
