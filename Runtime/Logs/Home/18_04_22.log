@@ -1,0 +1,12 @@
+[ 2018-04-22T07:40:02+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-04-22T21:26:44+08:00 ] 127.0.0.1 /index.php/queue/get_xiaji
+ERR: 1146:Table 'zhengshu.uses_coin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `uses_coin`
+ERR: 1146:Table 'zhengshu.uses_coin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `uses_coin`
+
+[ 2018-04-22T21:48:28+08:00 ] 127.0.0.1 /index.php/queue/get_xiaji
+ERR: 参数错误或者未定义:userid
+

@@ -3,6 +3,187 @@ namespace Admin\Controller;
 use Think\Controller;
 use Admin\Controller\BaseController;
 class SystemController extends BaseController {
+	
+	/**
+	 *静态分红
+	 */
+	public function sys_jtfh()
+	{
+		$res = M('sys_jtfh')->order('id asc')->select();
+		$this->assign('res',$res);
+		$this->display();
+	}
+	public function ajax_sys_jtfh_add()
+	{
+		$min = I('post.minnum');
+		$max = I('post.maxnum');
+		$bl = I('post.bl');
+		$status = I('post.status');
+		if($min == '' || $max == '' || $min <=0 || $max <=0){
+			echo ajax_return(0,'设置参数有误');exit;
+		}
+		//如果是第一条记录 不判断最大值最小值条件
+		$count = M('sys_jtfh')->count();
+		if($count > 0){
+			//找到上一条记录
+			$info = M('sys_jtfh')->order('id desc')->find();
+			if($min <= $info['maxnum']){
+				echo ajax_return(0,'临界点设置不正确');exit;
+			}
+			$res = M('sys_jtfh')->add(array('minnum'=>$min,'maxnum'=>$max,'bl'=>$bl,'status'=>$status));
+		}else{
+			$res = M('sys_jtfh')->add(array('minnum'=>$min,'maxnum'=>$max,'bl'=>$bl,'status'=>$status));
+		}
+		if($res){
+			echo ajax_return(1,'添加成功');
+		}else{
+			echo ajax_return(0,'添加失败');
+		}
+	}
+	public function sys_jtfh_edit()
+	{
+		$id = I('param.id');
+		$info = M('sys_jtfh')->where(array('id'=>$id))->find();
+		$this->assign('info',$info);
+		$this->display();
+	}
+	public function ajax_sys_jtfh_edit()
+	{
+		$data = I('post.');
+		$min = I('post.minnum');
+		$max = I('post.maxnum');
+		$bl = I('post.bl');
+		$status = I('post.status');
+		if($min == '' || $max == '' || $min <=0 || $max <=0 || $min >= $max){
+			echo ajax_return(0,'设置参数有误');exit;
+		}
+		//如果是第一条记录 不判断最大值最小值条件
+		$count = M('sys_jtfh')->count();
+		if($count > 1){ //只有一条记录时不用判断
+			//找到上一条记录
+			$prev = M('sys_jtfh')->where(array('id'=>array('lt',$data['id'])))->find();
+			if($min <= $prev['maxnum'] && $prev){ //必须满足有上一条记录才判断，第一条不用判断
+				echo ajax_return(0,'最小值临界点设置不正确');exit;
+			}
+			//找到下一条记录
+			$next = M('sys_jtfh')->where(array('id'=>array('gt',$data['id'])))->find();
+			if($max >= $next['minnum'] && $next){ //必须满足有下一条记录才判断 最后一条不用判断
+				echo ajax_return(0,'最大值临界点设置不正确');exit;
+			}
+			$res = M('sys_jtfh')->save($data);
+		}else{
+			$res = M('sys_jtfh')->save($data);
+		}
+		if($res){
+			echo ajax_return(1,'修改成功');
+		}else{
+			echo ajax_return(0,'修改失败');
+		}
+	}
+	public function ajax_sys_jtfh_del()
+	{
+		$id = I('post.id');
+		$res = M('sys_jtfh')->delete($id);
+		if($res){
+			echo ajax_return(1,'删除成功');
+		}else{
+			echo ajax_return(0,'删除失败');
+		}
+	}
+	
+	/**
+	 *动态分红
+	 */
+	public function sys_dtfh()
+	{
+		$res = M('sys_dtfh')->order('id asc')->select();
+		$this->assign('res',$res);
+		$this->display();
+	}
+	public function ajax_sys_dtfh_add()
+	{
+		$min = I('post.minnum');
+		$max = I('post.maxnum');
+		$bl = I('post.bl');
+		$status = I('post.status');
+		if($min == '' || $max == '' || $min <=0 || $max <=0){
+			echo ajax_return(0,'设置参数有误');exit;
+		}
+		//如果是第一条记录 不判断最大值最小值条件
+		$count = M('sys_dtfh')->count();
+		if($count > 0){
+			//找到上一条记录
+			$info = M('sys_dtfh')->order('id desc')->find();
+			if($min <= $info['maxnum']){
+				echo ajax_return(0,'临界点设置不正确');exit;
+			}
+			$res = M('sys_dtfh')->add(array('minnum'=>$min,'maxnum'=>$max,'bl'=>$bl,'status'=>$status));
+		}else{
+			$res = M('sys_dtfh')->add(array('minnum'=>$min,'maxnum'=>$max,'bl'=>$bl,'status'=>$status));
+		}
+		if($res){
+			echo ajax_return(1,'添加成功');
+		}else{
+			echo ajax_return(0,'添加失败');
+		}
+	}
+	public function sys_dtfh_edit()
+	{
+		$id = I('param.id');
+		$info = M('sys_dtfh')->where(array('id'=>$id))->find();
+		$this->assign('info',$info);
+		$this->display();
+	}
+	public function ajax_sys_dtfh_edit()
+	{
+		$data = I('post.');
+		$min = I('post.minnum');
+		$max = I('post.maxnum');
+		$bl = I('post.bl');
+		$status = I('post.status');
+		if($min == '' || $max == '' || $min <=0 || $max <=0 || $min >= $max){
+			echo ajax_return(0,'设置参数有误');exit;
+		}
+		//如果是第一条记录 不判断最大值最小值条件
+		$count = M('sys_dtfh')->count();
+		if($count > 1){ //只有一条记录时不用判断
+			//找到上一条记录
+			$prev = M('sys_dtfh')->where(array('id'=>array('lt',$data['id'])))->find();
+			if($min <= $prev['maxnum'] && $prev){ //必须满足有上一条记录才判断，第一条不用判断
+				echo ajax_return(0,'最小值临界点设置不正确');exit;
+			}
+			//找到下一条记录
+			$next = M('sys_dtfh')->where(array('id'=>array('gt',$data['id'])))->find();
+			if($max >= $next['minnum'] && $next){ //必须满足有下一条记录才判断 最后一条不用判断
+				echo ajax_return(0,'最大值临界点设置不正确');exit;
+			}
+			$res = M('sys_dtfh')->save($data);
+		}else{
+			$res = M('sys_dtfh')->save($data);
+		}
+		if($res){
+			echo ajax_return(1,'修改成功');
+		}else{
+			echo ajax_return(0,'修改失败');
+		}
+	}
+	public function ajax_sys_dtfh_del()
+	{
+		$id = I('post.id');
+		$res = M('sys_dtfh')->delete($id);
+		if($res){
+			echo ajax_return(1,'删除成功');
+		}else{
+			echo ajax_return(0,'删除失败');
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 ////系统设置
     public function system_base(){
         $info = M('config')->where("id=1")->find();

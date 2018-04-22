@@ -5,13 +5,13 @@ use Think\Controller;
 class IndexController extends Controller {
 	public function index(){
 
-	    /*$userid = session('userid');
+	    $userid = session('userid');
 	    if($userid){
 	        redirect(U('user/index'));
         }else{
 	        redirect(U('login/password'));
         }
-		exit;*/
+		exit;
 
 		Vendor("Move.ext.client");
 	//	$client = new \client('username123','543asdjkdjf', '120.78.75.93', 31253, 5, [], 1);

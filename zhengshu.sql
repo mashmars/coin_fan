@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-04-20 17:55:00
+Date: 2018-04-22 21:49:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '127.0.0.1', '1524216474', '超级管理员');
+INSERT INTO `admin` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '127.0.0.1', '1524354007', '超级管理员');
 
 -- ----------------------------
 -- Table structure for banner
@@ -70,7 +70,7 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', '广东二手车鉴定评估证书查询', '广东二手车鉴定评估证书查询', '广东二手车鉴定评估证书查询', '1998-2016版权所有：广东省汽车流通协会', '(020)37637949', '(020)37624929', '广州市番禺区汉溪大道290号保利大都汇A3-805', '2017-11-06/59fff849af4b0.png', '2017-10-17/59e59f555306b.jpg');
+INSERT INTO `config` VALUES ('1', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for field_control
@@ -155,7 +155,7 @@ CREATE TABLE `myzc` (
   `status` tinyint(4) DEFAULT '0' COMMENT '0未到账 1到账',
   `remark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of myzc
@@ -175,7 +175,7 @@ CREATE TABLE `myzr` (
   `createdate` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of myzr
@@ -197,6 +197,87 @@ CREATE TABLE `news` (
 -- ----------------------------
 -- Records of news
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_dtfh
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dtfh`;
+CREATE TABLE `sys_dtfh` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `minnum` int(8) DEFAULT NULL,
+  `maxnum` int(8) DEFAULT NULL,
+  `bl` decimal(6,4) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDb AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='动态分红设置';
+
+-- ----------------------------
+-- Records of sys_dtfh
+-- ----------------------------
+INSERT INTO `sys_dtfh` VALUES ('1', '100', '500', '0.0012', '1');
+INSERT INTO `sys_dtfh` VALUES ('2', '501', '1000', '0.0015', '1');
+
+-- ----------------------------
+-- Table structure for sys_fh_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_fh_log`;
+CREATE TABLE `sys_fh_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(6) NOT NULL,
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1是静态 2是动态',
+  `current` decimal(16,4) DEFAULT NULL COMMENT '当前币',
+  `fh_id` tinyint(2) DEFAULT NULL COMMENT '当前满足的分红id',
+  `bl` varchar(7) DEFAULT NULL,
+  `num` decimal(12,4) unsigned DEFAULT NULL COMMENT '本次分红的币数',
+  `createdate` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDb DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_fh_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_fh_verify
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_fh_verify`;
+CREATE TABLE `sys_fh_verify` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `count` int(11) DEFAULT NULL COMMENT '当天该分红的总人数',
+  `deal_jt` int(11) DEFAULT '0' COMMENT '已生成的静态分红数',
+  `deal_dt` int(11) DEFAULT '0' COMMENT '已生成的动态分红数',
+  `createdate` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDb DEFAULT CHARSET=utf8 COMMENT='每天分红核对';
+
+-- ----------------------------
+-- Records of sys_fh_verify
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_jtfh
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_jtfh`;
+CREATE TABLE `sys_jtfh` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `minnum` int(8) DEFAULT NULL,
+  `maxnum` int(8) DEFAULT NULL,
+  `bl` decimal(6,4) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDb AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='静态分红设置';
+
+-- ----------------------------
+-- Records of sys_jtfh
+-- ----------------------------
+INSERT INTO `sys_jtfh` VALUES ('1', '100', '500', '0.0012', '1');
+INSERT INTO `sys_jtfh` VALUES ('2', '501', '1000', '0.0017', '1');
+INSERT INTO `sys_jtfh` VALUES ('3', '1001', '3000', '0.0022', '1');
+INSERT INTO `sys_jtfh` VALUES ('4', '3001', '5000', '0.0027', '1');
+INSERT INTO `sys_jtfh` VALUES ('5', '5001', '10000', '0.0031', '1');
+INSERT INTO `sys_jtfh` VALUES ('6', '10001', '30000', '0.0036', '1');
+INSERT INTO `sys_jtfh` VALUES ('7', '30001', '50000', '0.0040', '0');
+INSERT INTO `sys_jtfh` VALUES ('8', '50001', '100000', '0.0043', '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -270,7 +351,7 @@ CREATE TABLE `user_qianbao` (
   `createdate` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_qianbao
