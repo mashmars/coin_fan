@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="057ad5c4-2698-4b25-b309-47ed0751f9c6" name="默认" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Home/Controller/FinanceController.class.php" afterPath="$PROJECT_DIR$/Home/Controller/FinanceController.class.php" />
-      <change beforePath="$PROJECT_DIR$/Home/Public/css/common.css" afterPath="$PROJECT_DIR$/Home/Public/css/common.css" />
-      <change beforePath="$PROJECT_DIR$/Home/Public/css/mobileSelect.css" afterPath="$PROJECT_DIR$/Home/Public/css/mobileSelect.css" />
-      <change beforePath="$PROJECT_DIR$/Home/Public/css/use.css" afterPath="$PROJECT_DIR$/Home/Public/css/use.css" />
-      <change beforePath="$PROJECT_DIR$/Home/Public/js/clipboard.min.js" afterPath="$PROJECT_DIR$/Home/Public/js/clipboard.min.js" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/income.html" afterPath="$PROJECT_DIR$/Home/View/Finance/income.html" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/myzcdetail.html" afterPath="$PROJECT_DIR$/Home/View/Finance/myzcdetail.html" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/myzrdetail.html" afterPath="$PROJECT_DIR$/Home/View/Finance/myzrdetail.html" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/3cac6ca0cfe805f8dcd4ca579e8a66b2.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/3cac6ca0cfe805f8dcd4ca579e8a66b2.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/5eaa645a535fe13d9fffaf62862bd4cb.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/5eaa645a535fe13d9fffaf62862bd4cb.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/73202fc824f7e5c9956216d018f10e36.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/73202fc824f7e5c9956216d018f10e36.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/7ac8371d3143df1623d91eccf9e01921.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/7ac8371d3143df1623d91eccf9e01921.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/c5e5402b8adb48aefaaa03a7997aa08e.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/c5e5402b8adb48aefaaa03a7997aa08e.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/d90871c3473dd90148f729f48ed08a1f.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/d90871c3473dd90148f729f48ed08a1f.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Logs/Home/18_04_23.log" afterPath="$PROJECT_DIR$/Runtime/Logs/Home/18_04_23.log" />
-    </list>
+    <list default="true" id="057ad5c4-2698-4b25-b309-47ed0751f9c6" name="默认" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,18 +13,7 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FinanceController.class.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Home/Controller/FinanceController.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="258" column="5" lean-forward="true" selection-start-line="210" selection-start-column="4" selection-end-line="258" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -194,18 +166,17 @@
       <workItem from="1524108887248" duration="16313000" />
       <workItem from="1524189608759" duration="4370000" />
       <workItem from="1524200493020" duration="11186000" />
-      <workItem from="1524446634577" duration="11960000" />
+      <workItem from="1524446634577" duration="12571000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147282000" />
+    <option name="totallyTimeSpent" value="147893000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.264375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.264375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -479,7 +450,7 @@
     <entry file="file://$PROJECT_DIR$/Home/Controller/FinanceController.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
-          <caret line="258" column="5" lean-forward="true" selection-start-line="210" selection-start-column="4" selection-end-line="258" selection-end-column="5" />
+          <caret line="258" column="5" lean-forward="false" selection-start-line="210" selection-start-column="4" selection-end-line="258" selection-end-column="5" />
           <folding />
         </state>
       </provider>
