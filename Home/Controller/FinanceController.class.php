@@ -78,6 +78,15 @@ class FinanceController extends CommonController {
         $this->display();
     }
 
+    public function myzrdetail()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 5;
+        $res = M('myzr')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        $this->assign('res',$res);
+        $this->display();
+    }
     /**
      * 转入记录
      */
@@ -85,8 +94,12 @@ class FinanceController extends CommonController {
     {
         $userid = session('userid');
         $p = I('param.p',1);
-        $list = 10;
+        $list = 5;
         $res = M('myzr')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        foreach($res as &$v){
+            $v['date'] = date('m月d日');
+            $v['time'] = date('H:i');
+        }
         echo json_encode($res);
     }
 
@@ -195,6 +208,15 @@ class FinanceController extends CommonController {
 
     }
 
+    public function myzcdetail()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 5;
+        $res = M('myzc')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        $this->assign('res',$res);
+        $this->display();
+    }
     /**
      * 转出记录
      */
@@ -202,11 +224,24 @@ class FinanceController extends CommonController {
     {
         $userid = session('userid');
         $p = I('param.p',1);
-        $list = 10;
+        $list = 5;
         $res = M('myzc')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        foreach($res as &$v){
+            $v['date'] = date('m月d日');
+            $v['time'] = date('H:i');
+        }
         echo json_encode($res);
     }
 
+    public function income()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 5;
+        $res = M('sys_fh_log')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        $this->assign('res',$res);
+        $this->display();
+    }
     /**
      * 收益记录
      */
@@ -214,8 +249,12 @@ class FinanceController extends CommonController {
     {
         $userid = session('userid');
         $p = I('param.p',1);
-        $list = 10;
+        $list = 5;
         $res = M('sys_fh_log')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        foreach($res as &$v){
+            $v['date'] = date('m月d日');
+            $v['time'] = date('H:i');
+        }
         echo json_encode($res);
     }
 
