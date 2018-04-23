@@ -14,21 +14,21 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		修改资料
+		资产管理
 	</h3>
 </header>
 		<div class="main assetManagement">
 			<div class="lhbg tc asset-info">
 				<p>昨日收益</p>
-				<h3>0.00</h3>
-				<h4>狂池币数：0.00</h4>
+				<h3><?php echo ($yestoday_shouyi*1); ?></h3>
+				<h4>狂池币数：<?php echo ($usercoin['lth']*1); ?></h4>
 				<div class="flex-box asset-total">
 					<div class="flex-1">
-						<p>0.00</p>
+						<p><?php echo ($month_shouyi*1); ?></p>
 						<p>本月收益</p>
 					</div>
 					<div class="flex-1">
-						<p>0.00</p>
+						<p><?php echo ($shouyi*1); ?></p>
 						<p>累计收益</p>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="<?php echo U('finance/income');?>">
 						<i class="record"></i>收益记录
 						<span class="go"></span>
 					</a>

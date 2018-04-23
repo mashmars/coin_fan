@@ -14,7 +14,7 @@ class IndexController extends Controller {
 		exit;
 
 		Vendor("Move.ext.client");
-	//	$client = new \client('username123','543asdjkdjf', '120.78.75.93', 31253, 5, [], 1);
+
 		$client = new \client('a5c','543', '127.0.0.1', 31253, 5, [], 1);
 		if (!$client) {
 			var_dump('aaa');

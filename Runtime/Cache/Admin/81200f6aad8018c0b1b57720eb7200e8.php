@@ -1,4 +1,4 @@
-<!--_meta 作为公共模版分离出去-->
+<?php if (!defined('THINK_PATH')) exit();?><!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -10,16 +10,16 @@
 <link rel="Bookmark" href="/favicon.ico" >
 <link rel="Shortcut Icon" href="/favicon.ico" />
 <!--[if lt IE 9]>
-<script type="text/javascript" src="{$Think.const.PUB_LIB}html5shiv.js"></script>
-<script type="text/javascript" src="{$Think.const.PUB_LIB}respond.min.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>html5shiv.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_LIB}Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_LIB); ?>Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui.admin/css/style.css" />
 <!--[if IE 6]>
-<script type="text/javascript" src="{$Think.const.PUB_LIB}DD_belatedPNG_0.0.8a-min.js" ></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
@@ -29,25 +29,22 @@
 <body>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-article-add" action='' method='post' enctype="multipart/form-data">
-		<input type='hidden' name='id' value="{$info.id}"/>
-		
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>招聘标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="{$info.title}" placeholder="" id="articletitle" name="title">
+				<input type="text" class="input-text" value="" placeholder="" id="articletitle" name="title">
 			</div>
-		</div>
-		
+		</div>		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否显示：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="is_show" type="radio" id="sex-1" value='1' <if condition="$info.is_show eq 1">checked</if> >
+					<input name="is_show" type="radio" id="sex-1" value='1' checked>
 					<label for="sex-1">显示</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="is_show" value='0' <if condition="$info.is_show eq 0">checked</if>>
+					<input type="radio" id="sex-2" name="is_show" value='0'>
 					<label for="sex-2">不显示</label>
 				</div>
 			</div>
@@ -55,14 +52,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">发布日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd'} )" name='createdate' value="{$info.createdate|date='Y-m-d',###}" id="datemax" class="input-text Wdate" style="width:185px;">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd'} )" name='createdate' id="datemax" class="input-text Wdate" style="width:185px;">
 			</div>
 		</div>
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">招聘详情：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-				<script id="editor" type="text/plain" style="width:100%;height:400px;" name='content'>{$info.content|html_entity_decode}</script> 
+				<script id="editor" type="text/plain" style="width:100%;height:400px;" name='content'></script> 
 			</div>
 		</div>
 		<div class="row cl">
@@ -76,33 +73,27 @@
 </article>
 
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="{$Think.const.PUB_LIB}jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="{$Think.const.PUB_LIB}layer/2.4/layer.js"></script>
-<script type="text/javascript" src="{$Think.const.PUB_STATIC}h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="{$Think.const.PUB_STATIC}h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>layer/2.4/layer.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_STATIC); ?>h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_STATIC); ?>h-ui.admin/js/H-ui.admin.js"></script> 
 <!--/_footer /作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="{$Think.const.PUB_LIB}My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>uploadPreview.min.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>My97DatePicker/4.8/WdatePicker.js"></script>
 
-<script type="text/javascript" src="{$Think.const.PUB_LIB}ueditor/1.4.3/ueditor.config.js"></script> 
-<script type="text/javascript" src="{$Think.const.PUB_LIB}ueditor/1.4.3/ueditor.all.min.js"> </script> 
-<script type="text/javascript" src="{$Think.const.PUB_LIB}ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-
-<script type="text/javascript" src="{$Think.const.PUB_LIB}uploadPreview.min.js"></script>
-
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>ueditor/1.4.3/ueditor.config.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>ueditor/1.4.3/ueditor.all.min.js"> </script> 
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
+
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
-	//图片预览
-	 window.onload = function () { 
-      new uploadPreview({ UpBtn: "up_img", DivShow: "updata_img", ImgShow: "imgShow" });
-	}
-	
 	/////////提交
 	$('#submit').click(function(){
 		
@@ -114,7 +105,6 @@ $(function(){
 		}
 		
 	})
-	
 	
 	
 	var ue = UE.getEditor('editor');

@@ -59,12 +59,12 @@
 	<input runat="server" id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 招聘管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe616;</i> 财务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<!-- <li><a data-href="<?php echo U('news/category');?>" data-title="分类管理" href="javascript:void(0)">分类管理</a></li> -->
-					<li><a data-href="<?php echo U('news/gonggao_list');?>" data-title="招聘管理" href="javascript:void(0)">招聘管理</a></li>
-					<li><a data-href="<?php echo U('news/job_list');?>" data-title="求职需求" href="javascript:void(0)">求职需求</a></li>
+					
+					<li><a data-href="<?php echo U('finance/myzr');?>" data-title="转入管理" href="javascript:void(0)">转入管理</a></li>
+					<li><a data-href="<?php echo U('finance/myzc');?>" data-title="转出管理" href="javascript:void(0)">转出管理</a></li>
 				</ul>
 			</dd>
 		</dl>

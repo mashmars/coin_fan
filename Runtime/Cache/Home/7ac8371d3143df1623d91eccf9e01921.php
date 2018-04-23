@@ -19,22 +19,22 @@
 					<div class="flex-box user-head">
 						<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 						<div class="flex-1">
-							<h4>你好，孟晓明！</h4>
-							<p>13723103200</p>
+							<h4>你好，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
+							<p><?php echo (session('phone')); ?></p>
 						</div>
 					</div>
 					<div class="tc flex-box user-total">
 						<div class="flex-1">
 							<p>挖矿收益</p>
-							<h4>0.000000000</h4>
+							<h4><?php echo ($shouyi); ?></h4>
 						</div>
 						<div class="flex-1">
 							<p>参考市值</p>
-							<h4>￥0.00</h4>
+							<h4><?php echo ($usercoin['lth']); ?></h4>
 						</div>
 						<div class="flex-1">
 							<p>矿池币数</p>
-							<h4>0.000000000</p>
+							<h4><?php echo ($usercoin['lth']); ?></p>
 						</div>
 					</div>
 				</div>

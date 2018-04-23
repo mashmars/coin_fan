@@ -14,7 +14,7 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		修改资料
+		修改密码
 	</h3>
 </header>
 		<div class="main passwordManagement">

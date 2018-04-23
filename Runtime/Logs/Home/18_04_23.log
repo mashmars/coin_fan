@@ -1,0 +1,12 @@
+[ 2018-04-23T11:08:06+08:00 ] 127.0.0.1 /index.php/user/index.html
+ERR: 1146:Table 'zhengshu.use_coin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `use_coin`
+ERR: 1146:Table 'zhengshu.use_coin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `use_coin`
+
+[ 2018-04-23T11:22:25+08:00 ] 127.0.0.1 /index.php/finance/wallet.html
+ERR: 1146:Table 'zhengshu.sys_fy_log' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `sys_fy_log`
+ERR: 1146:Table 'zhengshu.sys_fy_log' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `sys_fy_log`
+

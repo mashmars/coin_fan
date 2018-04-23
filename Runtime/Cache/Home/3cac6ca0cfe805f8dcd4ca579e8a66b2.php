@@ -15,16 +15,16 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		修改资料
+		转出记录
 	</h3>
 </header>
 		<div class="main chargeRecord">
 			<div class="flex-box record-hd">
 				<div class="flex-1">
-					<h4>2018年11月</h4>
-					<p><span>提币：0.00</span></p>
+					<!--<h4>2018年11月</h4>
+					<p><span>提币：0.00</span></p>-->
 				</div>
-				<span class="times" id="date"></span>
+				<!--<span class="times" id="date"></span>-->
 			</div>
 			<div class="record-bd">
 				<ul>
@@ -49,7 +49,7 @@
 						<span>+100.00</span>
 					</li>
 				</ul>
-				<p class="no-list tc">暂无充币记录</p>
+				<p class="no-list tc">暂无转出记录</p>
 			</div>
 		</div>
 	</body>

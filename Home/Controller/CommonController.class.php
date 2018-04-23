@@ -16,5 +16,14 @@ class CommonController extends Controller {
                 redirect(U('login/password'),0,'no msg');
             }
         }
+        //用户基本信息
+        $userinfo = M('user')->where(array('id'=>$userid))->find();
+        $this->assign('userinfo',$userinfo);
+        //获取用户资产
+        $usercoin = M('user_coin')->where(array('userid'=>$userid))->find();
+        $this->assign('usercoin',$usercoin);
+        //获取分红
+        $shouyi = M('sys_fh_log')->where(array('userid'=>$userid))->sum('num');
+        $this->assign('shouyi',$shouyi);
     }
 }

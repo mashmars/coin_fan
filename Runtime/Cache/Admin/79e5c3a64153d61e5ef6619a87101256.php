@@ -41,13 +41,8 @@
 			<select name="" id='field' class="select">
 				<!-- <option value="txdz" data-type='input' <?php if($field == 'txdz'): ?>selected<?php endif; ?> >地址</option> -->
 				<option value="" data-type='' <?php if($field == ''): ?>selected<?php endif; ?>>全部会员</option>
-				<option value="realname" data-type='input' <?php if($field == 'realname'): ?>selected<?php endif; ?>>姓名</option>
-				<option value="idcard" data-type='input' <?php if($field == 'idcard'): ?>selected<?php endif; ?>>身份证号码</option>
-				<option value="zsbh" data-type='input' <?php if($field == 'zsbh'): ?>selected<?php endif; ?>>证书编号</option>
-				<option value="zczbh" data-type='input' <?php if($field == 'zczbh'): ?>selected<?php endif; ?>>注册证编号</option>
-				<option value="txdz" data-type='input' <?php if($field == 'txdz'): ?>selected<?php endif; ?>>通讯地址</option>
-				<option value="qfrq" data-type='date' <?php if($field == 'qfrq'): ?>selected<?php endif; ?>>注册日期(起止)</option>
-				<option value="zcyxq" data-type='date' <?php if($field == 'zcyxq'): ?>selected<?php endif; ?>>注册有效期(起止)</option>
+				<option value="phone" data-type='input' <?php if($field == 'phone'): ?>selected<?php endif; ?>>手机号</option>
+				
 			</select>
 		</span>
 		<span class="btn-upload form-group" id='date' <?php if($type != 'date'): ?>style='display:none'<?php endif; ?>>
@@ -66,10 +61,10 @@
 	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">	
-		<a href="javascript:;" onclick="member_add('添加用户','<?php echo U('user/member_add');?>','','510')" class="btn btn-primary radius">
+		<!--<a href="javascript:;" onclick="member_add('添加用户','<?php echo U('user/member_add');?>','','510')" class="btn btn-primary radius">
 		<i class="Hui-iconfont">&#xe600;</i> 添加用户
 		</a>
-		
+		-->
 		</span>	
 		<span class="r">共有数据：<strong><?php echo ($count); ?></strong> 条</span> 	
 		
@@ -98,7 +93,7 @@
 				<td><?php echo (date('Y-m-d',$vo["createdate"])); ?></td>				
 				<td class="td-manage">				
 				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户基本信息','<?php echo U('user/member_edit',array('id'=>$vo['id']));?>','','510')"   title="编辑用户信息">编辑</a>  
-				<a style="text-decoration:none" class="btn btn-danger-outline radius size-MINI" onClick="del(this,'<?php echo ($vo["id"]); ?>')" href="javascript:;" title="删除">删除</a>
+				
 				</td>
 			</tr><?php endforeach; endif; else: echo "" ;endif; ?>
 		</tbody>
@@ -247,25 +242,6 @@ function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 
-function del(obj,id){
-	layer.confirm('是否确认删除此用户,一经删除，无法恢复',function(){
-		$.ajax({
-			url:"<?php echo U('user/ajax_user_delete');?>",
-			data:{id:id},
-			type:"post",
-			dataType:"json",
-			success:function(data){
-				if(data.info =='success'){
-					layer.msg(data.msg,{time:2000,icon:6},function(){
-						$(obj).parents('tr').remove();
-					})
-				}else{
-					layer.msg(data.msg,{time:2000,icon:5})
-				}
-			}
-		})
-	})
-}
 
 </script> 
 </body>

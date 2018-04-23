@@ -39,9 +39,10 @@
 			</form>
 		</div>
 	</body>
-	<script src="<?php echo (PUB_JS); ?>set.js"></script>
+	<script src="<?php echo (PUB_JS); ?>set.js"></script>	
 	<script src="<?php echo (PUB_JS); ?>jquery-1.8.2.min.js"></script>
 	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></script>
+	<script src="<?php echo (PUB_JS); ?>global.js"></script>
 	<script>
 		var wait=60;//60s验证码
 		var t;

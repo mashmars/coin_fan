@@ -18,6 +18,18 @@ class FinanceController extends CommonController {
      */
 	public function wallet()
     {
+        $userid = session('userid');
+        //本月收益
+        $start =mktime(0,0,0,date('m'),1,date('Y'));
+        $end =mktime(23,59,59,date('m'),date('t'),date('Y'));
+        $month_shouyi = M('sys_fh_log')->where(array('userid'=>$userid,'createdate'=>array('between',array($start,$end))))->sum('num');
+        //昨天收益
+        //php获取昨日起始时间戳和结束时间戳
+        $start1 =mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+        $end1 =mktime(0,0,0,date('m'),date('d'),date('Y'))-1;
+        $yestoday_shouyi = M('sys_fh_log')->where(array('userid'=>$userid,'createdate'=>array('between',array($start1,$end1))))->sum('num');
+        $this->assign('month_shouyi',$month_shouyi);
+        $this->assign('yestoday_shouyi',$yestoday_shouyi);
         $this->display();
     }
     /**
@@ -66,6 +78,17 @@ class FinanceController extends CommonController {
         $this->display();
     }
 
+    /**
+     * 转入记录
+     */
+    public function ajax_myzrdetail()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 10;
+        $res = M('myzr')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        echo json_encode($res);
+    }
 
     /**
      * 转出页面
@@ -172,6 +195,29 @@ class FinanceController extends CommonController {
 
     }
 
+    /**
+     * 转出记录
+     */
+    public function ajax_myzcdetail()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 10;
+        $res = M('myzc')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        echo json_encode($res);
+    }
+
+    /**
+     * 收益记录
+     */
+    public function ajax_income()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 10;
+        $res = M('sys_fh_log')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        echo json_encode($res);
+    }
 
 
 }
