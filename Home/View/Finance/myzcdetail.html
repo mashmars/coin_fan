@@ -106,7 +106,7 @@
 							<div class="flex-1 flex-box">
 								<img src="{$Think.const.PUB_IMG}ht.png" alt="">
 								<div class="flex-1">
-									<h4>提币</h4>
+									<h4><if condition="$vo.status eq 1">已确认<elseif condition="$vo.status eq 2"/>已拒绝<else />待处理</if></h4>
 									<p><span>{$vo.createdate|date='m月d日',###}</span><span>{$vo.createdate|date='H:i',###}</span></p>
 								</div>
 							</div>
@@ -192,10 +192,17 @@
 								return false;
 							}
 							$.each(result,function(k,v){
-								var src = "{$Think.const.PUB_IMG}";
+								var status ='';
+								if(v.status == 1){
+									status = '已确认';
+								}else if(v.status ==2){
+									status ='已拒绝';
+								}else{
+									status = '待处理';
+								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="{$Think.const.PUB_IMG}ht.png" alt="">';
-									list += '<div class="flex-1"><h4>提币</h4><p><span>4月3日</span><span>14:16</span></p></div></div>';
+									list += '<div class="flex-1"><h4>'+status+'</h4><p><span>4月3日</span><span>14:16</span></p></div></div>';
 									list += '<span>-'+v.num+'</span></li>';
 								}
 							})
