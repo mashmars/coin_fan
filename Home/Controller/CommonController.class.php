@@ -25,5 +25,8 @@ class CommonController extends Controller {
         //获取分红
         $shouyi = M('sys_fh_log')->where(array('userid'=>$userid))->sum('num');
         $this->assign('shouyi',$shouyi);
+        //获取网站基本配置
+        $config = M('config')->where('id=1')->find();
+        $this->assign('config',$config);
     }
 }

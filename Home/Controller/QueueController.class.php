@@ -120,22 +120,25 @@ class QueueController extends Controller
         //核对每天只能分红一次
         $start = strtotime(date('Y-m-d'));
         $end = $start + 24*3600-1;
-		//动态总分红上限 5000 每个人的分红上限是min的50%
-		$limit = 5000; //动态分红用
-		$yfh = 0; //已分红的币数
+		//个人分红上限 5000  或者是 个人持币对应区间的下限*50% 那个小按哪个为准
+		$limit = 5000; //		
+		
 		$count = count($user_coin); //本次分红总人数 包括没有达到静态分红的最小值的情况
 		$jt_deal=0;//已处理的静态人数
 		$dt_deal=0;//已处理的动态人数
 		
 		foreach($user_coin as $coin)
 		{
+			$yfh = 0; //已分红的币数
+			$gr_limit=0; //个人限制  个人分红上限 5000  或者是 个人持币对应区间的下限*50% 那个小按哪个为准
+			$limit1=0; //个人持币对应区间的下限*50%
 			if($coin['lth']  == 0){
 			    continue;
             }
             //保证每天只能分红一次
             $is_fh = M('sys_fh_log')->where(array('userid'=>$coin['userid'],'createdate'=>array('between',array($start,$end))))->getField('type',true);
             //var_dump($coin['userid'] . '---');var_dump($is_fh);continue;
-			$gr_limit=0; //每次循环赋值 动态分红用
+			
 			$jt_num =0;//本次分红的币数
 			$dt_num =0;//本次分红的币数
 			$jtfh=array(); //满足条件的
@@ -152,7 +155,11 @@ class QueueController extends Controller
                     continue;
                 }
 				$jt_num = $jtfh['bl'] * $coin['lth'] ; //考虑保留几位小数 TODO
-                $jt_num = sprintf("%.2f",substr(sprintf("%.4f", $jt_num), 0, -2));
+                $jt_num = sprintf("%.2f",substr(sprintf("%.4f", $jt_num), 0, -2)); //本次分红数量
+				$limit1 = $jtfh['minnum']*0.5;
+				$gr_limit = ($limit > $limit1) ? $limit1 : $limit;
+				//实际的分红数
+				$jt_num = ($jt_num + $yfh) > $gr_limit ? ($gr_limit - $yfh) : $jt_num;
                 $m = M();
 				$m->startTrans();
 				$rs = array();
@@ -169,7 +176,7 @@ class QueueController extends Controller
 				if(check_arr($rs)){
 					$m->commit();
 					$jt_deal++;
-					
+					$yfh += $jt_num;
 				}else{
 					$m->rollback();
 				}			
@@ -191,13 +198,16 @@ class QueueController extends Controller
 					break;
 				}
 			}
-			if($dtfh && $yfh <= $limit ){ //开始动态分红 保留两位小数
-				$gr_limit = $coin['lth']*0.5 ; //个人限制 考虑保留几位小数 TODO
-                $gr_limit = sprintf("%.2f",substr(sprintf("%.4f", $gr_limit), 0, -2));
+			if($dtfh){ //开始动态分红 保留两位小数				
 				$dt_num = $dtfh['bl'] * $coin['lth'] ; //本次分红的数量 考虑保留几位小数 TODO
                 $dt_num = sprintf("%.2f",substr(sprintf("%.4f", $dt_num), 0, -2));
-				$dt_num = $dt_num > $gr_limit ? $gr_limit : $dt_num ; //保证每个人 的分红数 小于个人限制
-				$dt_num = ($yfh + $dt_num) > $limit ? ($limit-$yfh) : $dt_num ;//保证总分红数不能大于5000
+				$limit1 = $dtfh['minnum']*0.5;
+				$gr_limit = ($limit > $limit1) ? $limit1 : $limit;				
+				//实际的分红数
+				$dt_num = ($dt_num + $yfh) > $gr_limit ? ($gr_limit - $yfh) : $dt_num;
+				if($dt_num <=0){
+					continue;
+				}
                 $m = M();
                 $m->startTrans();
                 $rs = array();
@@ -214,7 +224,7 @@ class QueueController extends Controller
                 if(check_arr($rs)){
                     $m->commit();
                     $dt_deal++;
-                    $yfh += $dt_num;
+                    
                 }else{
                     $m->rollback();
                 }

@@ -75,6 +75,8 @@
 			<dd>
 				<ul>
 					<li><a data-href="<?php echo U('user/member_list');?>" data-title="会员列表" href="javascript:;">会员列表</a></li>
+					<li><a data-href="<?php echo U('user/member_chongzhi');?>" data-title="充值管理" href="javascript:;">充值管理</a></li>
+					<li><a data-href="<?php echo U('user/team');?>" data-title="组织架构" href="javascript:;">组织架构</a></li>
 					<li><a data-href="<?php echo U('user/member_coin');?>" data-title="资产管理" href="javascript:;">资产管理</a></li>
 				</ul>
 			</dd>

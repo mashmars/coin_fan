@@ -40,7 +40,7 @@
 		<span class="select-box inline">			
 			<select name="" id='field' class="select">
 				<!-- <option value="txdz" data-type='input' <?php if($field == 'txdz'): ?>selected<?php endif; ?> >地址</option> -->
-				<option value="" data-type='' <?php if($field == ''): ?>selected<?php endif; ?>>全部会员</option>
+				<option value="all" data-type='' <?php if($field == ''): ?>selected<?php endif; ?>>全部会员</option>
 				<option value="phone" data-type='input' <?php if($field == 'phone'): ?>selected<?php endif; ?>>手机号</option>
 				
 			</select>
@@ -76,9 +76,9 @@
 				<th width="100">用户名</th>								
 				<th width="100">手机号</th>								
 				<th width="100">可用MC</th>								
-				<th width="100">冻结MC</th>								
+										
 				<th width="100">钱包地址</th>								
-				<th width="170">操作</th>
+				
 			</tr>
 		</thead>
 		<tbody id='tbody'>
@@ -88,11 +88,9 @@
 				<td><?php echo ($vo["username"]); ?></td>				
 				<td><?php echo ($vo["phone"]); ?></td>	
 				<td><?php echo ($vo["lth"]); ?></td>	
-				<td><?php echo ($vo["lthd"]); ?></td>	
+				
 				<td><?php echo ($vo["lthb"]); ?></td>	
-				<td class="td-manage">				
-				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户资产','<?php echo U('user/member_coin_edit',array('id'=>$vo['id']));?>','','510')"   title="编辑用户资产">编辑</a>  
-				</td>
+				
 			</tr><?php endforeach; endif; else: echo "" ;endif; ?>
 		</tbody>
 		<!--
@@ -139,7 +137,57 @@ function member_add(title,url,w,h){
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-
+$(function(){
+	$('#field').change(function(){
+		var type = $(this).find('option:selected').attr('data-type');
+		if(type == 'date'){
+			$('#input').hide();
+			$('#datemin').val('');
+			$('#datemax').val('');
+			$('#date').show();
+		}else{
+			$('#date').hide();
+			$('#keyword').val('');
+			$('#input').show();
+		}
+	})
+	$('#serach').click(function(){
+		$('#form-search').prop('action','');
+		var field = $('#field').find('option:selected').val();
+		var type = $('#field').find('option:selected').attr('data-type');
+		if(field == 'all'){
+			var url = "<?php echo U('user/member_coin');?>";
+			window.location.href = url;
+			return false;
+		}
+		if(type == 'input'){
+			var param = $('#keyword').val();
+			if(param == ''){
+				layer.msg('请输入查询关键字',{icon:5,time:2000});return false;
+			}else{
+				$('input[name=field]').val(field);
+				$('input[name=type]').val(type);
+				$('input[name=keyword]').val(param);
+				$('input[name=datemin]').val('');
+				$('input[name=datemax]').val('');
+				$('#form-search').submit();
+			}
+		}else if(type == 'date'){
+			var param1 = $('#datemin').val();
+			var param2 = $('#datemax').val();
+			if(param1 == '' && param2 == ''){
+				layer.msg('开始日期和结束日期不能同时为空',{icon:5,time:2000});return false;
+			}else{
+				$('input[name=field]').val(field);
+				$('input[name=type]').val(type);
+				$('input[name=keyword]').val('');
+				$('input[name=datemin]').val(param1);
+				$('input[name=datemax]').val(param2);
+				$('#form-search').submit();
+			}
+		}
+	})
+})
 
 </script> 
 </body>

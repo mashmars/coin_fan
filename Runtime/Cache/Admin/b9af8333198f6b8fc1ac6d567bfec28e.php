@@ -43,12 +43,13 @@
 			</div>
 			<div class="tabCon">
 				<div class="row cl">
-					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>网站标题：</label>
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>当前市值价格:</label>
 					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" id="website-title" placeholder="" value="<?php echo ($info["title"]); ?>"name='title' class="input-text">
+						<input type="text" id="price" placeholder="" value="<?php echo ($info["price"]); ?>"name='price' class="input-text">
 					</div>
 				</div>
-				<div class="row cl">
+				
+				<!--<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>关键词：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<input type="text" id="website-Keywords" placeholder="" value="<?php echo ($info["keywords"]); ?>" name='keywords' class="input-text">
@@ -107,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			
 		</div>
 		<div class="row cl">

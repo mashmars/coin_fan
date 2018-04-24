@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-04-23 13:31:29
+Date: 2018-04-22 21:49:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '127.0.0.1', '1524448869', '超级管理员');
+INSERT INTO `admin` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '127.0.0.1', '1524354007', '超级管理员');
 
 -- ----------------------------
 -- Table structure for banner
@@ -73,27 +73,94 @@ CREATE TABLE `config` (
 INSERT INTO `config` VALUES ('1', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
+-- Table structure for field_control
+-- ----------------------------
+DROP TABLE IF EXISTS `field_control`;
+CREATE TABLE `field_control` (
+  `id` int(2) NOT NULL AUTO_INCREMENT COMMENT '字段',
+  `fieldname` varchar(10) DEFAULT NULL COMMENT '字段名称',
+  `descript` varchar(30) DEFAULT NULL COMMENT '字段描述',
+  `is_show` char(1) DEFAULT '1' COMMENT '是否显示',
+  `owner` varchar(20) DEFAULT NULL COMMENT '所属表',
+  `sort` int(2) DEFAULT '50' COMMENT '排序显示顺序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of field_control
+-- ----------------------------
+INSERT INTO `field_control` VALUES ('1', 'realname', '姓名', '1', 'users', '10');
+INSERT INTO `field_control` VALUES ('2', 'sex', '性别', '1', 'users', '20');
+INSERT INTO `field_control` VALUES ('3', 'csrq', '出生日期', '0', 'users', '30');
+INSERT INTO `field_control` VALUES ('4', 'zw', '职务', '0', 'users', '40');
+INSERT INTO `field_control` VALUES ('5', 'phone', '电话', '0', 'users', '50');
+INSERT INTO `field_control` VALUES ('6', 'xl', '学历', '0', 'users', '60');
+INSERT INTO `field_control` VALUES ('7', 'idcard', '身份证号', '1', 'users', '70');
+INSERT INTO `field_control` VALUES ('8', 'txdz', '通讯地址', '0', 'users', '80');
+INSERT INTO `field_control` VALUES ('9', 'zsmc', '证书类型', '1', 'users_zhengshu', '10');
+INSERT INTO `field_control` VALUES ('10', 'zsbh', '证书编号', '1', 'users_zhengshu', '20');
+INSERT INTO `field_control` VALUES ('11', 'jibie', '级别', '1', 'users_zhengshu', '30');
+INSERT INTO `field_control` VALUES ('12', 'zhcj', '综合成绩', '1', 'users_zhengshu', '40');
+INSERT INTO `field_control` VALUES ('13', 'fzrq', '发证日期', '1', 'users_zhengshu', '70');
+INSERT INTO `field_control` VALUES ('14', 'llzscj', '理论知识成绩', '1', 'users_zhengshu', '50');
+INSERT INTO `field_control` VALUES ('15', 'czjncj', '操作技能成绩', '1', 'users_zhengshu', '60');
+INSERT INTO `field_control` VALUES ('16', 'zczbh', '注册证编号', '1', 'users_reg', '10');
+INSERT INTO `field_control` VALUES ('17', 'qfrq', '签发日期', '1', 'users_reg', '20');
+INSERT INTO `field_control` VALUES ('18', 'zcyxq', '注册有效期', '1', 'users_reg', '30');
+INSERT INTO `field_control` VALUES ('19', 'gzdw1', '工作单位1', '0', 'users_reg', '40');
+INSERT INTO `field_control` VALUES ('20', 'gzdw2', '工作单位2', '0', 'users_reg', '50');
+INSERT INTO `field_control` VALUES ('21', 'gzdw3', '工作单位3', '0', 'users_reg', '60');
+INSERT INTO `field_control` VALUES ('22', 'gzdw4', '工作单位4', '0', 'users_reg', '70');
+INSERT INTO `field_control` VALUES ('23', 'gzdw5', '工作单位5', '0', 'users_reg', '80');
+INSERT INTO `field_control` VALUES ('24', 'gzdw6', '工作单位6', '0', 'users_reg', '90');
+INSERT INTO `field_control` VALUES ('25', 'gzdw7', '工作单位7', '0', 'users_reg', '100');
+INSERT INTO `field_control` VALUES ('26', 'gzdw8', '工作单位8', '0', 'users_reg', '110');
+INSERT INTO `field_control` VALUES ('27', 'gzdw9', '工作单位9', '0', 'users_reg', '120');
+INSERT INTO `field_control` VALUES ('28', 'gzdw10', '工作单位10', '0', 'users_reg', '130');
+INSERT INTO `field_control` VALUES ('29', 'id', '序号', '0', 'users', '0');
+INSERT INTO `field_control` VALUES ('30', 'id', '序号', '0', 'users_zhengshu', '0');
+INSERT INTO `field_control` VALUES ('31', 'pxjg', '培训机构', '0', 'users_zhengshu', '80');
+INSERT INTO `field_control` VALUES ('32', 'fzjg', '发证机构', '1', 'users_zhengshu', '90');
+
+-- ----------------------------
+-- Table structure for job
+-- ----------------------------
+DROP TABLE IF EXISTS `job`;
+CREATE TABLE `job` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
+  `phone` varchar(18) DEFAULT NULL,
+  `gangwei` varchar(100) DEFAULT NULL,
+  `createdate` char(10) DEFAULT NULL,
+  `status` char(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of job
+-- ----------------------------
+INSERT INTO `job` VALUES ('1', 'mash', '1589014', 'php', '1507347266', '1');
+
+-- ----------------------------
 -- Table structure for myzc
 -- ----------------------------
 DROP TABLE IF EXISTS `myzc`;
 CREATE TABLE `myzc` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(6) NOT NULL,
+  `userid` int(6) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL COMMENT '转出地址',
   `txid` varchar(200) DEFAULT NULL,
   `num` decimal(16,4) DEFAULT NULL,
   `createdate` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT '0' COMMENT '0未到账 1到账 2是拒绝',
+  `status` tinyint(4) DEFAULT '0' COMMENT '0未到账 1到账',
   `remark` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `userid` (`userid`),
-  KEY `address` (`address`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of myzc
 -- ----------------------------
-INSERT INTO `myzc` VALUES ('1', '27', 'LVLxXuzR7GtYaXAg7yBy4TvxXnSRDH6Ts8', null, '11.0000', '1524206735', '2', null);
+INSERT INTO `myzc` VALUES ('1', '27', 'LVLxXuzR7GtYaXAg7yBy4TvxXnSRDH6Ts8', null, '11.0000', '1524206735', '0', null);
 
 -- ----------------------------
 -- Table structure for myzr
@@ -107,13 +174,28 @@ CREATE TABLE `myzr` (
   `num` decimal(16,4) DEFAULT NULL,
   `createdate` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `userid` (`userid`),
-  KEY `zuhe1` (`txid`,`status`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of myzr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for news
+-- ----------------------------
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE `news` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `content` text,
+  `createdate` char(10) DEFAULT NULL,
+  `is_show` char(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of news
 -- ----------------------------
 
 -- ----------------------------
@@ -127,7 +209,7 @@ CREATE TABLE `sys_dtfh` (
   `bl` decimal(6,4) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='动态分红设置';
+) ENGINE=InnoDb AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='动态分红设置';
 
 -- ----------------------------
 -- Records of sys_dtfh
@@ -148,18 +230,12 @@ CREATE TABLE `sys_fh_log` (
   `bl` varchar(7) DEFAULT NULL,
   `num` decimal(12,4) unsigned DEFAULT NULL COMMENT '本次分红的币数',
   `createdate` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `userid` (`userid`),
-  KEY `uc` (`userid`,`createdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDb DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_fh_log
 -- ----------------------------
-INSERT INTO `sys_fh_log` VALUES ('1', '27', '1', '100.0000', '1', '0.0012', '0.1200', '1524451275');
-INSERT INTO `sys_fh_log` VALUES ('2', '27', '1', '100.1200', '1', '0.0012', '0.1200', '1524451275');
-INSERT INTO `sys_fh_log` VALUES ('3', '27', '1', '100.2400', '1', '0.0012', '0.1200', '1524451350');
-INSERT INTO `sys_fh_log` VALUES ('4', '27', '1', '100.3600', '1', '0.0012', '0.1200', '1524451865');
 
 -- ----------------------------
 -- Table structure for sys_fh_verify
@@ -172,40 +248,11 @@ CREATE TABLE `sys_fh_verify` (
   `deal_dt` int(11) DEFAULT '0' COMMENT '已生成的动态分红数',
   `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='每天分红核对';
+) ENGINE=InnoDb DEFAULT CHARSET=utf8 COMMENT='每天分红核对';
 
 -- ----------------------------
 -- Records of sys_fh_verify
 -- ----------------------------
-INSERT INTO `sys_fh_verify` VALUES ('1', '1', '1', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('2', '1', '1', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('3', '1', '1', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('4', '1', '1', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('5', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('6', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('7', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('8', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('9', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('10', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('11', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('12', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('13', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('14', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('15', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('16', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('17', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('18', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('19', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('20', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('21', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('22', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('23', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('24', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('25', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('26', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('27', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('28', '1', '0', '0', '1524412800');
-INSERT INTO `sys_fh_verify` VALUES ('29', '1', '0', '0', '1524412800');
 
 -- ----------------------------
 -- Table structure for sys_jtfh
@@ -218,7 +265,7 @@ CREATE TABLE `sys_jtfh` (
   `bl` decimal(6,4) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='静态分红设置';
+) ENGINE=InnoDb AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='静态分红设置';
 
 -- ----------------------------
 -- Records of sys_jtfh
@@ -278,8 +325,7 @@ CREATE TABLE `user_coin` (
   `lthb` varchar(100) DEFAULT '',
   `lthz` decimal(15,4) unsigned DEFAULT '0.0000',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `userid` (`userid`) USING BTREE,
-  KEY `lthb` (`lthb`)
+  UNIQUE KEY `userid` (`userid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -291,7 +337,7 @@ INSERT INTO `user_coin` VALUES ('3', '3', '0.0000', '0.0000', '', '0.0000');
 INSERT INTO `user_coin` VALUES ('4', '4', '0.0000', '0.0000', '', '0.0000');
 INSERT INTO `user_coin` VALUES ('25', '25', '0.0000', '0.0000', '', '0.0000');
 INSERT INTO `user_coin` VALUES ('26', '26', '0.0000', '0.0000', '', '0.0000');
-INSERT INTO `user_coin` VALUES ('27', '27', '100.4800', '0.0000', 'LetwDKRT2T3MkufRH7SYYHvt1VhCQX1dFi', '0.0000');
+INSERT INTO `user_coin` VALUES ('27', '27', '89.0000', '11.0000', 'LetwDKRT2T3MkufRH7SYYHvt1VhCQX1dFi', '0.0000');
 
 -- ----------------------------
 -- Table structure for user_qianbao
@@ -322,8 +368,7 @@ CREATE TABLE `user_zone` (
   `ownid` int(6) DEFAULT '0' COMMENT '推荐人id',
   `pid` int(6) DEFAULT '0' COMMENT '节点人上级id ',
   `zone` tinyint(2) DEFAULT '0' COMMENT '1区  2区 0是顶级会员',
-  PRIMARY KEY (`id`),
-  KEY `pid` (`pid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='会员分布\r\n';
 
 -- ----------------------------

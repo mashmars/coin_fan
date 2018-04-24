@@ -179,7 +179,7 @@ $(function(){
 		$.post("{:U('login/ajax_register')}",{phone:phone,sms:sms,realname:realname,password:password,paypassword:paypassword,refer:refer,zone:zone},function(data){
 			if(data.info == 'success'){
 				layer.msg(data.msg,{time:2000,icon:1},function(){
-					var url = "{:U('login/login')}";
+					var url = "{:U('login/password')}";
 					location.href = url;
 				})
 			}else{

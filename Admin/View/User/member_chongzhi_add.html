@@ -28,59 +28,23 @@
 <body>
 <article class="page-container">
 <form class="form form-horizontal" method="post" action="" id='form' enctype="multipart/form-data">
-	<input name='id' value='{$info.id}' type='hidden'/>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名:</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text"  placeholder="" id="username" value="{$info.username}" disabled>
-		</div>
-	</div>
+	
+	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机号:</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text"  placeholder="" id="phone" value="{$info.phone}" disabled>
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>登录密码:</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text"  placeholder="留空不修改" id="password" name="password" value="">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>支付密码:</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text"  placeholder="留空不修改" id="paypassword" name="paypassword" value="">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>姓名:</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text"  placeholder="" id="realname" name="realname" value="{$info.realname}">
+			<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
 		</div>
 	</div>
 	
-	<!--
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别:</label>
-		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-			<div class="radio-box">
-				<input name="sex" type="radio" id="sex-1" value='男' checked>
-				<label for="sex-1">男</label>
-			</div>
-			<div class="radio-box">
-				<input type="radio" id="sex-2" value='女' name="sex">
-				<label for="sex-2">女</label>
-			</div>
-		</div>
-	</div>
-	-->
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">创建日期:</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>数量:</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss'})" name='createdate' id="datemax" placeholder="为空为当前时间" class="input-text Wdate" style="width:180px;" value="{$info.createdate|date='Y-m-d H:i:s',###}">
+			<input type="number" class="input-text" value="" placeholder="" id="num" name="num">
 		</div>
 	</div>
+	
+
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 			<input class="btn btn-primary radius" id='submit' type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -106,17 +70,24 @@ $(function(){
 		increaseArea: '20%'
 	});
 	$('#submit').click(function(){ //var index = parent.layer.getFrameIndex(window.name); //parent.layer.close(index);return false;
-									//window.parent.location.reload();//刷新父级的时候会自动关闭弹层	
-		var realname = $('#realname').val();
-		
-		
-		if(realname == ''){
-			layer.msg('请输入姓名!',{time:2000,icon:5});
+								//window.parent.location.reload();//刷新父级的时候会自动关闭弹层	
+		var obj = $(this)	
+		obj.prop('disabled',true);
+		var num = $('#num').val();
+		var phone = $('#phone').val();
+		if(num == '' || isNaN(num) || num <= 0){
+			layer.msg('充值数量不正确!',{time:2000,icon:5});
+			obj.prop('disabled',false);
+			return false;
+		}
+		if(phone == ''){
+			layer.msg('请输入手机号!',{time:2000,icon:5});
+			obj.prop('disabled',false);
 			return false;
 		}
 		//$('#form').submit();
 		$.ajax({
-			url:"{:U('user/ajax_member_edit')}", 
+			url:"{:U('user/ajax_member_chongzhi')}", 
 			data:$('#form').serialize(),
 			type:"post",
 			dataType:"json",
@@ -127,6 +98,7 @@ $(function(){
 					});
 				}else{
 					layer.msg(data.msg,{time:2000,icon:2});
+					obj.prop('disabled',false);
 				}
 			},
 		})

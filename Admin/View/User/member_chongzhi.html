@@ -26,7 +26,7 @@
 <title>用户管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 充值管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	
 	<div class="text-c" >
@@ -61,8 +61,8 @@
 	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">	
-		<a href="javascript:;" onclick="member_add('添加用户','{:U('user/member_add')}','','510')" class="btn btn-primary radius">
-		<i class="Hui-iconfont">&#xe600;</i> 添加用户
+		<a href="javascript:;" onclick="member_add('用户充值','{:U('user/member_chongzhi_add')}','','510')" class="btn btn-primary radius">
+		<i class="Hui-iconfont">&#xe600;</i> 用户充值
 		</a>
 		
 		</span>	
@@ -75,27 +75,20 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">ID</th>
-				<th width="100">用户名</th>								
+				<th width="80">ID</th>											
 				<th width="100">手机号</th>								
-				<th width="100">姓名</th>								
-				<th width="100">时间</th>								
-				<th width="170">操作</th>
+				<th width="100">充值数量</th>								
+				<th width="100">时间</th>
 			</tr>
 		</thead>
 		<tbody id='tbody'>
 		<volist name='res' id='vo'>
 			<tr class="text-c">
 				<td><input type="checkbox" value="{$vo.id}" name=""></td>
-				<td>{$vo.id}</td>
-				<td><u style="cursor:pointer" class="text-primary" title='yyy' onclick="member_add('xxx','{:U('user/member_info')}','1000','610')">{$vo.username}</u></td>				
+				<td>{$vo.id}</td>				
 				<td>{$vo.phone}</td>				
-				<td>{$vo.realname}</td>				
-				<td>{$vo.createdate|date='Y-m-d',###}</td>				
-				<td class="td-manage">				
-				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户基本信息','{:U('user/member_edit',array('id'=>$vo['id']))}','','510')"   title="编辑用户信息">编辑</a>  
-				
-				</td>
+				<td>{$vo.num}</td>				
+				<td>{$vo.createdate|date='Y-m-d',###}</td>	
 			</tr>
 		</volist>
 		</tbody>
@@ -152,7 +145,7 @@ $(function(){
 		var field = $('#field').find('option:selected').val();
 		var type = $('#field').find('option:selected').attr('data-type');
 		if(field == 'all'){
-			var url = "{:U('user/member_list')}";
+			var url = "{:U('user/member_chongzhi')}";
 			window.location.href = url;
 			return false;
 		}

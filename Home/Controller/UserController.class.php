@@ -167,4 +167,6 @@ class UserController extends CommonController {
         session(null);
         echo ajax_return(1,'退出成功');
     }
+
+    
 }

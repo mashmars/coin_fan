@@ -159,6 +159,23 @@ class LoginController extends Controller
             echo ajax_return(0,$result['msg']);
         }
     }
+	//注册前获取邀请人信息ajax获取到当前邀请人下面有人，就返回状态，让一区二区显示出来就可以了 //暂时不用
+	public function ajax_getrefer()
+	{
+		$refer = I('post.refer');
+		$id = M('user')->where(array('phone'=>$refer))->getField('id');
+		if(!$id){
+			echo json_encode(array('info'=>'other','msg'=>'邀请人手机号不正确'));exit;
+		}else{
+			//判断当前用户下面有人没 有的话 返回success 否则返回erroe
+			$zone = M('user_zone')->where(array('pid'=>$id))->find();
+			if($zone){
+				echo ajax_register(1,'没人');
+			}else{
+				echo ajax_register(0,'有人');
+			}
+		}
+	}
     //注册
     public function ajax_register()
     {

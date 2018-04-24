@@ -29,12 +29,7 @@
 <article class="page-container">
 <form class="form form-horizontal" method="post" action="" id='form' enctype="multipart/form-data">
 	
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名:</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-		</div>
-	</div>
+	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机号:</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -48,9 +43,15 @@
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>上级用户名:</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>支付密码:</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="默认没有上级" id="pid" name="pid">
+			<input type="text" class="input-text" value="" placeholder="" id="paypassword" name="paypassword">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>推荐人手机号:</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="默认没有推荐人" id="refer" name="refer">
 		</div>
 	</div>
 	<div class="row cl">
@@ -59,21 +60,19 @@
 			<input type="text" class="input-text" value="" placeholder="" id="realname" name="realname">
 		</div>
 	</div>
-	<!--
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别:</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>选择区:</label>
 		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 			<div class="radio-box">
-				<input name="sex" type="radio" id="sex-1" value='男' checked>
-				<label for="sex-1">男</label>
+				<input name="zone" type="radio" id="sex-1" value='1' checked>
+				<label for="sex-1">一区</label>
 			</div>
 			<div class="radio-box">
-				<input type="radio" id="sex-2" value='女' name="sex">
-				<label for="sex-2">女</label>
+				<input type="radio" id="sex-2" value='2' name="zone">
+				<label for="sex-2">二区</label>
 			</div>
 		</div>
 	</div>
-	-->
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">创建日期:</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -109,14 +108,17 @@ $(function(){
 	});
 	$('#submit').click(function(){ //var index = parent.layer.getFrameIndex(window.name); //parent.layer.close(index);return false;
 									//window.parent.location.reload();//刷新父级的时候会自动关闭弹层	
-		var username = $('#username').val();
+		
 		var phone = $('#phone').val();
-		if(username == ''){
-			layer.msg('请输入用户名!',{time:2000,icon:5});
-			return false;
-		}
+		var password = $('#password').val();
+		var paypassword = $('#paypassword').val();
+		
 		if(phone == ''){
 			layer.msg('请输入手机号!',{time:2000,icon:5});
+			return false;
+		}
+		if(password == '' || paypassword == ''){
+			layer.msg('登录密码和支付密码不能为空!',{time:2000,icon:5});
 			return false;
 		}
 		//$('#form').submit();

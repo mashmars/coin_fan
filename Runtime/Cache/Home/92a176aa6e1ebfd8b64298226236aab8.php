@@ -53,6 +53,7 @@
 	<script src="<?php echo (PUB_JS); ?>set.js"></script>
 	<script src="<?php echo (PUB_JS); ?>jquery-1.8.2.min.js"></script>
 	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></script>
+	<script src="<?php echo (PUB_JS); ?>global.js"></script>
 	<script>
 		function hasClass(element, cls) {
 			return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
@@ -178,7 +179,7 @@ $(function(){
 		$.post("<?php echo U('login/ajax_register');?>",{phone:phone,sms:sms,realname:realname,password:password,paypassword:paypassword,refer:refer,zone:zone},function(data){
 			if(data.info == 'success'){
 				layer.msg(data.msg,{time:2000,icon:1},function(){
-					var url = "<?php echo U('login/login');?>";
+					var url = "<?php echo U('login/password');?>";
 					location.href = url;
 				})
 			}else{
