@@ -9,7 +9,48 @@ class UserController extends CommonController {
     }
 
     public function index(){
+		$userid = session('userid');
+		$yeji = $this->get_xiaji($userid);
+		$this->assign('yeji',$yeji);
 		$this->display();
+	}
+	
+	//获取两条线 和queue一样
+	public function get_xiaji($userid)
+	{
+		$users = M('user_zone')->where(array('pid'=>$userid))->field('zone,userid')->select();
+		foreach($users as $user){
+			if($user['zone'] == 1){
+				//第一个区
+				$users_a = $this->get_small_zone($user['userid']);
+			}elseif($user['zone'] == 2){
+				//第二个区
+				$users_b = $this->get_small_zone($user['userid']);
+			}
+		}
+		if($users_a){
+			$qu_1_total = M('user_coin')->where(array('userid'=>array('in',$users_a)))->sum('lth');
+		}
+		if($users_b){
+			$qu_2_total = M('user_coin')->where(array('userid'=>array('in',$users_b)))->sum('lth');
+		}
+		return array('yiqu'=>$qu_1_total,'erqu'=>$qu_2_total);
+	}
+	//获取小区用户
+	public function get_small_zone($userid,$new=true)
+	{
+		static $users = array();
+		if($new){
+			$users = array();//必须释放
+		}
+		array_push($users,$userid);
+		$user_xiaji = M('user_zone')->where(array('pid'=>$userid))->getField('userid',true);
+		if($user_xiaji){
+			foreach($user_xiaji as $user){
+				$this->get_small_zone($user,false);
+			}				
+		}
+		return $users;
 	}
 
     /**

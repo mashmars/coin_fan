@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -7,40 +7,39 @@
 	<title>提币</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
-	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
+	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>use.css">
 	</head>
 	<body>
 		<div class="main chargingMoney">
 			<div class="user-info">
-				<img src="{$Think.const.PUB_IMG}usbg.png" alt=""class="usbg">
+				<img src="<?php echo (PUB_IMG); ?>usbg.png" alt=""class="usbg">
 				<div class="user-txt">
 					<h3 class="tc">我的</h3>
 					<div class="flex-box user-head">
-						<img src="{$Think.const.PUB_IMG}ht.png" alt="">
+						<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 						<div class="flex-1">
-							<h4>你好，{$userinfo['realname'] ? $userinfo['realname'] : 'MC' }！</h4>
-							<p>{$Think.session.phone}</p>
+							<h4>你好，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
+							<p><?php echo (session('phone')); ?></p>
 						</div>
 					</div>
 					<div class="tc flex-box user-total">
 						<div class="flex-1">
 							<p>挖矿收益</p>
-							<h4>{$shouyi*1}</h4>
+							<h4><?php echo ($shouyi*1); ?></h4>
 						</div>
 						<div class="flex-1">
 							<p>参考市值</p>
-							<h4>{$usercoin['lth']*$config['price']}</h4>
+							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
 							<p>矿池币数</p>
-							<h4>{$usercoin['lth']*1}</p>
+							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<if condition="$address neq null">
-				<div class="charging-item">
+			<?php if($address != null): ?><div class="charging-item">
 					<h3><i class="num"></i>提币数量</h3>
 					<div class="charging-inpu">
 						<input type="number"placeholder="请输入提币数量" id='num'>
@@ -52,9 +51,7 @@
 						<input type="text"placeholder="请输入钱包地址"onfocus="this.blur()" id="address" >
 						<i></i>
 						<ul class="tc">
-						<volist name='address' id='vo'>
-							<li data-id="{$vo.id}" data-value="{$vo.address}">{$vo.name}</li>
-						</volist>							
+						<?php if(is_array($address)): $i = 0; $__LIST__ = $address;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li data-id="<?php echo ($vo["id"]); ?>" data-value="<?php echo ($vo["address"]); ?>"><?php echo ($vo["name"]); ?></li><?php endforeach; endif; else: echo "" ;endif; ?>							
 						</ul>
 					</div>
 				</div>
@@ -74,34 +71,33 @@
 				<p class="tc">
 					<button class="lhbg mod-btn" id='myzc'>提币</button>
 				</p>
-			<else />
+			<?php else: ?>
 				<p class="tc">
-					<a class="lhbg mod-btn" href="{:U('finance/zcwallet')}">添加转出钱包地址</a>
-				</p>
-			</if>
+					<a class="lhbg mod-btn" href="<?php echo U('finance/zcwallet');?>">添加转出钱包地址</a>
+				</p><?php endif; ?>
 		</div>
 		<footer>
 	<ul class="tc ovh">
 		<li>
-			<a href="{:U('finance/myzr')}">
+			<a href="<?php echo U('finance/myzr');?>">
 				<i class="charge"></i>
 				<span>充币</span>
 			</a>
 		</li>
 		<li class="active">
-			<a href="{:U('finance/myzc')}">
+			<a href="<?php echo U('finance/myzc');?>">
 				<i class="carry"></i>
 				<span>提币</span>
 			</a>
 		</li>
 		<li>
-			<a href="{:U('finance/index')}">
+			<a href="<?php echo U('finance/index');?>">
 				<i class="wallet"></i>
 				<span>钱包</span>
 			</a>
 		</li>
 		<li >
-			<a href="{:U('user/index')}">
+			<a href="<?php echo U('user/index');?>">
 				<i class="use"></i>
 				<span>我的</span>
 			</a>
@@ -110,10 +106,10 @@
 </footer>
 
 	</body>
-	<script src="{$Think.const.PUB_JS}set.js"></script>
-	<script src="{$Think.const.PUB_JS}jquery-1.8.2.min.js"></script>
-	<script src="{$Think.const.PUB_LIB}layer/layer.js"></script>
-	<script src="{$Think.const.PUB_JS}global.js"></script>
+	<script src="<?php echo (PUB_JS); ?>set.js"></script>
+	<script src="<?php echo (PUB_JS); ?>jquery-1.8.2.min.js"></script>
+	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></script>
+	<script src="<?php echo (PUB_JS); ?>global.js"></script>
 	<script>
 
 		var wait=60;//60s验证码
@@ -157,7 +153,7 @@ $(function(){
 	$('#code').click(function(){		
 		time($(this));
 		var obj = $(this);
-		$.post("{:U('finance/ajax_send_sms_myzc')}",'',function(data){
+		$.post("<?php echo U('finance/ajax_send_sms_myzc');?>",'',function(data){
 			if(data.info == 'success'){				
 				layer.msg(data.msg,{time:2000,icon:1})
 			}else{			
@@ -203,7 +199,7 @@ $(function(){
 		}
 		
 		
-		$.post("{:U('finance/ajax_myzc')}",{sms:sms,paypassword:paypassword,num:num,address:address},function(data){
+		$.post("<?php echo U('finance/ajax_myzc');?>",{sms:sms,paypassword:paypassword,num:num,address:address},function(data){
 			if(data.info == 'success'){
 				layer.msg(data.msg,{time:2000,icon:1},function(){
 					location.reload();

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -7,34 +7,34 @@
 	<title>财务</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
-	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
+	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>use.css">
 	</head>
 	<body>
 		<div class="main user">
 			<div class="user-info">
-				<img src="{$Think.const.PUB_IMG}usbg.png" alt=""class="usbg">
+				<img src="<?php echo (PUB_IMG); ?>usbg.png" alt=""class="usbg">
 				<div class="user-txt">
 					<h3 class="tc">我的</h3>
 					<div class="flex-box user-head">
-						<img src="{$Think.const.PUB_IMG}ht.png" alt="">
+						<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 						<div class="flex-1">
-							<h4>你好，{$userinfo['realname'] ? $userinfo['realname'] : 'MC' }！</h4>
-							<p>{$Think.session.phone}</p>
+							<h4>你好，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
+							<p><?php echo (session('phone')); ?></p>
 						</div>
 					</div>
 					<div class="tc flex-box user-total">
 						<div class="flex-1">
 							<p>挖矿收益</p>
-							<h4>{$shouyi*1}</h4>
+							<h4><?php echo ($shouyi*1); ?></h4>
 						</div>
 						<div class="flex-1">
 							<p>参考市值</p>
-							<h4>{$usercoin['lth']*$config['price']}</h4>
+							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
 							<p>矿池币数</p>
-							<h4>{$usercoin['lth']*1}</p>
+							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
 				</div>
@@ -42,7 +42,7 @@
 			<div class="user-contain">
 				<ul>
 					<li>
-						<a href="{:U('finance/wallet')}">
+						<a href="<?php echo U('finance/wallet');?>">
 							<i class="assets"></i>资产管理
 							<span class="go"></span>
 						</a>
@@ -50,13 +50,13 @@
 					</ul>
 					<ul>
 					<li>
-						<a href="{:U('finance/myzrdetail')}">
+						<a href="<?php echo U('finance/myzrdetail');?>">
 							<i class="charge-record"></i>充币记录
 							<span class="go"></span>
 						</a>
 					</li>
 					<li>
-						<a href="{:U('finance/myzcdetail')}">
+						<a href="<?php echo U('finance/myzcdetail');?>">
 							<i class="currency record"></i>提币记录
 							<span class="go"></span>
 						</a>
@@ -67,25 +67,25 @@
 		<footer>
 	<ul class="tc ovh">
 		<li>
-			<a href="{:U('finance/myzr')}">
+			<a href="<?php echo U('finance/myzr');?>">
 				<i class="charge"></i>
 				<span>充币</span>
 			</a>
 		</li>
 		<li>
-			<a href="{:U('finance/myzc')}">
+			<a href="<?php echo U('finance/myzc');?>">
 				<i class="carry"></i>
 				<span>提币</span>
 			</a>
 		</li>
 		<li class="active">
-			<a href="{:U('finance/index')}">
+			<a href="<?php echo U('finance/index');?>">
 				<i class="wallet"></i>
 				<span>钱包</span>
 			</a>
 		</li>
 		<li >
-			<a href="{:U('user/index')}">
+			<a href="<?php echo U('user/index');?>">
 				<i class="use"></i>
 				<span>我的</span>
 			</a>
@@ -94,8 +94,8 @@
 </footer>
 
 	</body>
-	<script src="{$Think.const.PUB_JS}set.js"></script>
-	<script src="{$Think.const.PUB_JS}jquery-1.8.2.min.js"></script>
-	<script src="{$Think.const.PUB_LIB}layer/layer.js"></script>
-	<script src="{$Think.const.PUB_JS}global.js"></script>
+	<script src="<?php echo (PUB_JS); ?>set.js"></script>
+	<script src="<?php echo (PUB_JS); ?>jquery-1.8.2.min.js"></script>
+	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></script>
+	<script src="<?php echo (PUB_JS); ?>global.js"></script>
 </html>
