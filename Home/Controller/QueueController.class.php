@@ -193,13 +193,13 @@ class QueueController extends Controller
 			    continue;
             }
 			foreach($sys_dtfh as $vv){
-				if($yj >= $vv['minnum'] && $yj <= $vv['maxnum']){
+				if($coin['lth'] >= $vv['minnum'] && $coin['lth'] <= $vv['maxnum']){
 					$dtfh = $vv;
 					break;
 				}
 			}
 			if($dtfh){ //开始动态分红 保留两位小数				
-				$dt_num = $dtfh['bl'] * $coin['lth'] ; //本次分红的数量 考虑保留几位小数 TODO
+				$dt_num = $dtfh['bl'] * $yj ; //本次分红的数量 动态是按小区业绩走的 考虑保留几位小数 TODO
                 $dt_num = sprintf("%.2f",substr(sprintf("%.4f", $dt_num), 0, -2));
 				$limit1 = $dtfh['minnum']*0.5;
 				$gr_limit = ($limit > $limit1) ? $limit1 : $limit;				

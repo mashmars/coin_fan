@@ -2,38 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="057ad5c4-2698-4b25-b309-47ed0751f9c6" name="默认" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Admin/Controller/FinanceController.class.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Admin/Controller/ArticleController.class.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/Controller/NewsController.class.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/Index/index.html" afterPath="$PROJECT_DIR$/Admin/View/Index/index.html" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/News/category.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/News/category_edit.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/News/gonggao_add.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/News/gonggao_edit.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/News/gonggao_list.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/News/job_list.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/User/member_coin.html" afterPath="$PROJECT_DIR$/Admin/View/User/member_coin.html" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/User/member_coin_edit.html" afterPath="$PROJECT_DIR$/Admin/View/User/member_coin_edit.html" />
-      <change beforePath="$PROJECT_DIR$/Admin/View/User/member_list.html" afterPath="$PROJECT_DIR$/Admin/View/User/member_list.html" />
-      <change beforePath="$PROJECT_DIR$/Home/Controller/CommonController.class.php" afterPath="$PROJECT_DIR$/Home/Controller/CommonController.class.php" />
-      <change beforePath="$PROJECT_DIR$/Home/Controller/FinanceController.class.php" afterPath="$PROJECT_DIR$/Home/Controller/FinanceController.class.php" />
-      <change beforePath="$PROJECT_DIR$/Home/Controller/IndexController.class.php" afterPath="$PROJECT_DIR$/Home/Controller/IndexController.class.php" />
       <change beforePath="$PROJECT_DIR$/Home/Controller/QueueController.class.php" afterPath="$PROJECT_DIR$/Home/Controller/QueueController.class.php" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/index.html" afterPath="$PROJECT_DIR$/Home/View/Finance/index.html" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/myzc.html" afterPath="$PROJECT_DIR$/Home/View/Finance/myzc.html" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/myzr.html" afterPath="$PROJECT_DIR$/Home/View/Finance/myzr.html" />
-      <change beforePath="$PROJECT_DIR$/Home/View/Finance/wallet.html" afterPath="$PROJECT_DIR$/Home/View/Finance/wallet.html" />
-      <change beforePath="$PROJECT_DIR$/Home/View/User/index.html" afterPath="$PROJECT_DIR$/Home/View/User/index.html" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Admin/79e5c3a64153d61e5ef6619a87101256.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Admin/79e5c3a64153d61e5ef6619a87101256.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Admin/825bffe149cae3ff087c3f9e55c40919.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Admin/825bffe149cae3ff087c3f9e55c40919.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Admin/a88572b9bdeb7ada3d8fc440912b5bf8.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Admin/a88572b9bdeb7ada3d8fc440912b5bf8.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Admin/e3aa03fd0c0ea25ec8e542ebc5370ff8.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Admin/e3aa03fd0c0ea25ec8e542ebc5370ff8.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/73202fc824f7e5c9956216d018f10e36.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/73202fc824f7e5c9956216d018f10e36.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/7ac8371d3143df1623d91eccf9e01921.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/7ac8371d3143df1623d91eccf9e01921.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/d90871c3473dd90148f729f48ed08a1f.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/d90871c3473dd90148f729f48ed08a1f.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/dd12922396ceeb85d339a52433be3910.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/dd12922396ceeb85d339a52433be3910.php" />
-      <change beforePath="$PROJECT_DIR$/Runtime/Cache/Home/ee65ea7414b68227c50def8adb5be90f.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/ee65ea7414b68227c50def8adb5be90f.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,8 +20,8 @@
       <file leaf-file-name="QueueController.class.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Home/Controller/QueueController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="233" column="29" lean-forward="false" selection-start-line="233" selection-start-column="20" selection-end-line="233" selection-end-column="29" />
+            <state relative-caret-position="648">
+              <caret line="212" column="22" lean-forward="true" selection-start-line="212" selection-start-column="22" selection-end-line="212" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -96,10 +66,10 @@
         <option value="$PROJECT_DIR$/Common/Conf/debug.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/Admin/Controller/FinanceController.class.php" />
-        <option value="$PROJECT_DIR$/Home/Controller/QueueController.class.php" />
         <option value="$PROJECT_DIR$/Home/Controller/CommonController.class.php" />
         <option value="$PROJECT_DIR$/Home/Controller/FinanceController.class.php" />
         <option value="$PROJECT_DIR$/Home/Controller/IndexController.class.php" />
+        <option value="$PROJECT_DIR$/Home/Controller/QueueController.class.php" />
       </list>
     </option>
   </component>
@@ -110,7 +80,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1616" />
@@ -134,8 +104,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -211,14 +181,15 @@
       <workItem from="1524189608759" duration="4370000" />
       <workItem from="1524200493020" duration="11186000" />
       <workItem from="1524446634577" duration="8026000" />
+      <workItem from="1524620335386" duration="347000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143348000" />
+    <option name="totallyTimeSpent" value="143695000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.264375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -420,7 +391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1025">
           <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -428,9 +398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
           <caret line="43" column="27" lean-forward="false" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-          <folding>
-            <element signature="e#34#55#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -438,7 +405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3536">
           <caret line="149" column="5" lean-forward="false" selection-start-line="149" selection-start-column="5" selection-end-line="149" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -455,7 +421,7 @@
         <state relative-caret-position="100">
           <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="45" />
           <folding>
-            <element signature="e#33#54#0#PHP" expanded="true" />
+            <element signature="e#33#54#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -473,7 +439,7 @@
         <state relative-caret-position="-73">
           <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
           <folding>
-            <element signature="e#33#54#0#PHP" expanded="true" />
+            <element signature="e#33#54#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -496,8 +462,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Home/Controller/QueueController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="233" column="29" lean-forward="false" selection-start-line="233" selection-start-column="20" selection-end-line="233" selection-end-column="29" />
+        <state relative-caret-position="648">
+          <caret line="212" column="22" lean-forward="true" selection-start-line="212" selection-start-column="22" selection-end-line="212" selection-end-column="22" />
           <folding />
         </state>
       </provider>
