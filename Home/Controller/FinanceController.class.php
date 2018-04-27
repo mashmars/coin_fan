@@ -295,12 +295,14 @@ class FinanceController extends CommonController {
 		* 必须是推荐关系 或节点关系 
 		*/
 		//我给节点上级转 或推荐人转
+		$map['userid'] = $userid;
 		$map['ownid'] = $info['id'];
 		$map['pid'] = $info['id'];
 		$map['_logic'] = 'or';
 		$up = M('user_zone')->where($map)->find();
 		
 		//我给节点下级转 或给我推荐的人转
+		$where['userid'] = $userid;
 		$where['pid'] = $from['id'];
 		$where['ownid'] = $from['id'];
 		$where['_logic'] = 'or';
