@@ -257,6 +257,131 @@ class FinanceController extends CommonController {
         }
         echo json_encode($res);
     }
+	
+	
+	 /**
+     * 会员转账
+     */
+    public function transfer()
+    {
+        $this->display();
+    }
+    public function ajax_transfer()
+    {
+        $userid = session('userid');
+        $phone = I('post.phone');
+        $money = I('post.money');
+        $password = I('post.password');
+
+        
+        if($money <=0 || !is_numeric($money)){
+            echo ajax_return(0,'金额不正确');exit;
+        }
+
+        
+        
+        $info = M('user')->where(array('phone'=>$phone))->find();
+        if(!$info){
+            echo ajax_return(0,'输入的对方信息不正确');exit;
+        }
+		$from = M('user')->where(array('id'=>$userid))->find();
+        if($from['paypassword'] != md5($password)){
+            echo ajax_return(0,'支付密码不正确');exit;
+        }
+		if($info['id'] == $userid){
+            echo ajax_return(0,'不能给自己转账');exit;
+        }
+		/**
+		* 必须是推荐关系 或节点关系 
+		*/
+		//我给节点上级转 或推荐人转
+		$map['ownid'] = $info['id'];
+		$map['pid'] = $info['id'];
+		$map['_logic'] = 'or';
+		$up = M('user_zone')->where($map)->find();
+		
+		//我给节点下级转 或给我推荐的人转
+		$where['pid'] = $from['id'];
+		$where['ownid'] = $from['id'];
+		$where['_logic'] = 'or';
+		$down = M('user_zone')->where($where)->find();
+		
+		if(!$up && !$down){
+			echo ajax_return(0,'只能直属上下级或推荐关系的账户转账');exit;
+		}
+		
+		
+        $user_coin = M('user_coin')->where(array('userid'=>$userid))->lock(true)->find();
+
+        if($user_coin['lth'] < $money){
+            echo ajax_return(0,'余额不足');exit;
+        }
+        
+        //可以转
+        $mo = M();
+        $mo->startTrans();
+        $rs = array();
+
+        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setDec('lth',$money);
+        $rs[] = $mo->table('user_coin')->where(array('userid'=>$info['id']))->setInc('lth',$money);
+        $rs[] = $mo->table('mytransfer')->add(array('userid'=>$userid,'peerid'=>$info['id'],'num'=>$money,'phone'=>$phone,'createdate'=>time()));
+
+        if(check_arr($rs)){
+            $mo->commit();
+            echo ajax_return(1,'转账成功');
+        }else{
+            $mo->rollback();
+            echo ajax_return(0,'转账失败');
+        }
+    }
+
+    /**
+     * 会员转账记录
+     */
+    public function transferlog()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 5;
+        $map['userid'] = $userid;
+        $map['peerid'] = $userid;
+        $map['_logic'] = 'or';
+        $res = M('mytransfer')->where($map)->order('id desc')->page($p.','.$list)->select();
+        foreach($res as &$v){
+            if($v['userid'] == $userid){
+                $v['type'] = 'zc';
+            }
+            if($v['peerid'] == $userid){
+                $v['type'] = 'zr';
+            }
+        }
+        $this->assign('res',$res);
+        $this->display();
+    }
+    /**
+     * 会员转账记录
+     */
+    public function ajax_transferlog()
+    {
+        $userid = session('userid');
+        $p = I('param.p',1);
+        $list = 5;
+        $map['userid'] = $userid;
+        $map['peerid'] = $userid;
+        $map['_logic'] = 'or';
+        $res = M('mytransfer')->where($map)->order('id desc')->page($p.','.$list)->select();
+        foreach($res as &$v){
+            $v['date'] = date('m月d日');
+            $v['time'] = date('H:i');
+            if($v['userid'] == $userid){
+                $v['type'] = 'zc';
+            }
+            if($v['peerid'] == $userid){
+                $v['type'] = 'zr';
+            }
+        }
+        echo json_encode($res);
+    }
 
 
 }

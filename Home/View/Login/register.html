@@ -32,7 +32,7 @@
 						<!--<i class="hided"></i>-->
 					</li>
 					<li><i class="icpwd1"></i><input type="password"placeholder="支付密码" id='paypassword'></li>
-					<li><i class="icrec"></i><input type="number" placeholder="推荐人手机号码(选填)" id='refer'></li>
+					<li><i class="icrec"></i><input type="number" placeholder="推荐人手机号码(必填)" id='refer'></li>
 				</ul>
 				<div class="reg-box">
 					<p class="tc"id="area">
@@ -175,7 +175,11 @@ $(function(){
 			obj.prop('disabled',false);
 			return false;
 		}
-		
+		if(refer == ''){
+			layer.msg('推荐人手机号不能为空',{time:2000,icon:5});
+			obj.prop('disabled',false);
+			return false;
+		}
 		$.post("{:U('login/ajax_register')}",{phone:phone,sms:sms,realname:realname,password:password,paypassword:paypassword,refer:refer,zone:zone},function(data){
 			if(data.info == 'success'){
 				layer.msg(data.msg,{time:2000,icon:1},function(){

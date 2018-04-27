@@ -199,6 +199,9 @@ class LoginController extends Controller
         if(!$phone){
             echo ajax_return(0,'手机号不正确');exit;
         }
+		if(!$refer){
+            echo ajax_return(0,'推荐人手机号不能为空');exit;
+        }
         if($sms == ''){
             echo ajax_return(0,'短信验证码不能为空');exit;
         }
@@ -223,16 +226,12 @@ class LoginController extends Controller
         if($id){
             echo ajax_return(0,'手机号已注册');exit;
         }
-        if($refer){
-            $id = M('user')->where(array('phone'=>$refer))->getField('id');
-            if(!$id){
-                echo ajax_return(0,'推荐人手机号不存在');exit;
-            }else{
-                $pid = $id;
-            }
-        }else{
-            $pid = 0;
-        }
+        $id = M('user')->where(array('phone'=>$refer))->getField('id');
+		if(!$id){
+			echo ajax_return(0,'推荐人手机号不存在');exit;
+		}else{
+			$pid = $id;
+		}
         //4
         $mo = M();
         $mo->startTrans();
@@ -264,6 +263,11 @@ class LoginController extends Controller
             $res = M('user_zone')->add(array('userid'=>$userid,'ownid'=>0,'pid'=>0,'zone'=>0));
 
         }else{
+			//新增如果推荐人下面没有人 不管提交的zone是哪个区 默认为1区
+			$user_zone = M('user_zone')->where(array('pid'=>$pid))->find();
+			if(!$user_zone){
+				$zone = 1;
+			}
             $res = $this->add_zone($userid,$ownid,$zone,$pid,$zone);
 
         }
@@ -277,7 +281,7 @@ class LoginController extends Controller
      * （考虑个特殊情况，如果分配的是2区，要先判断同级的1区是否有安排人，没有则直接安排上不用再遍历下级了）
      * 如果同级的1区有人，则遍历属于这个人下级且是2区的下级1区是否有人，没人则分配安排上
      * 加行锁 防止同时两个人挂一个人下面的情况
-     * $userid 注册会员id $ownid 推荐人id $init_zone注册选择的分区 $pid 节点人的id $zone 要找的哪个区 遍历用
+     * $userid 注册会员id $ownid 推荐人id $init_zone注册选择的分区 $pid 节点人的id $zone 要找的哪个区 遍历用 （新增 只要推荐人下面没人 直接放一区 放上面了）
      */
     private function add_zone($userid,$ownid,$init_zone,$pid,$zone)
     {

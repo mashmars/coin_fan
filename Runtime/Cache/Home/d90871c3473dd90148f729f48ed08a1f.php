@@ -47,6 +47,18 @@
 					</a>
 				</li>
 				<li>
+					<a href="<?php echo U('finance/transfer');?>">
+						<i class="out"></i>账户转账
+						<span class="go"></span>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('finance/transferlog');?>">
+						<i class="record"></i>转账记录
+						<span class="go"></span>
+					</a>
+				</li>
+				<li>
 					<a href="<?php echo U('finance/income');?>">
 						<i class="record"></i>收益记录
 						<span class="go"></span>
