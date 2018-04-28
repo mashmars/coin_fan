@@ -9,6 +9,9 @@
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
 	<link rel="stylesheet" href="{$Think.const.PUB_CSS}use.css">
+    <style>
+      .qrcode img{display:block;margin:0 auto;width:200px;}
+    </style>
 	</head>
 	<body>
 		<div class="main chargingMoney">
@@ -33,7 +36,7 @@
 							<h4>{$usercoin['lth']*$config['price']}</h4>
 						</div>
 						<div class="flex-1">
-							<p>矿池币数</p>
+							<p>MC币数</p>
 							<h4>{$usercoin['lth']*1}</p>
 						</div>
 					</div>
@@ -48,7 +51,7 @@
 			</div>
 			<div class="charging-item">
 				<h3><i class="qr"></i>钱包二维码</h3>
-				<p class="qrcode"><div id="qrcode"></div></p>
+				<p class="qrcode" id="qrcode"></p>
 			</div>
 			<div class="charging-item">
 				<h3><i class="notice"></i>充币须知</h3>

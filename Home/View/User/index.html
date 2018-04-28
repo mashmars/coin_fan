@@ -37,7 +37,7 @@
 							<h4>{$usercoin['lth']*$config['price']}</h4>
 						</div>
 						<div class="flex-1">
-							<p>矿池币数</p>
+							<p>MC币数</p>
 							<h4>{$usercoin['lth']*1}</p>
 						</div>
 					</div>
@@ -103,7 +103,6 @@
 	<script src="{$Think.const.PUB_LIB}layer/layer.js"></script>
 	<script src="{$Think.const.PUB_JS}global.js"></script>
 	<script>
-	
 	$(function(){
 		$('.exit-logon').click(function(){
 			$.post("{:U('user/ajax_logout')}",'',function(data){
