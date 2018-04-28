@@ -185,7 +185,8 @@ class FinanceController extends CommonController {
         if($num <= 0 || !is_numeric($num)){
             echo ajax_return(0,'数量格式不正确');exit;
         }
-        $user_coin = M('user_coin')->where(array('id'=>$userid))->find();
+        $user_coin = M('user_coin')->where(array('userid'=>$userid))->find();
+		
         if($user_coin['lth'] < $num){
             echo ajax_return(0,'数量不足');exit;
         }

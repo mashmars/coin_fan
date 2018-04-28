@@ -127,7 +127,7 @@
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="<?php echo (PUB_IMG); ?>ht.png" alt="">';
-									list += '<div class="flex-1"><h4>'+type+'</h4><p><span>4月3日</span><span>14:16</span></p></div></div>';
+									list += '<div class="flex-1"><h4>'+type+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
 									list += '<span>'+fh+v.num+'</span></li>';
 								}
 							})
