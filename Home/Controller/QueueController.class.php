@@ -160,6 +160,8 @@ class QueueController extends Controller
 				$gr_limit = ($limit > $limit1) ? $limit1 : $limit;
 				//实际的分红数
 				$jt_num = ($jt_num + $yfh) > $gr_limit ? ($gr_limit - $yfh) : $jt_num;
+				//新增静态每次最多是108个
+				$jt_num = ($jt_num > 108) ? 108 : $jt_num ;
                 $m = M();
 				$m->startTrans();
 				$rs = array();
