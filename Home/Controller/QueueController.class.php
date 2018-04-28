@@ -253,7 +253,11 @@ class QueueController extends Controller
 		$users_b = $this->get_small_zone($users[1]);
 		$qu_1_total = M('user_coin')->where(array('userid'=>array('in',$users_a)))->sum('lth');
 		$qu_2_total = M('user_coin')->where(array('userid'=>array('in',$users_b)))->sum('lth');
-		$xiaoqu = $qu_1_total > $qu_2_total ? $qu_1_total : $qu_2_total;//小区总持币数
+		$xiaoqu = $qu_1_total > $qu_2_total ? $qu_2_total : $qu_1_total;//小区总持币数
+		//新增小区业绩大于100万才有分红
+		if($xiaoqu < 1000000){
+			return false;
+		}
 		return $xiaoqu;
 	}
 	//获取小区用户
