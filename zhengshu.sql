@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-04-27 10:04:30
+Date: 2018-05-02 14:02:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,50 @@ CREATE TABLE `admin` (
   `last_log_time` char(10) DEFAULT NULL,
   `descript` varchar(50) DEFAULT NULL COMMENT '管理员描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=gbk;
+
+-- ----------------------------
+-- Table structure for admin_auth_group
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_auth_group`;
+CREATE TABLE `admin_auth_group` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `title` char(100) NOT NULL DEFAULT '',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `rules` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk;
+
+-- ----------------------------
+-- Table structure for admin_auth_group_access
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_auth_group_access`;
+CREATE TABLE `admin_auth_group_access` (
+  `uid` mediumint(8) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
+  KEY `uid` (`uid`),
+  KEY `group_id` (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+
+-- ----------------------------
+-- Table structure for admin_auth_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_auth_rule`;
+CREATE TABLE `admin_auth_rule` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(6) DEFAULT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `controller` varchar(100) DEFAULT NULL COMMENT '控制器',
+  `action` varchar(100) DEFAULT NULL COMMENT '方法',
+  `cengji` char(1) DEFAULT '1' COMMENT '菜单层级',
+  `type` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `condition` char(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for banner
@@ -55,58 +98,11 @@ CREATE TABLE `config` (
   `address` varchar(255) DEFAULT NULL,
   `logo` varchar(30) DEFAULT NULL,
   `banner` varchar(30) DEFAULT NULL,
-  `price` decimal(16,4) DEFAULT '1.0000',
+  `price` decimal(16,4) NOT NULL DEFAULT '1.0000',
+  `zc_fee` varchar(5) DEFAULT '0' COMMENT '转出手续费',
+  `zz_fee` varchar(5) DEFAULT '0' COMMENT '转账手续费',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for dd_user
--- ----------------------------
-DROP TABLE IF EXISTS `dd_user`;
-CREATE TABLE `dd_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `openid` varchar(100) NOT NULL,
-  `nickname` varchar(20) NOT NULL,
-  `sex` tinyint(4) NOT NULL,
-  `headimg` varchar(256) NOT NULL,
-  `true_name` varchar(20) NOT NULL DEFAULT '',
-  `cardno` varchar(20) NOT NULL,
-  `login_name` varchar(255) DEFAULT '20',
-  `login_pass` varchar(32) DEFAULT NULL,
-  `birth` varchar(20) NOT NULL,
-  `sub_time` int(11) NOT NULL,
-  `subscribe` tinyint(4) NOT NULL,
-  `default_addr` int(11) NOT NULL,
-  `level` tinyint(4) NOT NULL,
-  `parent1` int(11) NOT NULL,
-  `parent2` int(11) NOT NULL,
-  `parent3` int(11) NOT NULL,
-  `agent1` int(11) NOT NULL,
-  `agent2` int(11) NOT NULL,
-  `agent3` int(11) NOT NULL,
-  `money` float(10,2) NOT NULL DEFAULT '0.00',
-  `points` int(11) NOT NULL DEFAULT '0',
-  `expense` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '累计佣金',
-  `sales` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '销售额',
-  `receive_total` float(10,2) NOT NULL DEFAULT '0.00',
-  `assign_total` float(10,2) NOT NULL DEFAULT '0.00',
-  `withdraw_total` float(10,2) NOT NULL DEFAULT '0.00',
-  `dist` tinyint(4) NOT NULL COMMENT '是否有分销权限',
-  `reward_streight` float(10,2) DEFAULT '0.00' COMMENT '直推奖',
-  `reward_lazy` float(10,2) DEFAULT '0.00' COMMENT '懒人奖',
-  `reward_static` float(10,2) DEFAULT '0.00' COMMENT '静态奖',
-  `reward_yeji` float(10,2) DEFAULT '0.00' COMMENT '小区业绩奖',
-  `coin_num` int(10) DEFAULT '0' COMMENT '币',
-  `tuijian_str` text COMMENT '推荐图',
-  `yeji_1` float(10,2) DEFAULT '0.00' COMMENT '一区业绩',
-  `yeji_2` float(10,2) DEFAULT '0.00' COMMENT '二区业绩',
-  `tuijian_level` int(11) DEFAULT '1' COMMENT '推荐网体深度',
-  `pos` tinyint(1) DEFAULT '0' COMMENT '位置：0=左区，1=右区',
-  `money_addr` varchar(200) NOT NULL DEFAULT '' COMMENT '钱包地址',
-  `status` tinyint(1) DEFAULT '0' COMMENT '状态：0=未激活，1=已经激活',
-  `reg_user` int(11) NOT NULL DEFAULT '0' COMMENT '注册人',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2575 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for mycz
@@ -118,7 +114,7 @@ CREATE TABLE `mycz` (
   `num` decimal(16,4) DEFAULT NULL,
   `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for mytransfer
@@ -128,11 +124,14 @@ CREATE TABLE `mytransfer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
   `peerid` int(11) DEFAULT NULL COMMENT '对方userid',
-  `num` decimal(10,4) DEFAULT NULL,
+  `mum` decimal(16,4) DEFAULT NULL,
+  `num` decimal(16,4) DEFAULT NULL,
+  `fee` decimal(10,4) DEFAULT NULL,
   `createdate` int(11) DEFAULT NULL,
+  `realname` varchar(30) DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for myzc
@@ -143,14 +142,16 @@ CREATE TABLE `myzc` (
   `userid` int(6) NOT NULL,
   `address` varchar(100) DEFAULT NULL COMMENT '转出地址',
   `txid` varchar(200) DEFAULT NULL,
-  `num` decimal(16,4) DEFAULT NULL,
+  `mum` decimal(16,4) DEFAULT NULL COMMENT '总数量',
+  `fee` decimal(10,4) DEFAULT '0.0000' COMMENT '手续费',
+  `num` decimal(16,4) DEFAULT '0.0000' COMMENT '真实数量',
   `createdate` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '0' COMMENT '0未到账 1到账 2是拒绝',
   `remark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `address` (`address`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for myzr
@@ -167,7 +168,7 @@ CREATE TABLE `myzr` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `zuhe1` (`txid`,`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for sys_dtfh
@@ -180,7 +181,7 @@ CREATE TABLE `sys_dtfh` (
   `bl` decimal(6,4) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='动态分红设置';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='动态分红设置';
 
 -- ----------------------------
 -- Table structure for sys_fh_log
@@ -198,7 +199,7 @@ CREATE TABLE `sys_fh_log` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `uc` (`userid`,`createdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1677 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for sys_fh_verify
@@ -224,7 +225,7 @@ CREATE TABLE `sys_jtfh` (
   `bl` decimal(6,4) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='静态分红设置';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='静态分红设置';
 
 -- ----------------------------
 -- Table structure for user
@@ -244,10 +245,11 @@ CREATE TABLE `user` (
   `country` varchar(50) DEFAULT NULL,
   `province` varchar(50) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
+  `finance_status` tinyint(2) DEFAULT '1' COMMENT '财务状态 提币和转账 1可以 0不可以',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   UNIQUE KEY `phone` (`phone`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2577 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2825 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user_coin
@@ -263,7 +265,7 @@ CREATE TABLE `user_coin` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `userid` (`userid`) USING BTREE,
   KEY `lthb` (`lthb`)
-) ENGINE=InnoDB AUTO_INCREMENT=2425 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2673 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user_qianbao
@@ -277,7 +279,7 @@ CREATE TABLE `user_qianbao` (
   `createdate` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user_zone
@@ -290,6 +292,5 @@ CREATE TABLE `user_zone` (
   `pid` int(6) DEFAULT '0' COMMENT '节点人上级id ',
   `zone` tinyint(2) DEFAULT '0' COMMENT '1区  2区 0是顶级会员',
   PRIMARY KEY (`id`),
-  KEY `pid` (`pid`),
-  KEY `ownid` (`ownid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2425 DEFAULT CHARSET=utf8 COMMENT='会员分布\r\n';
+  KEY `pid` (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2673 DEFAULT CHARSET=utf8 COMMENT='会员分布\r\n';
