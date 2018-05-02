@@ -33,7 +33,7 @@
 							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>矿池币数</p>
+							<p>MC币数</p>
 							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
@@ -44,6 +44,7 @@
 					<div class="charging-inpu">
 						<input type="number"placeholder="请输入提币数量" id='num'>
 					</div>
+					手续费:<span id='fee' style="margin-left:15px;">0.00</span>
 				</div>
 				<div class="charging-item">
 					<h3><i class="adr"></i>钱包地址</h3>
@@ -209,6 +210,17 @@ $(function(){
 				obj.prop('disabled',false);
 			}
 		},'json')
+	})
+	//
+	var fee = <?php echo ($fee); ?>;
+	$('#num').keyup(function(){
+		var num = $(this).val();	
+		if(isNaN(num) || num == ''){
+			$('#fee').text('0.00');
+			return false;
+		}
+		zfee = parseFloat(num) * fee ;
+		$('#fee').text(zfee.toFixed(2));
 	})
 })
 </script>

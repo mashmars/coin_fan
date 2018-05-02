@@ -38,7 +38,7 @@
 									<p><span>{$vo.createdate|date='m月d日',###}</span><span>{$vo.createdate|date='H:i',###}</span></p>
 								</div>
 							</div>
-							<span><if condition="$vo['type'] eq 'zc'">-<else />+</if>{$vo.num}</span>
+							<span><if condition="$vo['type'] eq 'zc'">-{$vo.mum}<else />+{$vo.num}</if></span>
 						</li>
 					</volist>
 					</ul>
@@ -121,18 +121,20 @@
 							}
 							$.each(result,function(k,v){
 								var src = "{$Think.const.PUB_IMG}";
-								var type='',fh='';
+								var type='',fh='',num=0;
 								if(v.type == 'zc'){
 									type = '转出';
 									fh = '-';
+									num = v.mum;
 								}else{
 									type = '转入';
 									fh = '+';
+									num = v.num;
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="{$Think.const.PUB_IMG}ht.png" alt="">';
 									list += '<div class="flex-1"><h4>'+type+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
-									list += '<span>'+fh+v.num+'</span></li>';
+									list += '<span>'+fh+num+'</span></li>';
 								}
 							})
 							p +=1;

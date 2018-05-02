@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>转账记录</title>
+	<title>转出记录</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -16,7 +16,7 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		转账记录
+		转出记录
 	</h3>
 </header>
 </header>
@@ -32,11 +32,11 @@
 							<div class="flex-1 flex-box">
 								<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 								<div class="flex-1">
-									<h4><?php if($vo['type'] == 'zc'): ?>转出<?php else: ?>转入<?php endif; ?></h4>
+									<h4><?php if($vo["status"] == 1): ?>已确认<?php elseif($vo["status"] == 2): ?>已拒绝<?php else: ?>待处理<?php endif; ?></h4>
 									<p><span><?php echo (date('m月d日',$vo["createdate"])); ?></span><span><?php echo (date('H:i',$vo["createdate"])); ?></span></p>
 								</div>
 							</div>
-							<span><?php if($vo['type'] == 'zc'): ?>-<?php echo ($vo["mum"]); else: ?>+<?php echo ($vo["num"]); endif; ?></span>
+							<span>-<?php echo ($vo["num"]); ?></span>
 						</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 					<?php else: ?>
@@ -76,7 +76,7 @@
 			/**下拉刷新 （自定义实现此方法） myScroll.refresh(); 数据加载完成后，调用界面更新方法*/
 			function pullDownAction () {
 				setTimeout(function () { 
-					var url = "<?php echo U('finance/ajax_transferlog');?>";
+					var url = "<?php echo U('finance/ajax_myzcdetail');?>";
 					$.ajax({
 							url:url,
 							type:'post',
@@ -100,7 +100,7 @@
 			 * myScroll.refresh();      // 数据加载完成后，调用界面更新方法
 			 */
 			function pullUpAction () {
-				var url = "<?php echo U('finance/ajax_transferlog');?>";
+				var url = "<?php echo U('finance/ajax_myzcdetail');?>";
 				setTimeout(function () {
 					$.ajax({
 						url:url,
@@ -116,21 +116,18 @@
 								return false;
 							}
 							$.each(result,function(k,v){
-								var src = "<?php echo (PUB_IMG); ?>";
-								var type='',fh='',num=0;
-								if(v.type == 'zc'){
-									type = '转出';
-									fh = '-';
-									num = v.mum;
+								var status ='';
+								if(v.status == 1){
+									status = '已确认';
+								}else if(v.status ==2){
+									status ='已拒绝';
 								}else{
-									type = '转入';
-									fh = '+';
-									num = v.num;
+									status = '待处理';
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="<?php echo (PUB_IMG); ?>ht.png" alt="">';
-									list += '<div class="flex-1"><h4>'+type+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
-									list += '<span>'+fh+num+'</span></li>';
+									list += '<div class="flex-1"><h4>'+status+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
+									list += '<span>-'+v.num+'</span></li>';
 								}
 							})
 							p +=1;

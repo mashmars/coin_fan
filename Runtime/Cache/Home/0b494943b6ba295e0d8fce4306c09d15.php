@@ -184,8 +184,6 @@
 			},'json')
 		})
 		
-		
-		//
 		$('#read').click(function(){
 			//页面层
 			layer.open({

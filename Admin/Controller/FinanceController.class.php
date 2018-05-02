@@ -56,7 +56,7 @@ class FinanceController extends BaseController {
         $mo->startTrans();
         $rs = array();
         $rs[] = M('myzc')->where(array('id'=>$id))->setField('status',1);
-        $rs[] = M('user_coin')->where(array('userid'=>$info['userid']))->setDec('lthd',$info['num']);
+        $rs[] = M('user_coin')->where(array('userid'=>$info['userid']))->setDec('lthd',$info['mum']);
 
         if(check_arr($rs)){
             $mo->commit();
@@ -86,8 +86,8 @@ class FinanceController extends BaseController {
         $mo->startTrans();
         $rs = array();
         $rs[] = M('myzc')->where(array('id'=>$id))->setField('status',2);
-        $rs[] = M('user_coin')->where(array('userid'=>$info['userid']))->setDec('lthd',$info['num']);
-        $rs[] = M('user_coin')->where(array('userid'=>$info['userid']))->setInc('lth',$info['num']);
+        $rs[] = M('user_coin')->where(array('userid'=>$info['userid']))->setDec('lthd',$info['mum']);
+        $rs[] = M('user_coin')->where(array('userid'=>$info['userid']))->setInc('lth',$info['mum']);
 
         if(check_arr($rs)){
             $mo->commit();

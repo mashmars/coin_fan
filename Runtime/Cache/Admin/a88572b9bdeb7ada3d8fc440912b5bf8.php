@@ -81,7 +81,17 @@
 				</ul>
 			</dd>
 		</dl>
-		
+		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="<?php echo U('auth/admin_list');?>" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+					<li><a data-href="<?php echo U('auth/admin_role');?>" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+					<li><a data-href="<?php echo U('auth/admin_menu');?>" data-title="菜单管理" href="javascript:void(0)">菜单管理</a></li>
+					
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-system">
 			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>

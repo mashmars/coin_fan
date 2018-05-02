@@ -37,7 +37,7 @@
 							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>矿池币数</p>
+							<p>MC币数</p>
 							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
@@ -103,7 +103,6 @@
 	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></script>
 	<script src="<?php echo (PUB_JS); ?>global.js"></script>
 	<script>
-	
 	$(function(){
 		$('.exit-logon').click(function(){
 			$.post("<?php echo U('user/ajax_logout');?>",'',function(data){

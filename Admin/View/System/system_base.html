@@ -48,7 +48,20 @@
 						<input type="text" id="price" placeholder="" value="{$info.price}"name='price' class="input-text">
 					</div>
 				</div>
-				
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>转出手续费:</label>
+					<div class="formControls col-xs-8 col-sm-2">
+						<input type="text" id="zc_fee" placeholder="转化成0.格式" value="{$info.zc_fee}"name='zc_fee' class="input-text">
+					</div>
+					<label class="form-label col-xs-4 col-sm-2" style='text-align:left;color:red'>5%转换成0.05小数点格式</label>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>转账手续费:</label>
+					<div class="formControls col-xs-8 col-sm-2">
+						<input type="text" id="zz_fee" placeholder="转化成0.格式" value="{$info.zz_fee}"name='zz_fee' class="input-text">
+					</div>
+					<label class="form-label col-xs-4 col-sm-2" style='text-align:left;color:red'>5%转换成0.05小数点格式</label>
+				</div>
 				<!--<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>关键词：</label>
 					<div class="formControls col-xs-8 col-sm-9">

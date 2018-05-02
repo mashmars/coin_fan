@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<?php if (!defined('THINK_PATH')) exit();?>﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -7,16 +7,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <!--[if lt IE 9]>
-<script type="text/javascript" src="{$Think.const.PUB_LIB}html5shiv.js"></script>
-<script type="text/javascript" src="{$Think.const.PUB_LIB}respond.min.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>html5shiv.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_LIB}Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="{$Think.const.PUB_STATIC}h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_LIB); ?>Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="<?php echo (PUB_STATIC); ?>h-ui.admin/css/style.css" />
 <!--[if IE 6]>
-<script type="text/javascript" src="{$Think.const.PUB_LIB}DD_belatedPNG_0.0.8a-min.js" ></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <style>
@@ -39,20 +39,20 @@
 		<label>筛选查询：</label>
 		<span class="select-box inline">			
 			<select name="" id='field' class="select">
-				<!-- <option value="txdz" data-type='input' <if condition="$field eq 'txdz'">selected</if> >地址</option> -->
-				<option value="all" data-type='' <if condition="$field eq ''">selected</if>>全部会员</option>
-				<option value="phone" data-type='input' <if condition="$field eq 'phone'">selected</if>>手机号</option>
+				<!-- <option value="txdz" data-type='input' <?php if($field == 'txdz'): ?>selected<?php endif; ?> >地址</option> -->
+				<option value="all" data-type='' <?php if($field == ''): ?>selected<?php endif; ?>>全部会员</option>
+				<option value="phone" data-type='input' <?php if($field == 'phone'): ?>selected<?php endif; ?>>手机号</option>
 				
 			</select>
 		</span>
-		<span class="btn-upload form-group" id='date' <if condition="$type neq 'date'">style='display:none'</if>>
+		<span class="btn-upload form-group" id='date' <?php if($type != 'date'): ?>style='display:none'<?php endif; ?>>
 			日期范围：
-			<input type="text" onfocus="WdatePicker({ maxDate:'#F{ $dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" value='{$start}' id="datemin" class="input-text Wdate" style="width:120px;">
+			<input type="text" onfocus="WdatePicker({ maxDate:'#F{ $dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" value='<?php echo ($start); ?>' id="datemin" class="input-text Wdate" style="width:120px;">
 			-
-			<input type="text" onfocus="WdatePicker({ minDate:'#F{ $dp.$D(\'datemin\')}'})" value='{$end}' id="datemax" class="input-text Wdate" style="width:120px;">
+			<input type="text" onfocus="WdatePicker({ minDate:'#F{ $dp.$D(\'datemin\')}'})" value='<?php echo ($end); ?>' id="datemax" class="input-text Wdate" style="width:120px;">
 		</span>
-		<span class="btn-upload form-group" id='input' <if condition="$type eq 'date'">style='display:none'</if>>
-			<input type="text" class="input-text" style="width:250px" placeholder="输入关键字" id="keyword" value='{$keyword}'>
+		<span class="btn-upload form-group" id='input' <?php if($type == 'date'): ?>style='display:none'<?php endif; ?>>
+			<input type="text" class="input-text" style="width:250px" placeholder="输入关键字" id="keyword" value='<?php echo ($keyword); ?>'>
 		</span>
 		<button type="button" class="btn btn-success radius" id="serach" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 		<!--<button type="button" class="btn btn-success radius" id="export1" name=""><i class="Hui-iconfont">&#xe644;</i> 按条件导出</button>-->
@@ -61,12 +61,12 @@
 	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">	
-		<a href="javascript:;" onclick="member_add('添加用户','{:U('user/member_add')}','','510')" class="btn btn-primary radius">
+		<a href="javascript:;" onclick="member_add('添加用户','<?php echo U('user/member_add');?>','','510')" class="btn btn-primary radius">
 		<i class="Hui-iconfont">&#xe600;</i> 添加用户
 		</a>
 		
 		</span>	
-		<span class="r">共有数据：<strong>{$count}</strong> 条</span> 	
+		<span class="r">共有数据：<strong><?php echo ($count); ?></strong> 条</span> 	
 		
 	</div>
 	
@@ -85,33 +85,29 @@
 			</tr>
 		</thead>
 		<tbody id='tbody'>
-		<volist name='res' id='vo'>
-			<tr class="text-c">
-				<td><input type="checkbox" value="{$vo.id}" name=""></td>
-				<td>{$vo.id}</td>
-				<td><u style="cursor:pointer" class="text-primary" title='yyy' onclick="member_add('xxx','{:U('user/member_info')}','1000','610')">{$vo.username}</u></td>				
-				<td>{$vo.phone}</td>				
-				<td>{$vo.realname}</td>				
-				<td>{$vo.createdate|date='Y-m-d',###}</td>
+		<?php if(is_array($res)): $i = 0; $__LIST__ = $res;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr class="text-c">
+				<td><input type="checkbox" value="<?php echo ($vo["id"]); ?>" name=""></td>
+				<td><?php echo ($vo["id"]); ?></td>
+				<td><u style="cursor:pointer" class="text-primary" title='yyy' onclick="member_add('xxx','<?php echo U('user/member_info');?>','1000','610')"><?php echo ($vo["username"]); ?></u></td>				
+				<td><?php echo ($vo["phone"]); ?></td>				
+				<td><?php echo ($vo["realname"]); ?></td>				
+				<td><?php echo (date('Y-m-d',$vo["createdate"])); ?></td>
 				<td>
-				<if condition="$vo.finance_status eq 1">
-				<span class="label label-success radius">可提币</span>
-				<else /><span class="label label-danger radius">禁止提币</span>
-				</if>
+				<?php if($vo["finance_status"] == 1): ?><span class="label label-success radius">可提币</span>
+				<?php else: ?><span class="label label-danger radius">禁止提币</span><?php endif; ?>
 				</td>					
 				<td class="td-manage">				
-				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户基本信息','{:U('user/member_edit',array('id'=>$vo['id']))}','','510')"   title="编辑用户信息">编辑</a>  
+				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户基本信息','<?php echo U('user/member_edit',array('id'=>$vo['id']));?>','','510')"   title="编辑用户信息">编辑</a>  
 				
 				</td>
-			</tr>
-		</volist>
+			</tr><?php endforeach; endif; else: echo "" ;endif; ?>
 		</tbody>
 		<!--
 		<tr class="text-c" >
 			<td colspan="14" style="text-align:left;">
 			
 				<button type="button" class="btn btn-success radius" id="export" name=""><i class="Hui-iconfont">&#xe644;</i> 导出选中</button>
-				<form id='form-export' style='display:none' action="{:U('user/export')}" method='post'>
+				<form id='form-export' style='display:none' action="<?php echo U('user/export');?>" method='post'>
 					<textarea id='ids' name='ids'></textarea>
 				</form>
 			</td>
@@ -119,23 +115,23 @@
 		-->
 	</table>
 	</div>
-	<div class='page'>{$page}</div>
+	<div class='page'><?php echo ($page); ?></div>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="{$Think.const.PUB_LIB}jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="{$Think.const.PUB_LIB}layer/2.4/layer.js"></script>
-<script type="text/javascript" src="{$Think.const.PUB_STATIC}h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="{$Think.const.PUB_STATIC}h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>layer/2.4/layer.js"></script>
+<script type="text/javascript" src="<?php echo (PUB_STATIC); ?>h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_STATIC); ?>h-ui.admin/js/H-ui.admin.js"></script>
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="{$Think.const.PUB_LIB}My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="<?php echo (PUB_LIB); ?>My97DatePicker/4.8/WdatePicker.js"></script> 
 
-<script src="{$Think.const.PUB_LIB}a/js/bootstrap.js"></script>
-<script src="{$Think.const.PUB_LIB}a/js/city-picker.data.js"></script>
-<script src="{$Think.const.PUB_LIB}a/js/city-picker.js"></script>
-<script src="{$Think.const.PUB_LIB}a/js/main.js"></script>
-<link href="{$Think.const.PUB_LIB}a/css/city-picker.css" rel="stylesheet" type="text/css" />
+<script src="<?php echo (PUB_LIB); ?>a/js/bootstrap.js"></script>
+<script src="<?php echo (PUB_LIB); ?>a/js/city-picker.data.js"></script>
+<script src="<?php echo (PUB_LIB); ?>a/js/city-picker.js"></script>
+<script src="<?php echo (PUB_LIB); ?>a/js/main.js"></script>
+<link href="<?php echo (PUB_LIB); ?>a/css/city-picker.css" rel="stylesheet" type="text/css" />
 <script>
 
 	
@@ -159,7 +155,7 @@ $(function(){
 		var field = $('#field').find('option:selected').val();
 		var type = $('#field').find('option:selected').attr('data-type');
 		if(field == 'all'){
-			var url = "{:U('user/member_list')}";
+			var url = "<?php echo U('user/member_list');?>";
 			window.location.href = url;
 			return false;
 		}
@@ -209,7 +205,7 @@ $(function(){
 	
 	//按条件导出
 	$('#export1').click(function(){
-		var url = "{:U('user/export_')}";
+		var url = "<?php echo U('user/export_');?>";
 		$('#form-search').prop('action',url);
 		
 		var field = $('#field').find('option:selected').val();

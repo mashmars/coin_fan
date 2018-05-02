@@ -21,7 +21,7 @@
 			<div class="lhbg tc asset-info">
 				<p>昨日收益</p>
 				<h3><?php echo ($yestoday_shouyi*1); ?></h3>
-				<h4>狂池币数：<?php echo ($usercoin['lth']*1); ?></h4>
+				<h4>MC币数：<?php echo ($usercoin['lth']*1); ?></h4>
 				<div class="flex-box asset-total">
 					<div class="flex-1">
 						<p><?php echo ($month_shouyi*1); ?></p>
@@ -69,6 +69,4 @@
 	</body>
 	<script src="<?php echo (PUB_JS); ?>set.js"></script>
 	<script src="<?php echo (PUB_JS); ?>jquery-1.8.2.min.js"></script>
-	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></script>
-	<script src="<?php echo (PUB_JS); ?>global.js"></script>
-</html>
+	<script src="<?php echo (PUB_LIB); ?>layer/layer.js"></

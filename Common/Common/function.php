@@ -1,5 +1,17 @@
 <?php
-
+//递归遍历数据
+function list_level($arr,$pid=0,$level=0){
+    //定义一个静态数组
+    static $data = array();
+    foreach($arr as $k => $v){
+        if($v['pid'] == $pid){
+            $v['level'] = $level;
+            $data[] = $v;
+            list_level($arr,$v['id'],$level+1);
+        }
+    }
+    return $data;
+}
 
 
 /*

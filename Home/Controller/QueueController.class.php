@@ -66,7 +66,7 @@ class QueueController extends Controller
                 $mo = M();
                 $mo->startTrans();
                 $rs = array();
-                $rs[] = $mo->table('use_coin')->where(array('userid' => $user['userid']))->setInc('lth', $trans['amount']);
+                $rs[] = $mo->table('user_coin')->where(array('userid' => $user['userid']))->setInc('lth', $trans['amount']);
 
                 if ($res = $mo->table('myzr')->where(array('txid' => $trans['txid']))->find()) {
                     echo 'myzr find and set status 1';

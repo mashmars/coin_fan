@@ -110,7 +110,10 @@ class FinanceController extends CommonController {
     {
         //我的钱包地址
         $address = M('user_qianbao')->where(array('userid'=>session('userid')))->select();
+		//手续费
+		$fee = M('config')->where('id=1')->getField('zc_fee');
 
+        $this->assign('fee',$fee);
         $this->assign('address',$address);
         $this->display();
     }
@@ -144,6 +147,11 @@ class FinanceController extends CommonController {
         if(session($phone . 'myzc')){
             echo ajax_return(1,'短信已发送');exit;
         }
+		//判断是否有转出权限
+		$user = M('user')->where(array('id'=>session('userid')))->find();
+		if(!$user['finance_status']){
+			echo ajax_return(1,'暂时无法提币，请联系管理人员');exit;
+		}
         $code = mt_rand(10000, 99999);
         $result = send_sms('72713', $phone, $code);
         if ($result['info'] == 'success') {
@@ -158,13 +166,18 @@ class FinanceController extends CommonController {
      */
     public function ajax_myzc()
     {
-        $num = I('post.num');
+        $mum = I('post.num');
         $sms = I('post.sms');
         $address = I('post.address');
         $paypassword = I('post.paypassword');
 
         $userid = session('userid');
         $phone = session('phone');
+		//判断是否有转出权限
+		$user = M('user')->where(array('id'=>session('userid')))->find();
+		if(!$user['finance_status']){
+			echo ajax_return(1,'暂时无法提币，请联系管理人员');exit;
+		}
         //判断短信验证码是否正确
         if($sms != session($phone . 'myzc')){
             echo ajax_return(0,'短信验证码不正确');exit;
@@ -182,25 +195,31 @@ class FinanceController extends CommonController {
         }
 
         //判断数量是否正确
-        if($num <= 0 || !is_numeric($num)){
+        if($mum <= 0 || !is_numeric($mum)){
             echo ajax_return(0,'数量格式不正确');exit;
         }
-        $user_coin = M('user_coin')->where(array('userid'=>$userid))->find();
-		
-        if($user_coin['lth'] < $num){
+        
+		//手续费
+		$zc_fee = M('config')->where('id=1')->getField('zc_fee');
+		$fee = round($zc_fee * $mum,2);
+		$num = $mum - $fee;
+		$user_coin = M('user_coin')->where(array('userid'=>$userid))->find();
+		if($user_coin['lth'] < $mum){
             echo ajax_return(0,'数量不足');exit;
         }
+		
 
         //可以转出
         $mo = M();
         $mo->startTrans();
         $rs = array();
-        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setDec('lth',$num);
-        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setInc('lthd',$num);
-        $rs[] = $mo->table('myzc')->add(array('userid'=>$userid,'address'=>$address['address'],'num'=>$num,'createdate'=>time()));
+        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setDec('lth',$mum);
+        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setInc('lthd',$mum);
+        $rs[] = $mo->table('myzc')->add(array('userid'=>$userid,'address'=>$address['address'],'mum'=>$mum,'fee'=>$fee,'num'=>$num,'createdate'=>time()));
 
         if(check_arr($rs)){
             $mo->commit();
+			session($phone . 'myzc', '');
             echo ajax_return(1,'转出申请提交成功，请等待后台审核');
         }else{
             $mo->rollback();
@@ -265,6 +284,10 @@ class FinanceController extends CommonController {
      */
     public function transfer()
     {
+		//手续费
+		$fee = M('config')->where('id=1')->getField('zz_fee');
+
+        $this->assign('fee',$fee);
         $this->display();
     }
     public function ajax_transfer()
@@ -292,22 +315,38 @@ class FinanceController extends CommonController {
 		if($info['id'] == $userid){
             echo ajax_return(0,'不能给自己转账');exit;
         }
+		
+		//判断是否有转出权限		
+		if(!$from['finance_status']){
+			echo ajax_return(1,'暂时无法转账，请联系管理人员');exit;
+		}
+		//手续费
+		$zz_fee = M('config')->where('id=1')->getField('zz_fee');
+		$mum = $money;
+		$fee = round($mum*$zz_fee,2);
+		$num = $mum - $fee;
+		
 		/**
 		* 必须是推荐关系 或节点关系 
 		*/
 		//我给节点上级转 或推荐人转
-		$map['userid'] = $userid;
+		
 		$map['ownid'] = $info['id'];
 		$map['pid'] = $info['id'];
 		$map['_logic'] = 'or';
-		$up = M('user_zone')->where($map)->find();
+		$where['_complex'] = $map;
+		$where['userid'] = $userid;
+		$up = M('user_zone')->where($where)->find();
 		
 		//我给节点下级转 或给我推荐的人转
-		$where['userid'] = $userid;
-		$where['pid'] = $from['id'];
-		$where['ownid'] = $from['id'];
-		$where['_logic'] = 'or';
-		$down = M('user_zone')->where($where)->find();
+		
+		$dd['pid'] = $from['id'];
+		$dd['ownid'] = $from['id'];
+		$dd['_logic'] = 'or';
+		$dd1['_complex'] = $dd;
+		$dd1['userid'] = $info['id'];
+		$down = M('user_zone')->where($dd1)->find();
+		
 		
 		if(!$up && !$down){
 			echo ajax_return(0,'只能直属上下级或推荐关系的账户转账');exit;
@@ -316,7 +355,7 @@ class FinanceController extends CommonController {
 		
         $user_coin = M('user_coin')->where(array('userid'=>$userid))->lock(true)->find();
 
-        if($user_coin['lth'] < $money){
+        if($user_coin['lth'] < $mum){
             echo ajax_return(0,'余额不足');exit;
         }
         
@@ -325,9 +364,9 @@ class FinanceController extends CommonController {
         $mo->startTrans();
         $rs = array();
 
-        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setDec('lth',$money);
-        $rs[] = $mo->table('user_coin')->where(array('userid'=>$info['id']))->setInc('lth',$money);
-        $rs[] = $mo->table('mytransfer')->add(array('userid'=>$userid,'peerid'=>$info['id'],'num'=>$money,'phone'=>$phone,'createdate'=>time()));
+        $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setDec('lth',$mum);
+        $rs[] = $mo->table('user_coin')->where(array('userid'=>$info['id']))->setInc('lth',$num);
+        $rs[] = $mo->table('mytransfer')->add(array('userid'=>$userid,'peerid'=>$info['id'],'num'=>$num,'fee'=>$fee,'mum'=>$mum,'phone'=>$phone,'createdate'=>time()));
 
         if(check_arr($rs)){
             $mo->commit();

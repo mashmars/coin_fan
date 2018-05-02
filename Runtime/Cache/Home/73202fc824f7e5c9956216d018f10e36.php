@@ -33,7 +33,7 @@
 							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>矿池币数</p>
+							<p>MC币数</p>
 							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
