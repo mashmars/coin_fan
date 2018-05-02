@@ -322,9 +322,9 @@ class FinanceController extends CommonController {
 		}
 		//手续费
 		$zz_fee = M('config')->where('id=1')->getField('zz_fee');
-		$mum = $money;
+		$num = $money;
 		$fee = round($mum*$zz_fee,2);
-		$num = $mum - $fee;
+		$mum = $num + $fee;
 		
 		/**
 		* 必须是推荐关系 或节点关系 
