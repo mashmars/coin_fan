@@ -323,12 +323,13 @@ class FinanceController extends CommonController {
 		//手续费
 		$zz_fee = M('config')->where('id=1')->getField('zz_fee');
 		$num = $money;
-		$fee = round($mum*$zz_fee,2);
+		$fee = round($num*$zz_fee,2);
 		$mum = $num + $fee;
+		 
 		
 		/**
 		* 必须是推荐关系 或节点关系 
-		*/
+		
 		//我给节点上级转 或推荐人转
 		
 		$map['ownid'] = $info['id'];
@@ -346,10 +347,21 @@ class FinanceController extends CommonController {
 		$dd1['_complex'] = $dd;
 		$dd1['userid'] = $info['id'];
 		$down = M('user_zone')->where($dd1)->find();
+		*/
 		
+		/*
+		下砖上只能给推荐人转
+		上转下可以是这条线上的所有人
+		*/
+		$map['userid'] = $userid;
+		$map['ownid'] = $info['id'];
+		$up = M('user_zone')->where($map)->find(); //往上转
+		
+		//往下
+		$down = $this->get_xiaji($userid,$info['id']);
 		
 		if(!$up && !$down){
-			echo ajax_return(0,'只能直属上下级或推荐关系的账户转账');exit;
+			echo ajax_return(0,'只能给下属节点或推荐关系的账户转账');exit;
 		}
 		
 		
@@ -358,7 +370,7 @@ class FinanceController extends CommonController {
         if($user_coin['lth'] < $mum){
             echo ajax_return(0,'余额不足');exit;
         }
-        
+       
         //可以转
         $mo = M();
         $mo->startTrans();
@@ -376,6 +388,48 @@ class FinanceController extends CommonController {
             echo ajax_return(0,'转账失败');
         }
     }
+	
+	//获取两条线 和queue一样
+	public function get_xiaji($userid,$xiaji)
+	{
+		$users = M('user_zone')->where(array('pid'=>$userid))->field('zone,userid')->select();
+		foreach($users as $user){
+			if($user['zone'] == 1){
+				//第一个区
+				$users_a = $this->get_small_zone($user['userid']);
+			}elseif($user['zone'] == 2){
+				//第二个区
+				$users_b = $this->get_small_zone($user['userid']);
+			}
+		}
+		if($users_a){
+			if(in_array($xiaji,$users_a)){
+				return true;
+			}
+		}
+		if($users_b){
+			if(in_array($xiaji,$users_b)){
+				return true;
+			}
+		}
+		return false;
+	}
+	//获取小区用户
+	public function get_small_zone($userid,$new=true)
+	{
+		static $users = array();
+		if($new){
+			$users = array();//必须释放
+		}
+		array_push($users,$userid);
+		$user_xiaji = M('user_zone')->where(array('pid'=>$userid))->getField('userid',true);
+		if($user_xiaji){
+			foreach($user_xiaji as $user){
+				$this->get_small_zone($user,false);
+			}				
+		}
+		return $users;
+	}
 
     /**
      * 会员转账记录
