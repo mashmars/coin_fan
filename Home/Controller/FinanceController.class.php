@@ -353,10 +353,11 @@ class FinanceController extends CommonController {
 		下砖上只能给推荐人转
 		上转下可以是这条线上的所有人
 		*/
-		$map['userid'] = $userid;
+		/*$map['userid'] = $userid;
 		$map['ownid'] = $info['id'];
 		$up = M('user_zone')->where($map)->find(); //往上转
-		
+		*/
+		$up = $this->get_shangji($userid,$info['id']);
 		//往下
 		$down = $this->get_xiaji($userid,$info['id']);
 		
@@ -388,8 +389,19 @@ class FinanceController extends CommonController {
             echo ajax_return(0,'转账失败');
         }
     }
-	
-	//获取两条线 和queue一样
+	//往上找 一条线
+	public function get_shangji($userid,$shangji){
+		$users = M('user_zone')->where(array('userid'=>$userid))->field('zone,pid')->find();
+		if(!$users['pid']){
+			return false;
+		}
+		if($users['pid'] == $shangji){
+			return true;
+		}else{
+			return $this->get_shangji($users['pid'],$shangji);
+		}
+	} 
+	//获取两条线 和queue一样 往下找
 	public function get_xiaji($userid,$xiaji)
 	{
 		$users = M('user_zone')->where(array('pid'=>$userid))->field('zone,userid')->select();
