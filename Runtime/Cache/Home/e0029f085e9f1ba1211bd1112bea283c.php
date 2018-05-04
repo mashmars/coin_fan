@@ -69,7 +69,7 @@
 				layer.msg('转出金额不正确',{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
-			}obj.prop('disabled',false);
+			}
 			$.post("<?php echo U('finance/ajax_transfer');?>",{phone:phone,money:money,password:password},function(data){
 				if(data.info =='success'){
 					layer.msg(data.msg,{time:2000,icon:1},function(){

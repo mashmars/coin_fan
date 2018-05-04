@@ -120,6 +120,24 @@ class UserController extends CommonController {
         }
 
     }
+	/**
+     *发送修改交易密码短信验证
+     */
+    public function ajax_paypassword_send_sms()
+    {
+        $phone = session('phone');
+		if(session($phone.'paypassword')){
+			echo ajax_return(1,'短信验证码发送成功,请勿频繁发送');exit;
+		}
+        $code = mt_rand(10000,99999);
+        $result = send_sms('72713',$phone,$code);
+        if($result['info'] == 'success'){
+            session($phone.'paypassword',$code);
+            echo ajax_return(1,'短信验证码发送成功');
+        }else{
+            echo ajax_return(0,$result['msg']);
+        }
+    }
     /**
      * 修改交易密码
      */
@@ -129,9 +147,17 @@ class UserController extends CommonController {
         $oldpassword = I('post.oldpassword');
         $newpassword = I('post.newpassword');
         $newpassword2 = I('post.newpassword2');
-
+        $sms = I('post.sms');
+		$phone = session('phone');
         if($oldpassword == '' || $newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
             echo ajax_return(0,'密码设置不正确');exit;
+        }
+		if($sms == ''){
+            echo ajax_return(0,'短信验证码不能为空');exit;
+        }
+		//判断短信吗是否正确
+        if($sms != session($phone . 'paypassword')){
+            echo ajax_return(0,'短信验证码不正确');exit;
         }
 
         $password = M('user')->where(array('id'=>$userid))->getField('paypassword');
@@ -141,6 +167,7 @@ class UserController extends CommonController {
 
         $info = M('user')->where(array('id'=>$userid))->setField(array('paypassword'=>md5($newpassword)));
         if($info){
+			session($phone.'paypassword',null);
             echo ajax_return(1,'修改成功');exit;
         }else{
             echo ajax_return(0,'修改失败');
@@ -167,6 +194,9 @@ class UserController extends CommonController {
         if($id){
             echo ajax_return(0,'手机号已存在');exit;
         }
+		if(session($phone.'chg')){
+			echo ajax_return(1,'短信验证码发送成功,请勿频繁发送');exit;
+		}
         $code = mt_rand(10000,99999);
         $result = send_sms('72713',$phone,$code);
         if($result['info'] == 'success'){
@@ -194,6 +224,7 @@ class UserController extends CommonController {
         $info = M('user')->where(array('id'=>$userid))->setField(array('phone'=>$phone,'username'=>$phone));
         if($info){
             session('phone',$phone);
+			session($phone.'chg',null);
             echo ajax_return(0,'修改成功');
         }else{
             echo ajax_return(0,'修改失败');

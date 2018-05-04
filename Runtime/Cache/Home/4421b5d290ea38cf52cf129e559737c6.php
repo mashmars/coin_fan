@@ -29,16 +29,17 @@
 						<ul>
 							<li>
 								<label>原始密码</label>
-								<input type="text"placeholder="请输入原始登录密码" id='oldpassword'>
+								<input type="password"placeholder="请输入原始登录密码" id='oldpassword'>
 							</li>
 							<li>
 								<label>新密码</label>
-								<input type="text"placeholder="请输入新登录密码" id='newpassword'>
+								<input type="password"placeholder="请输入新登录密码" id='newpassword'>
 							</li>
 							<li>
 								<label>确认密码</label>
-								<input type="text"placeholder="再次输入登录密码" id='newpassword2'>
+								<input type="password"placeholder="再次输入登录密码" id='newpassword2'>
 							</li>
+							
 						</ul>
 						<p class="tc">
 							<button class="lhbg mod-btn" id="password_confirm">确认修改</button>
@@ -48,15 +49,20 @@
 						<ul>
 							<li>
 								<label>原始密码</label>
-								<input type="text"placeholder="请输入原始支付密码" id="oldpaypassword">
+								<input type="password"placeholder="请输入原始支付密码" id="oldpaypassword">
 							</li>
 							<li>
 								<label>新密码</label>
-								<input type="text"placeholder="请输入新支付密码" id="newpaypassword">
+								<input type="password"placeholder="请输入新支付密码" id="newpaypassword">
 							</li>
 							<li>
 								<label>确认密码</label>
-								<input type="text"placeholder="再次输入支付密码" id="newpaypassword2">
+								<input type="password"placeholder="再次输入支付密码" id="newpaypassword2">
+							</li>
+							<li>
+								<label>短信验证码</label>
+								<input type="text"placeholder="请输入短信验证码" id='sms'>
+								<span id="code">获取验证码</span>
 							</li>
 						</ul>
 						<p class="tc">
@@ -92,7 +98,43 @@
 		}
 	</script>
 	<script>
+		var wait=60;//60s验证码
+		var t;
+		function time(o) {
+			if (wait == 0) {
+				o.removeAttribute("class", "");   
+				o.innerText="获取验证码";
+				wait = 60;
+				} else {
+					o.setAttribute("class", "disabled");
+					o.innerText="重新发送(" + wait + "s)";
+					wait--;
+					t=setTimeout(function() {
+						time(o)
+					},
+					1000)
+			}
+		}
+		
+	</script>
+	<script>
 	$(function(){
+		$('#code').click(function(){
+			
+			time(this);
+			var obj = $(this);
+			$.post("<?php echo U('user/ajax_paypassword_send_sms');?>",'',function(data){
+				if(data.info == 'success'){				
+					layer.msg(data.msg,{time:2000,icon:1})
+				}else{			
+					clearTimeout(t);
+					obj.text('获取验证码');
+					obj.removeClass('disabled');	
+					layer.msg(data.msg,{time:2000,icon:5});
+								
+				}
+			},'json')
+		})
 		$('#password_confirm').click(function(){
 			var obj = $(this);
 			obj.prop('disabled',true);
@@ -136,6 +178,7 @@
 			var oldpassword  = $('#oldpaypassword').val();
 			var newpassword  = $('#newpaypassword').val();
 			var newpassword2 = $('#newpaypassword2').val();
+			var sms = $('#sms').val();
 			if(oldpassword == ''){
 				layer.msg('原始密码不能为空',{time:2000,icon:5});
 				obj.prop('disabled',false);
@@ -156,7 +199,12 @@
 				obj.prop('disabled',false);
 				return false;
 			}
-			$.post("<?php echo U('user/ajax_paypassword');?>",{oldpassword:oldpassword,newpassword:newpassword,newpassword2:newpassword2},function(data){
+			if(sms == ''){
+				layer.msg('短信验证码不能为空',{time:2000,icon:5});
+				obj.prop('disabled',false);
+				return false;
+			}
+			$.post("<?php echo U('user/ajax_paypassword');?>",{oldpassword:oldpassword,newpassword:newpassword,newpassword2:newpassword2,sms:sms},function(data){
 				if(data.info == 'success'){
 					layer.msg(data.msg,{time:2000,icon:1},function(){
 						location.reload();
