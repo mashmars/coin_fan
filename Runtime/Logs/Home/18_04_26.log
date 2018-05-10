@@ -1,9 +1,0 @@
-[ 2018-04-26T10:28:45+08:00 ] 127.0.0.1 /index.php/index/dddd
-ERR: syntax error, unexpected ','
-
-[ 2018-04-26T10:29:12+08:00 ] 127.0.0.1 /index.php/index/dddd
-ERR: 1062:Duplicate entry '18888888888' for key 'username'
- [ SQL语句 ] : INSERT INTO `user` (`pid`,`username`,`phone`,`password`,`paypassword`,`realname`,`createdate`) VALUES (NULL,'18888888888','18888888888','fb3942c9930e88eef1efbf425f036fd0','fb3942c9930e88eef1efbf425f036fd0','18888888888','1524709752')
-ERR: 1062:Duplicate entry '18888888888' for key 'username'
- [ SQL语句 ] : INSERT INTO `user` (`pid`,`username`,`phone`,`password`,`paypassword`,`realname`,`createdate`) VALUES (NULL,'18888888888','18888888888','fb3942c9930e88eef1efbf425f036fd0','fb3942c9930e88eef1efbf425f036fd0','18888888888','1524709752')
-
