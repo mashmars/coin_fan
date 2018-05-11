@@ -356,27 +356,12 @@ class UserController extends BaseController
 	*
 	*/
 	public function tree(){
-		/*
-		<span><i class="icon-folder-open"></i> Parent</span>
-		<ul>
-			<li>
-				<span><i class="icon-leaf"></i> Grand Child</span>
-			</li>
-			<li>
-				<span><i class="icon-minus-sign"></i> Child</span>
-				<ul>
-					<li>
-						<span><i class="icon-leaf"></i> Grand Child</span>
-					</li>
-				</ul>
-			</li>
-		</ul>	
-		*/
+		
 		
 		$html = '<span><i class="icon-folder-open"></i> 会员结构</span><ul>';
 		
 		$users = M('user_zone')->alias('a')->join('left join user b on a.userid=b.id')->field('a.*,b.phone,b.realname')->where('a.pid=0')->select();
-		foreach($users as $user){
+		foreach($users as $user){			
             $html .= $this->get_team1($user['userid'],$user['realname']);
         }
 		$html .= '</ul>';
@@ -393,22 +378,45 @@ class UserController extends BaseController
         } 
 		
         $users = M('user_zone')->alias('a')->join('left join user b on a.userid=b.id')->where(array('a.pid'=>$userid))->field('a.*,b.phone,b.realname')->select();
-		//$total = $this->get_xiaji($userid);
-		//$coin = M('user_coin')->where(array('userid'=>$userid))->getField('lth');
+		/*
+		<span><i class="icon-folder-open"></i> Parent</span>
+		<ul>
+			<li>
+				<span><i class="icon-leaf"></i> Grand Child</span>
+			</li>
+			<li>
+				<span><i class="icon-minus-sign"></i> Child</span>
+				<ul>
+					<li>
+						<span><i class="icon-leaf"></i> Grand Child</span>
+					</li>
+				</ul>
+			</li>
+		</ul>	
+		*/
         if($users[0]) {
+			if($new){
+				$data .= '<li><span><i class="icon-minus-sign"></i> '.$userid.'-'.$phone.'</span><ul>';
+			}
             foreach ($users as $user) {
-                if ($user) {
+				
+                if ($user) {					
                     //有下级
-                    $data .= '<li><span><i class="icon-minus-sign"></i> '.$user['realname'].'</span><ul>';
+                    $data .= '<li><span><i class="icon-minus-sign"></i> '.$user['userid'].'-'.$user['realname'].'</span><ul>';
                     $this->get_team1($user['userid'],$user['realname'],false);
                     $data .= '</ul></li>';
                 }
+				
             }
+			if($new){
+				$data .= '</ul></li>';
+			}
+			
         }else{
             //没有下级
-            if($new){
-                $data .= '<li><span><i class="icon-leaf"></i> '.$phone.'-'.$coin.'-'.$total.'</span></li>';
-            }
+            
+            $data .= '<li><span><i class="icon-leaf"></i> '.$userid.'-'.$phone.'</span></li>';
+            
         }
         return $data;
     }
