@@ -399,7 +399,7 @@ class UserController extends BaseController
             foreach ($users as $user) {
                 if ($user) {
                     //有下级
-                    $data .= '<li><span><i class="icon-minus-sign"></i> '.$phone.'</span><ul>';
+                    $data .= '<li><span><i class="icon-minus-sign"></i> '.$user['realname'].'</span><ul>';
                     $this->get_team1($user['userid'],$user['realname'],false);
                     $data .= '</ul></li>';
                 }
