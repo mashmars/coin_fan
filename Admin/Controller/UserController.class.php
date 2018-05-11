@@ -414,8 +414,10 @@ class UserController extends BaseController
 			
         }else{
             //没有下级
+            if($new){
+				$data .= '<li><span><i class="icon-leaf"></i> '.$userid.'-'.$phone.'</span></li>';
+			}
             
-            $data .= '<li><span><i class="icon-leaf"></i> '.$userid.'-'.$phone.'</span></li>';
             
         }
         return $data;
