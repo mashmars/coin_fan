@@ -10,7 +10,7 @@ class FinanceController extends BaseController {
     {
         $p = I('param.p',1);
         $list = 10;
-        $res = M('myzr')->alias('a')->join('left join user b on a.userid=b.id')->field('a.*,b.phone,b.username')->page($p.','.$list)->select();
+        $res = M('myzr')->alias('a')->join('left join user b on a.userid=b.id')->field('a.*,b.phone,b.username')->page($p.','.$list)->order('id desc')->select();
         $count = M('myzr')->alias('a')->join('left join user b on a.userid=b.id')->count();
         $page = new \Think\Page($count,$list);
         $show = $page->show();
@@ -26,13 +26,39 @@ class FinanceController extends BaseController {
     {
         $p = I('param.p',1);
         $list = 10;
-        $res = M('myzc')->alias('a')->join('left join user b on a.userid=b.id')->field('a.*,b.phone,b.username')->page($p.','.$list)->select();
-        $count = M('myzc')->alias('a')->join('left join user b on a.userid=b.id')->count();
+		
+		$field = I('param.field');
+		$keyword = I('param.keyword');
+		$status = I('param.status');
+		if($status != ''){
+			$map['a.status'] = $status;
+		}
+		if($field == 'phone' && $keyword){
+			$userid = M('user')->where(array('phone'=>$keyword))->getField('id');
+			if($userid){
+				$map['userid'] = $userid;
+			}
+		}elseif($field == 'address' && $keyword){
+			$map['a.address'] = $keyword;
+		}
+		//var_dump($map);
+        $res = M('myzc')->alias('a')->join('left join user b on a.userid=b.id')->where($map)->field('a.*,b.phone,b.username')->page($p.','.$list)->order('a.id desc')->select();
+        $count = M('myzc')->alias('a')->join('left join user b on a.userid=b.id')->where($map)->count();
         $page = new \Think\Page($count,$list);
+		foreach($map as $key=>$val){
+			$pos = strpos($key,'.');
+			if($pos){
+				$key = substr($key,$pos+1);
+			}
+			$page->parameter[$key] = $val;
+		}
         $show = $page->show();
         $this->assign('res',$res);
         $this->assign('page',$show);
         $this->assign('count',$count);
+        $this->assign('field',$field);
+        $this->assign('keyword',$keyword);
+        $this->assign('status',$status);
         $this->display();
     }
 

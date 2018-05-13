@@ -3,6 +3,17 @@ namespace Admin\Controller;
 use Think\Controller;
 use Admin\Controller\BaseController;
 class SystemController extends BaseController {
+	public function gonggao(){
+		$info = M('gonggao')->find(1);
+		$this->assign('info',$info);
+		if(IS_POST){
+			$data = I('post.');
+			$data['createdate'] = time();
+			M('gonggao')->save($data);
+			$this->success('编辑成功');exit;
+		}
+		$this->display();
+	}
 	
 	/**
 	 *静态分红

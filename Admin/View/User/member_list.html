@@ -81,6 +81,7 @@
 				<th width="100">姓名</th>								
 				<th width="100">时间</th>								
 				<th width="100">提币状态</th>								
+				<th width="100">提币比例</th>								
 				<th width="170">操作</th>
 			</tr>
 		</thead>
@@ -98,10 +99,11 @@
 				<span class="label label-success radius">可提币</span>
 				<else /><span class="label label-danger radius">禁止提币</span>
 				</if>
-				</td>					
+				</td>	
+				<td>{$vo['tb_bl']*1}</td>
 				<td class="td-manage">				
 				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户基本信息','{:U('user/member_edit',array('id'=>$vo['id']))}','','510')"   title="编辑用户信息">编辑</a>  
-				
+				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onClick="login(this,'{$vo.id}')" href="javascript:;" title="登入">登入</a>  
 				</td>
 			</tr>
 		</volist>
@@ -243,6 +245,22 @@ $(function(){
 	})
 })
 
+function login(obj,id){
+	$.ajax({
+		url:"{:U('user/ajax_yidi_login')}",
+		data:{id:id},
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			if(data.info == 'success'){
+				var url = "/index.php/user/index.html";
+				window.open(url);
+			}else{
+				layer.msg(data.msg);
+			}
+		}
+	})
+}
 </script>
 
 <script type="text/javascript">

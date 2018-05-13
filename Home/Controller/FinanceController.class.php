@@ -208,7 +208,21 @@ class FinanceController extends CommonController {
             echo ajax_return(0,'数量不足');exit;
         }
 		
-
+		//新增控制 最大可提数量 规则是：如果个人tb_bl==0,则走config的tb_bl全局比例，否则优先走个人的 浮点判断 必须是大于0 
+		if($user['tb_bl']>0){
+			$max = $user_coin['lth']*$user['tb_bl'];
+		}else{
+			$cfg = M('config')->find(1);
+			if($cfg['tb_bl']>0){
+				$max = $user_coin['lth']*$cfg['tb_bl'];
+			}else{
+				//这个暂时用作必须设置提币比例 否则是不让提的
+				$max = 0;
+			}
+		}
+		if($mum > $max){
+			echo ajax_return(0,'超过可转数量');exit;
+		}
         //可以转出
         $mo = M();
         $mo->startTrans();
@@ -233,7 +247,10 @@ class FinanceController extends CommonController {
         $userid = session('userid');
         $p = I('param.p',1);
         $list = 5;
+		//扣费
+		$charge = M('sys_charge_log')->where(array('userid'=>$userid))->order('id desc')->select();
         $res = M('myzc')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
+        $this->assign('charge',$charge);
         $this->assign('res',$res);
         $this->display();
     }
@@ -371,7 +388,23 @@ class FinanceController extends CommonController {
         if($user_coin['lth'] < $mum){
             echo ajax_return(0,'余额不足');exit;
         }
-       
+		
+		//新增控制 最大可提数量 规则是：如果个人tb_bl==0,则走config的tb_bl全局比例，否则优先走个人的 浮点判断 必须是大于0 
+		if($from['tb_bl']>0){
+			$max = $user_coin['lth']*$from['tb_bl'];
+		}else{
+			$cfg = M('config')->find(1);
+			if($cfg['tb_bl']>0){
+				$max = $user_coin['lth']*$cfg['tb_bl'];
+			}else{
+				//这个暂时用作必须设置提币比例 否则是不让提的
+				$max = 0;
+			}
+		}
+		if($mum > $max){
+			echo ajax_return(0,'超过可转数量');exit;
+		}
+		
         //可以转
         $mo = M();
         $mo->startTrans();

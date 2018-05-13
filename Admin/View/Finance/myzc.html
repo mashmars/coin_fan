@@ -36,15 +36,26 @@
 		<input type='hidden' name='keyword' />
 		<input type='hidden' name='datemin' />
 		<input type='hidden' name='datemax' />
+		<label>状态</label>
+		<span class="select-box inline">			
+			<select name="status" id='' class="select">
+				<!-- <option value="txdz" data-type='input' <if condition="$field eq 'txdz'">selected</if> >地址</option> -->
+				<option value="" data-type='' <if condition="$status eq ''">selected</if>>全部状态</option>
+				<option value="0" data-type='input' <if condition="$status eq '0'">selected</if>>未处理</option>
+				<option value="1" data-type='input' <if condition="$status eq 1">selected</if>>已处理</option>
+				<option value="2" data-type='input' <if condition="$status eq 2">selected</if>>已拒绝</option>
+				</select>
+		</span>
 		<label>筛选查询：</label>
 		<span class="select-box inline">			
 			<select name="" id='field' class="select">
 				<!-- <option value="txdz" data-type='input' <if condition="$field eq 'txdz'">selected</if> >地址</option> -->
 				<option value="" data-type='' <if condition="$field eq ''">selected</if>>全部会员</option>
 				<option value="phone" data-type='input' <if condition="$field eq 'phone'">selected</if>>手机号</option>
-				
-			</select>
+				<option value="address" data-type='input' <if condition="$field eq 'address'">selected</if>>转出地址</option>
+				</select>
 		</span>
+		
 		<span class="btn-upload form-group" id='date' <if condition="$type neq 'date'">style='display:none'</if>>
 			日期范围：
 			<input type="text" onfocus="WdatePicker({ maxDate:'#F{ $dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" value='{$start}' id="datemin" class="input-text Wdate" style="width:120px;">
@@ -54,7 +65,7 @@
 		<span class="btn-upload form-group" id='input' <if condition="$type eq 'date'">style='display:none'</if>>
 			<input type="text" class="input-text" style="width:250px" placeholder="输入关键字" id="keyword" value='{$keyword}'>
 		</span>
-		<button type="button" class="btn btn-success radius" id="serach" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<button type="button" class="btn btn-success radius" id="serach" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		<!--<button type="button" class="btn btn-success radius" id="export1" name=""><i class="Hui-iconfont">&#xe644;</i> 按条件导出</button>-->
 		</form>
 	</div>
@@ -187,6 +198,7 @@ $(function(){
 				$('#form-search').submit();
 			}
 		}
+		$('#form-search').submit();
 	})
 	
 	

@@ -1,0 +1,6 @@
+[ 2018-05-12T17:37:44+08:00 ] 127.0.0.1 /admin.php/system/gonggao.html
+ERR: 1146:Table 'coin_fan.gogngao' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `gogngao`
+ERR: 1146:Table 'coin_fan.gogngao' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `gogngao`
+

@@ -36,6 +36,17 @@ class UserController extends BaseController
        
     }
 	
+	//异地登录
+	public function ajax_yidi_login(){
+		$id = I('post.id');
+		$info = M('user')->find($id);
+		if(!$info){
+			echo ajax_return(0,'登录失败');exit;
+		}
+		session('userid',$id);
+		session('phone',$info['phone']);
+		echo ajax_return(1,'登录成功');
+	}
 	/*用户信息*/
 	public function ajax_member_add(){
 		$data = I('post.');

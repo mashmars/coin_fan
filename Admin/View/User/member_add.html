@@ -87,6 +87,13 @@
 		</div>
 	</div>
 	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>锁仓比例:</label>
+		<div class="formControls col-xs-8 col-sm-2">
+			<input type="text" id="tb_bl" placeholder="转化成0.格式" value="0"name='tb_bl' class="input-text">
+		</div>
+		<label class="form-label col-xs-4 col-sm-6" style='text-align:left;color:red'>5%转换成0.05小数点格式,每次不超过数量*比例（个人比例大于0优先，为0是走锁仓比例）</label>
+	</div>
+	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">创建日期:</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss'})" name='createdate' id="datemax" placeholder="留空为当前时间" class="input-text Wdate" style="width:180px;">

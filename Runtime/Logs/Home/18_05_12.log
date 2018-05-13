@@ -1,0 +1,27 @@
+[ 2018-05-12T15:58:48+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-05-12T17:04:02+08:00 ] 127.0.0.1 /index.php/my/index.html
+ERR: 无法加载控制器:My
+
+[ 2018-05-12T17:40:16+08:00 ] 127.0.0.1 /index.php/queue/get_xiaji
+ERR: 参数错误或者未定义:userid
+
+[ 2018-05-12T21:23:03+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-05-12T21:28:48+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-05-12T21:28:53+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-05-12T21:28:59+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-05-12T21:29:01+08:00 ] 127.0.0.1 /Admin/Public/lib/layer/2.1/layer.js
+ERR: 无法加载控制器:Admin
+
+[ 2018-05-12T22:13:36+08:00 ] 127.0.0.1 /index.php/user/$('
+ERR: 非法操作:$('
+

@@ -67,6 +67,10 @@
 				</ul>
 			</div>
 			<p class="tc"><button class="lhbg exit-logon">退出登录</button></p>
+			<div id='gonggao' style='display:none'>
+				<h4>{$gonggao.title}</h4>
+				<div>{$gonggao.content|html_entity_decode}</div>
+			</div>
 		</div>
 		<footer>
 	<ul class="tc ovh">
@@ -116,5 +120,19 @@
 			},'json')
 		})
 	})
+	
+	var flag='{$flag}';
+	if(flag){
+		layer.open({
+		  type: 1,
+		  shade: false,
+		  title: false,
+		area: ['280px', '60%'],		  
+		content: $('#gonggao'), 
+		  cancel: function(){
+			
+		  }
+		});
+	}
 	</script>
 </html>

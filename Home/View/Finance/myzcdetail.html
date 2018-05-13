@@ -27,8 +27,20 @@
 						<span class="pullDownIcon"></span>
 						<span class="pullDownLabel">下拉刷新...</span>
 					</div>
-					<if condition="$res[0] neq null">
+					
 					<ul id="list">
+					<volist name='charge' id='vo'>
+						<li class="flex-box">
+							<div class="flex-1 flex-box">
+								<img src="{$Think.const.PUB_IMG}ht.png" alt="">
+								<div class="flex-1">
+									<h4>已确认</h4>
+									<p><span>{$vo.createdate|date='m月d日',###}</span><span>{$vo.createdate|date='H:i',###}</span></p>
+								</div>
+							</div>
+							<span>-{$vo.num}</span>
+						</li>
+					</volist>
 					<volist name='res' id='vo'>
 						<li class="flex-box">
 							<div class="flex-1 flex-box">
@@ -42,7 +54,7 @@
 						</li>
 					</volist>
 					</ul>
-					<else />
+					<if condition="$res[0] eq null and $charge[0] eq null">
 					<p class="no-list tc">暂无记录</p>
 					</if>
 					<div id="pullUp">

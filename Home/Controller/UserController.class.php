@@ -11,6 +11,11 @@ class UserController extends CommonController {
     public function index(){
 		$userid = session('userid');
 		$yeji = $this->get_xiaji($userid);
+		$gonggao = M('gonggao')->find(1);
+		if($gonggao['content']){
+			$this->assign('flag',true);
+		}
+		$this->assign('gonggao',$gonggao);
 		$this->assign('yeji',$yeji);
 		$this->display();
 	}

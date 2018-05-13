@@ -72,7 +72,13 @@
 			</div>
 		</div>
 	</div>
-	
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>锁仓比例:</label>
+		<div class="formControls col-xs-8 col-sm-2">
+			<input type="text" id="tb_bl" placeholder="转化成0.格式" value="{$info.tb_bl}"name='tb_bl' class="input-text">
+		</div>
+		<label class="form-label col-xs-4 col-sm-6" style='text-align:left;color:red'>5%转换成0.05小数点格式,每次不超过数量*比例（个人比例大于0优先，为0是走锁仓比例）</label>
+	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">创建日期:</label>
 		<div class="formControls col-xs-8 col-sm-9">
