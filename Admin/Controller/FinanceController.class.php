@@ -50,7 +50,15 @@ class FinanceController extends BaseController {
 			if($pos){
 				$key = substr($key,$pos+1);
 			}
-			$page->parameter[$key] = $val;
+			if($key == 'userid'){
+				$page->parameter['field'] = 'phone';
+				$page->parameter['keyword'] = $keyword;
+			}elseif($key == 'address'){
+				$page->parameter['field'] = 'address';
+				$page->parameter['keyword'] = $keyword;
+			}else{
+				$page->parameter[$key] = $val;
+			}
 		}
         $show = $page->show();
         $this->assign('res',$res);
