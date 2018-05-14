@@ -1,6 +1,6 @@
 $(function(){
 	$('.go').click(function(){
-		history.go(-1);
+		self.location=document.referrer;
 	})
 	
 	

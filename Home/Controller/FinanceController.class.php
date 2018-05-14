@@ -117,6 +117,44 @@ class FinanceController extends CommonController {
         $this->assign('address',$address);
         $this->display();
     }
+    /*
+	地址列表
+	*/
+	public function address(){
+		$userid = session('userid');
+		$res = M('user_qianbao')->where(array('userid'=>$userid))->select();
+		$this->assign('res',$res);
+		$this->display();
+	}
+	public function ajax_address_del(){
+		$id = I('post.id');
+		$userid = session('userid');
+		$info = M('user_qianbao')->where(array('id'=>$id,'userid'=>$userid))->find();
+		if(!$info){
+			echo ajax_return(0,'请求有误');exit;
+		}
+		$res = M('user_qianbao')->delete($id);
+		if($res){
+			echo ajax_return(1,'删除成功');
+		}else{
+			echo ajax_return(0,'删除失败');
+		}
+	}
+	/*地址类型
+	*/
+	public function zcwallet(){
+		$id = I('param.id');
+		$userid = session('userid');
+		if($id){ //存在id是编辑
+			$info = M('user_qianbao')->where(array('id'=>$id,'userid'=>$userid))->find();
+			if(!$info){
+				redirect(U('finance/address'));
+			}
+			$this->assign('info',$info);
+		}
+		
+		$this->display();
+	}
     /**
      *添加我的转出钱包地址
      */
@@ -124,16 +162,27 @@ class FinanceController extends CommonController {
     {
         $name = I('post.name');
         $address = I('post.address');
+        $id = I('post.id');
         if($name == '' || $address == ''){
             echo ajax_return(0,'钱包标识和钱包地址不能为空');exit;
         }
         $userid = session('userid');
-
-        $res = M('user_qianbao')->add(array('userid'=>$userid,'name'=>$name,'address'=>$address,'createdate'=>time()));
+		if($id){
+			//编辑
+			$info = M('user_qianbao')->where(array('id'=>$id,'userid'=>$userid))->find();
+			if(!$info){
+				echo ajax_return(0,'请求有误');exit;
+			}
+			$res = M('user_qianbao')->where(array('id'=>$id))->setField(array('name'=>$name,'address'=>$address));
+		}else{
+			//新增
+			$res = M('user_qianbao')->add(array('userid'=>$userid,'name'=>$name,'address'=>$address,'createdate'=>time()));
+		}
+        
         if($res){
-            echo ajax_return(1,'添加成功');exit;
+            echo ajax_return(1,'操作成功');exit;
         }else{
-            echo ajax_return(0,'添加失败');exit;
+            echo ajax_return(0,'操作失败');exit;
         }
     }
 
@@ -491,9 +540,11 @@ class FinanceController extends CommonController {
         foreach($res as &$v){
             if($v['userid'] == $userid){
                 $v['type'] = 'zc';
+				$v['phone'] = M('user')->where(array('id'=>$v['peerid']))->getField('phone');
             }
             if($v['peerid'] == $userid){
                 $v['type'] = 'zr';
+				$v['phone'] = M('user')->where(array('id'=>$v['userid']))->getField('phone');
             }
         }
         $this->assign('res',$res);
@@ -516,9 +567,11 @@ class FinanceController extends CommonController {
             $v['time'] = date('H:i');
             if($v['userid'] == $userid){
                 $v['type'] = 'zc';
+				$v['phone'] = M('user')->where(array('id'=>$v['peerid']))->getField('phone');
             }
             if($v['peerid'] == $userid){
                 $v['type'] = 'zr';
+				$v['phone'] = M('user')->where(array('id'=>$v['userid']))->getField('phone');
             }
         }
         echo json_encode($res);

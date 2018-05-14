@@ -21,11 +21,11 @@
 				<ul>
 					<li>
 						<label>钱包标识</label>
-						<input type="text"placeholder="请输入钱包标识" id='name'>
+						<input type="text"placeholder="请输入钱包标识" id='name' value="<?php echo ($info["name"]); ?>">
 					</li>
 					<li>
 						<label>钱包地址</label>
-						<input type="text"placeholder="请输入钱包" id='address'>
+						<input type="text"placeholder="请输入钱包" id='address' value="<?php echo ($info["address"]); ?>">
 					</li>
 				</ul>
 				<p><em class="tips">友情提示：</em></p>
@@ -56,10 +56,10 @@
 				obj.prop('disabled',false);
 				return false;
 			}
-			$.post("<?php echo U('finance/ajax_add_myzc_wallet');?>",{name:name,address:address},function(data){
+			$.post("<?php echo U('finance/ajax_add_myzc_wallet');?>",{name:name,address:address,id:"<?php echo ($info["id"]); ?>"},function(data){
 				if(data.info == 'success'){
 					layer.msg(data.msg,{time:2000,icon:1},function(){
-						location.href = "<?php echo U('finance/myzc');?>";
+						location.href = "<?php echo U('finance/address');?>";
 					});
 				}else{
 					layer.msg(data.msg,{time:2000,icon:5});

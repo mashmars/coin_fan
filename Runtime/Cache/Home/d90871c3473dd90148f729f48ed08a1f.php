@@ -35,6 +35,12 @@
 			</div>
 			<ul class="asset-item">
 				<li>
+					<a href="<?php echo U('finance/address');?>">
+						<i class="purse"></i>钱包管理
+						<span class="go"></span>
+					</a>
+				</li>
+				<li>
 					<a href="<?php echo U('finance/myzr');?>">
 						<i class="enter"></i>转入
 						<span class="go"></span>
@@ -64,6 +70,7 @@
 						<span class="go"></span>
 					</a>
 				</li>
+				
 			</ul>
 		</div>
 	</body>

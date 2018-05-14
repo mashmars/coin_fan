@@ -34,11 +34,11 @@
 							<div class="flex-1 flex-box">
 								<img src="{$Think.const.PUB_IMG}ht.png" alt="">
 								<div class="flex-1">
-									<h4><if condition="$vo['type'] eq 'zc'">转出<else />转入</if></h4>
+									<h4><if condition="$vo['type'] eq 'zc'">转出({$vo.phone})<else />转入({$vo.phone})</if></h4>
 									<p><span>{$vo.createdate|date='m月d日',###}</span><span>{$vo.createdate|date='H:i',###}</span></p>
 								</div>
 							</div>
-							<span><if condition="$vo['type'] eq 'zc'">-{$vo.mum}<else />+{$vo.num}</if></span>
+							<span><if condition="$vo['type'] eq 'zc'">-<else />+</if>{$vo.num}</span>
 						</li>
 					</volist>
 					</ul>
@@ -121,20 +121,18 @@
 							}
 							$.each(result,function(k,v){
 								var src = "{$Think.const.PUB_IMG}";
-								var type='',fh='',num=0;
+								var type='',fh='';
 								if(v.type == 'zc'){
 									type = '转出';
 									fh = '-';
-									num = v.mum;
 								}else{
 									type = '转入';
 									fh = '+';
-									num = v.num;
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="{$Think.const.PUB_IMG}ht.png" alt="">';
-									list += '<div class="flex-1"><h4>'+type+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
-									list += '<span>'+fh+num+'</span></li>';
+									list += '<div class="flex-1"><h4>'+type+'('+v.phone+')</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
+									list += '<span>'+fh+v.num+'</span></li>';
 								}
 							})
 							p +=1;

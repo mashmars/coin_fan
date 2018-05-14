@@ -11,40 +11,18 @@
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>use.css">
 	</head>
 	<body>
+	<header>
+			<h3 class="tc lhbg">
+				<i class="go"></i>
+				提币
+			</h3>
+	</header>
 		<div class="main chargingMoney">
-			<div class="user-info">
-				<img src="<?php echo (PUB_IMG); ?>usbg.png" alt=""class="usbg">
-				<div class="user-txt">
-					<h3 class="tc">我的</h3>
-					<div class="flex-box user-head">
-						<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
-						<div class="flex-1">
-							<h4>你好，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
-							<p><?php echo (session('phone')); ?></p>
-						</div>
-					</div>
-					<div class="tc flex-box user-total">
-						<div class="flex-1">
-							<p>挖矿收益</p>
-							<h4><?php echo ($shouyi*1); ?></h4>
-						</div>
-						<div class="flex-1">
-							<p>参考市值</p>
-							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
-						</div>
-						<div class="flex-1">
-							<p>MC币数</p>
-							<h4><?php echo ($usercoin['lth']*1); ?></p>
-						</div>
-					</div>
-				</div>
-			</div>
 			<?php if($address != null): ?><div class="charging-item">
 					<h3><i class="num"></i>提币数量</h3>
 					<div class="charging-inpu">
 						<input type="number"placeholder="请输入提币数量" id='num'>
 					</div>
-					手续费:<span id='fee' style="margin-left:15px;">0.00</span>
 				</div>
 				<div class="charging-item">
 					<h3><i class="adr"></i>钱包地址</h3>
@@ -53,6 +31,7 @@
 						<i></i>
 						<ul class="tc">
 						<?php if(is_array($address)): $i = 0; $__LIST__ = $address;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li data-id="<?php echo ($vo["id"]); ?>" data-value="<?php echo ($vo["address"]); ?>"><?php echo ($vo["name"]); ?></li><?php endforeach; endif; else: echo "" ;endif; ?>							
+						<li data-id="" data-value="">地址管理</li>
 						</ul>
 					</div>
 				</div>
@@ -77,34 +56,6 @@
 					<a class="lhbg mod-btn" href="<?php echo U('finance/zcwallet');?>">添加转出钱包地址</a>
 				</p><?php endif; ?>
 		</div>
-		<footer>
-	<ul class="tc ovh">
-		<li>
-			<a href="<?php echo U('finance/myzr');?>">
-				<i class="charge"></i>
-				<span>充币</span>
-			</a>
-		</li>
-		<li class="active">
-			<a href="<?php echo U('finance/myzc');?>">
-				<i class="carry"></i>
-				<span>提币</span>
-			</a>
-		</li>
-		<li>
-			<a href="<?php echo U('finance/index');?>">
-				<i class="wallet"></i>
-				<span>钱包</span>
-			</a>
-		</li>
-		<li >
-			<a href="<?php echo U('user/index');?>">
-				<i class="use"></i>
-				<span>我的</span>
-			</a>
-		</li>
-	</ul>
-</footer>
 
 	</body>
 	<script src="<?php echo (PUB_JS); ?>set.js"></script>
@@ -138,6 +89,11 @@
 				$(this).siblings('i').toggleClass("active");
 			})
 			$('.selection ul li').click(function () {
+				if($(this).data('id') ==''){
+					var url = "<?php echo U('finance/address');?>";
+					location.href=url;
+				}
+				
 				$(this).parent().hide();
 				$(this).addClass('hv').siblings().removeClass('hv');
 				$(this).parent().siblings('input').val($(this).text());
@@ -210,17 +166,6 @@ $(function(){
 				obj.prop('disabled',false);
 			}
 		},'json')
-	})
-	//
-	var fee = <?php echo ($fee); ?>;
-	$('#num').keyup(function(){
-		var num = $(this).val();	
-		if(isNaN(num) || num == ''){
-			$('#fee').text('0.00');
-			return false;
-		}
-		zfee = parseFloat(num) * fee ;
-		$('#fee').text(zfee.toFixed(2));
 	})
 })
 </script>
