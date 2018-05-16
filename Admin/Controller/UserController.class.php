@@ -343,6 +343,9 @@ class UserController extends BaseController
         }
         $users = M('user_zone')->alias('a')->join('left join user b on a.userid=b.id')->where(array('a.pid'=>$userid))->field('a.*,b.phone')->select();
         if($users[0]) {
+			if($new){
+                $data .= '{"name":"' . $phone . '","children":[';
+            }
             foreach ($users as $user) {
                 if ($user) {
                     //有下级
@@ -353,6 +356,9 @@ class UserController extends BaseController
                 //没有下级
                 $data .= '{"name":"'.$user['phone'].'"},';
             }*/
+            }
+			if($new){
+                 $data .= ']},';
             }
         }else{
             //没有下级

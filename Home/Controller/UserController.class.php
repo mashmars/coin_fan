@@ -149,12 +149,12 @@ class UserController extends CommonController {
     public function ajax_paypassword()
     {
         $userid = session('userid') ;
-        $oldpassword = I('post.oldpassword');
+       
         $newpassword = I('post.newpassword');
         $newpassword2 = I('post.newpassword2');
         $sms = I('post.sms');
 		$phone = session('phone');
-        if($oldpassword == '' || $newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
+        if( $newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
             echo ajax_return(0,'密码设置不正确');exit;
         }
 		if($sms == ''){
@@ -166,9 +166,7 @@ class UserController extends CommonController {
         }
 
         $password = M('user')->where(array('id'=>$userid))->getField('paypassword');
-        if($password != md5($oldpassword)){
-            echo ajax_return(0,'原始密码输入不正确');exit;
-        }
+       
 
         $info = M('user')->where(array('id'=>$userid))->setField(array('paypassword'=>md5($newpassword)));
         if($info){
