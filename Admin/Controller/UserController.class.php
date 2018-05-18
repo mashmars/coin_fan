@@ -337,17 +337,17 @@ class UserController extends BaseController
     }
     public function get_team($userid,$phone='',$new=true)
     {
-        static $data = '';
+        static $data = '';static $d=0;
         if($new){
             $data = '';
         }
         $users = M('user_zone')->alias('a')->join('left join user b on a.userid=b.id')->where(array('a.pid'=>$userid))->field('a.*,b.phone')->select();
         if($users[0]) {
-			if($new){
+			if($new){ 
                 $data .= '{"name":"' . $phone . '","children":[';
             }
             foreach ($users as $user) {
-                if ($user) {
+                if ($user) {$d++;
                     //有下级
                     $data .= '{"name":"' . $user['phone'] . '","children":[';
                     $this->get_team($user['userid'],$user['phone'],false);
@@ -358,11 +358,11 @@ class UserController extends BaseController
             }*/
             }
 			if($new){
-                 $data .= ']},';
+                $data .= ']},';
             }
         }else{
             //没有下级
-            if($new){
+            if($new){$d++;
                 $data .= '{"name":"'. $phone .'"},';
             }
         }
