@@ -170,9 +170,9 @@ class LoginController extends Controller
 			//判断当前用户下面有人没 有的话 返回success 否则返回erroe
 			$zone = M('user_zone')->where(array('pid'=>$id))->find();
 			if($zone){
-				echo ajax_register(1,'没人');
+				echo ajax_return(1,'没人');
 			}else{
-				echo ajax_register(0,'有人');
+				echo ajax_return(0,'有人');
 			}
 		}
 	}

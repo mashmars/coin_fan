@@ -227,7 +227,7 @@ function del(obj,id){
 			success:function(data){
 				if(data.info =='success'){
 					layer.msg(data.msg,{time:2000,icon:6},function(){
-						parent.location.reload();
+						window.location.reload();
 					})
 				}else{
 					layer.msg(data.msg,{time:2000,icon:5})
@@ -247,7 +247,7 @@ function shenhe(id){
 			success:function(data){
 				if(data.info =='success'){
 					layer.msg(data.msg,{time:2000,icon:6},function(){
-						parent.location.reload();
+						window.location.reload();
 					})
 				}else{
 					layer.msg(data.msg,{time:2000,icon:5})

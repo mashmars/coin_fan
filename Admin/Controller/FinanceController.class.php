@@ -59,6 +59,7 @@ class FinanceController extends BaseController {
 			}else{
 				$page->parameter[$key] = $val;
 			}
+			
 		}
         $show = $page->show();
         $this->assign('res',$res);

@@ -28,9 +28,7 @@
 				<div class="amount">
 					<p>转账金额</p>
 					<p class="flex-box"><i ></i><input type="number"class="flex-1" id='money'></p>
-					<p>可用余额: <span id='coin'>{$usercoin['lth']*1}</span>
-					 手续费:<span id='fee' style="margin-left:15px;">0.00</span>
-					</p>
+					<p>可用余额: <span id='coin'>{$usercoin['lth']*1}</span></p>
 				</div>
 				<ul class="real-item">
 					<li class="fix">
@@ -73,7 +71,6 @@
 			$.post("{:U('finance/ajax_transfer')}",{phone:phone,money:money,password:password},function(data){
 				if(data.info =='success'){
 					layer.msg(data.msg,{time:2000,icon:1},function(){
-					
 						location.reload();
 					});
 				}else{
@@ -81,18 +78,6 @@
 					obj.prop('disabled',false);
 				}
 			},'json')
-		})
-		
-		//
-		var fee = {$fee};
-		$('#money').keyup(function(){
-			var money = $(this).val();	
-			if(isNaN(money) || money == ''){
-				$('#fee').text('0.00');
-				return false;
-			}
-			zfee = parseFloat(money) * fee ;
-			$('#fee').text(zfee.toFixed(2));
 		})
 	})
 	</script>

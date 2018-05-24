@@ -32,11 +32,11 @@
 							<div class="flex-1 flex-box">
 								<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 								<div class="flex-1">
-									<h4><?php if($vo['type'] == 'zc'): ?>转出<?php else: ?>转入<?php endif; ?></h4>
+									<h4><?php if($vo['type'] == 'zc'): ?>转出(<?php echo ($vo["phone"]); ?>)<?php else: ?>转入(<?php echo ($vo["phone"]); ?>)<?php endif; ?></h4>
 									<p><span><?php echo (date('m月d日',$vo["createdate"])); ?></span><span><?php echo (date('H:i',$vo["createdate"])); ?></span></p>
 								</div>
 							</div>
-							<span><?php if($vo['type'] == 'zc'): ?>-<?php echo ($vo["mum"]); else: ?>+<?php echo ($vo["num"]); endif; ?></span>
+							<span><?php if($vo['type'] == 'zc'): ?>-<?php else: ?>+<?php endif; echo ($vo["num"]); ?></span>
 						</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 					<?php else: ?>
@@ -117,20 +117,18 @@
 							}
 							$.each(result,function(k,v){
 								var src = "<?php echo (PUB_IMG); ?>";
-								var type='',fh='',num=0;
+								var type='',fh='';
 								if(v.type == 'zc'){
 									type = '转出';
 									fh = '-';
-									num = v.mum;
 								}else{
 									type = '转入';
 									fh = '+';
-									num = v.num;
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="<?php echo (PUB_IMG); ?>ht.png" alt="">';
-									list += '<div class="flex-1"><h4>'+type+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
-									list += '<span>'+fh+num+'</span></li>';
+									list += '<div class="flex-1"><h4>'+type+'('+v.phone+')</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
+									list += '<span>'+fh+v.num+'</span></li>';
 								}
 							})
 							p +=1;

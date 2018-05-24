@@ -44,7 +44,7 @@
       <!-- <div class="row cl"> -->
         <!-- <div class="formControls col-xs-8 col-xs-offset-3"> -->
           <!-- <input class="input-text size-L" type="text" placeholder="验证码" name='captcha' id='captcha' onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="" style="width:150px;"> -->
-          <!-- <img src="/admin.php/Login/captcha" onclick="this.src='/admin.php/Login/captcha/'+Math.random()"> <a id="kanbuq" href="javascript:;">看不清,点击图片更换</a> </div> -->
+          <!-- <img src="/yaxing888.php/login/captcha" onclick="this.src='/yaxing888.php/login/captcha/'+Math.random()"> <a id="kanbuq" href="javascript:;">看不清,点击图片更换</a> </div> -->
       <!-- </div> -->
       
       <div class="row cl">

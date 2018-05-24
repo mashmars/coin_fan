@@ -49,7 +49,7 @@ class FinanceController extends CommonController {
             $host = C('wallet_host');
             $port = C('wallet_port');
             //$client = new \client($user,$pwd,$host,$port, 5, [], 1); //暂时不能用 。。。。。
-            $client = new \client('a5c','543', '127.0.0.1', 31253, 5, [], 1);
+           $client = new \client('12','123...', '127.0.0.1', 29316, 5, [], 1);
 
             if(!$client){
                 $qianbao = '';
@@ -272,13 +272,14 @@ class FinanceController extends CommonController {
 		if($mum > $max){
 			echo ajax_return(0,'超过可转数量');exit;
 		}
+		
         //可以转出
         $mo = M();
         $mo->startTrans();
         $rs = array();
         $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setDec('lth',$mum);
         $rs[] = $mo->table('user_coin')->where(array('userid'=>$userid))->setInc('lthd',$mum);
-        $rs[] = $mo->table('myzc')->add(array('userid'=>$userid,'address'=>$address['address'],'mum'=>$mum,'fee'=>$fee,'num'=>$num,'createdate'=>time()));
+         $rs[] = $mo->table('myzc')->add(array('userid'=>$userid,'address'=>$address['address'],'mum'=>$mum,'fee'=>$fee,'num'=>$num,'createdate'=>time()));
 
         if(check_arr($rs)){
             $mo->commit();
@@ -350,10 +351,6 @@ class FinanceController extends CommonController {
      */
     public function transfer()
     {
-		//手续费
-		$fee = M('config')->where('id=1')->getField('zz_fee');
-
-        $this->assign('fee',$fee);
         $this->display();
     }
     public function ajax_transfer()
@@ -382,6 +379,7 @@ class FinanceController extends CommonController {
             echo ajax_return(0,'不能给自己转账');exit;
         }
 		
+		
 		//判断是否有转出权限		
 		if(!$from['finance_status']){
 			echo ajax_return(1,'暂时无法转账，请联系管理人员');exit;
@@ -391,13 +389,12 @@ class FinanceController extends CommonController {
 		$num = $money;
 		$fee = round($num*$zz_fee,2);
 		$mum = $num + $fee;
-		 
+		
 		
 		/**
 		* 必须是推荐关系 或节点关系 
 		
 		//我给节点上级转 或推荐人转
-		
 		$map['ownid'] = $info['id'];
 		$map['pid'] = $info['id'];
 		$map['_logic'] = 'or';
@@ -415,10 +412,6 @@ class FinanceController extends CommonController {
 		$down = M('user_zone')->where($dd1)->find();
 		*/
 		
-		/*
-		下砖上只能给推荐人转
-		上转下可以是这条线上的所有人
-		*/
 		/*$map['userid'] = $userid;
 		$map['ownid'] = $info['id'];
 		$up = M('user_zone')->where($map)->find(); //往上转
@@ -427,8 +420,9 @@ class FinanceController extends CommonController {
 		//往下
 		$down = $this->get_xiaji($userid,$info['id']);
 		
+		
 		if(!$up && !$down){
-			echo ajax_return(0,'只能给下属节点或推荐关系的账户转账');exit;
+			echo ajax_return(0,'只有直属上下级或推荐关系的账户才能转账');exit;
 		}
 		
 		
@@ -453,7 +447,7 @@ class FinanceController extends CommonController {
 		if($mum > $max){
 			echo ajax_return(0,'超过可转数量');exit;
 		}
-		
+        
         //可以转
         $mo = M();
         $mo->startTrans();
@@ -483,7 +477,7 @@ class FinanceController extends CommonController {
 			return $this->get_shangji($users['pid'],$shangji);
 		}
 	} 
-	//获取两条线 和queue一样 往下找
+	//获取两条线 和queue一样
 	public function get_xiaji($userid,$xiaji)
 	{
 		$users = M('user_zone')->where(array('pid'=>$userid))->field('zone,userid')->select();
@@ -524,6 +518,7 @@ class FinanceController extends CommonController {
 		}
 		return $users;
 	}
+
 
     /**
      * 会员转账记录

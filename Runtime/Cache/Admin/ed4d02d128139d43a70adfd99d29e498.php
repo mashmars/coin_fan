@@ -65,7 +65,7 @@
 		<span class="btn-upload form-group" id='input' <?php if($type == 'date'): ?>style='display:none'<?php endif; ?>>
 			<input type="text" class="input-text" style="width:250px" placeholder="输入关键字" id="keyword" value='<?php echo ($keyword); ?>'>
 		</span>
-		<button type="button" class="btn btn-success radius" id="serach" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<button type="button" class="btn btn-success radius" id="serach" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		<!--<button type="button" class="btn btn-success radius" id="export1" name=""><i class="Hui-iconfont">&#xe644;</i> 按条件导出</button>-->
 		</form>
 	</div>
@@ -223,7 +223,7 @@ function del(obj,id){
 			success:function(data){
 				if(data.info =='success'){
 					layer.msg(data.msg,{time:2000,icon:6},function(){
-						parent.location.reload();
+						window.location.reload();
 					})
 				}else{
 					layer.msg(data.msg,{time:2000,icon:5})
@@ -243,7 +243,7 @@ function shenhe(id){
 			success:function(data){
 				if(data.info =='success'){
 					layer.msg(data.msg,{time:2000,icon:6},function(){
-						parent.location.reload();
+						window.location.reload();
 					})
 				}else{
 					layer.msg(data.msg,{time:2000,icon:5})

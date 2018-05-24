@@ -14,6 +14,7 @@ function list_level($arr,$pid=0,$level=0){
 }
 
 
+
 /*
 * ajax登录返回函数，type=1成功 
 * msg 返回信息 

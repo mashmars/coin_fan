@@ -98,27 +98,52 @@ class UserController extends CommonController {
     {
         $this->display();
     }
+	
+	/**
+     *发送修改登录密码短信验证
+     */
+    public function ajax_password_send_sms()
+    {
+        $phone = session('phone');
+		if(session($phone.'password')){
+			echo ajax_return(1,'短信验证码发送成功,请勿频繁发送');exit;
+		}
+        $code = mt_rand(10000,99999);
+        $result = send_sms('72713',$phone,$code);
+        if($result['info'] == 'success'){
+            session($phone.'password',$code);
+            echo ajax_return(1,'短信验证码发送成功');
+        }else{
+            echo ajax_return(0,$result['msg']);
+        }
+    }
     /**
      * 修改登录密码
      */
     public function ajax_password()
     {
         $userid = session('userid');
-        $oldpassword = I('post.oldpassword');
+        
         $newpassword = I('post.newpassword');
         $newpassword2 = I('post.newpassword2');
-
-        if($oldpassword == '' || $newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
+		$sms = I('post.sms');
+		$phone = session('phone');
+        if( $newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
             echo ajax_return(0,'密码设置不正确');exit;
         }
-
-        $password = M('user')->where(array('id'=>$userid))->getField('password');
-        if($password != md5($oldpassword)){
-            echo ajax_return(0,'原始密码输入不正确');exit;
+		if($sms == ''){
+            echo ajax_return(0,'短信验证码不能为空');exit;
         }
-
+		//判断短信吗是否正确
+        if($sms != session($phone . 'password')){
+            echo ajax_return(0,'短信验证码不正确');exit;
+        }
+		
+        $password = M('user')->where(array('id'=>$userid))->getField('password');
+        
         $info = M('user')->where(array('id'=>$userid))->setField(array('password'=>md5($newpassword)));
         if($info){
+			session($phone.'password',null);
             echo ajax_return(1,'修改成功');exit;
         }else{
             echo ajax_return(0,'修改失败');
@@ -154,7 +179,7 @@ class UserController extends CommonController {
         $newpassword2 = I('post.newpassword2');
         $sms = I('post.sms');
 		$phone = session('phone');
-        if( $newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
+        if($newpassword == '' || $newpassword2 == '' || $newpassword != $newpassword2){
             echo ajax_return(0,'密码设置不正确');exit;
         }
 		if($sms == ''){
@@ -167,7 +192,6 @@ class UserController extends CommonController {
 
         $password = M('user')->where(array('id'=>$userid))->getField('paypassword');
        
-
         $info = M('user')->where(array('id'=>$userid))->setField(array('paypassword'=>md5($newpassword)));
         if($info){
 			session($phone.'paypassword',null);

@@ -70,7 +70,6 @@
 						<span class="go"></span>
 					</a>
 				</li>
-				
 			</ul>
 		</div>
 	</body>
