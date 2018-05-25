@@ -46,7 +46,7 @@
 							<div class="flex-1 flex-box">
 								<img src="{$Think.const.PUB_IMG}ht.png" alt="">
 								<div class="flex-1">
-									<h4><if condition="$vo.status eq 1">{:L('confirmed')}<elseif condition="$vo.status eq 2"/>{:L('refused')}<else />{:L('padding')}</if></h4>
+									<h4><if condition="$vo.status eq 1">{:L('confirmed')}<elseif condition="$vo.status eq 2"/>{:L('refused')}<else />{:L('pending')}</if></h4>
 									<p><span>{$vo.createdate|date='m/d',###}</span><span>{$vo.createdate|date='H:i',###}</span></p>
 								</div>
 							</div>
@@ -138,7 +138,7 @@
 								}else if(v.status ==2){
 									status ="{:L('refused')}";
 								}else{
-									status = "{:L('padding')}";
+									status = "{:L('pending')}";
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="{$Think.const.PUB_IMG}ht.png" alt="">';
