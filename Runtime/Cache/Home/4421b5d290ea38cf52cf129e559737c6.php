@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>我的 - 密码管理</title>
+	<title><?php echo L('user_title');?>-<?php echo L('password_h3');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -14,57 +14,57 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		修改密码
+		<?php echo L('password_h3');?>
 	</h3>
 </header>
 		<div class="main passwordManagement">
-			<p class="tips">经常更换密码有助于账号安全</p>
+			<p class="tips"><?php echo L('password_text');?></p>
 			<div class="pwd-box">
 				<ul class="ovh tc" id="pwdNav">
-					<li class="active">登录密码</li>
-					<li>交易密码</li>
+					<li class="active"><?php echo L('password_login');?></li>
+					<li><?php echo L('paypassword');?></li>
 				</ul>
 				<div class="pwd-con"id="pwdCon">
 					<div class="pwd-item"style="display: block;">
 						<ul>
 							
 							<li>
-								<label>新密码</label>
-								<input type="password"placeholder="请输入新登录密码" id='newpassword'>
+								<label><?php echo L('newpassword');?></label>
+								<input type="password"placeholder="<?php echo L('newpassword_p');?>" id='newpassword'>
 							</li>
 							<li>
-								<label>确认密码</label>
-								<input type="password"placeholder="再次输入登录密码" id='newpassword2'>
+								<label><?php echo L('newpassword2');?></label>
+								<input type="password"placeholder="<?php echo L('newpassword2_p');?>" id='newpassword2'>
 							</li>
 							<li>
-								<label>短信验证码</label>
-								<input type="text"placeholder="请输入短信验证码" id='sms1'>
-								<span id="code1">获取验证码</span>
+								<label><?php echo L('sms');?></label>
+								<input type="text"placeholder="<?php echo L('sms_p');?>" id='sms1'>
+								<span id="code1"><?php echo L('sms_get');?></span>
 							</li>
 						</ul>
 						<p class="tc">
-							<button class="lhbg mod-btn" id="password_confirm">确认修改</button>
+							<button class="lhbg mod-btn" id="password_confirm"><?php echo L('submit');?></button>
 						</p>
 					</div>
 					<div class="pwd-item">
 						<ul>
 							
 							<li>
-								<label>新密码</label>
-								<input type="password"placeholder="请输入新支付密码" id="newpaypassword">
+								<label><?php echo L('newpassword');?></label>
+								<input type="password"placeholder="<?php echo L('newpassword_pay_p');?>" id="newpaypassword">
 							</li>
 							<li>
-								<label>确认密码</label>
-								<input type="password"placeholder="再次输入支付密码" id="newpaypassword2">
+								<label><?php echo L('newpassword2');?></label>
+								<input type="password"placeholder="<?php echo L('newpassword2_pay_p');?>" id="newpaypassword2">
 							</li>
 							<li>
-								<label>短信验证码</label>
-								<input type="text"placeholder="请输入短信验证码" id='sms'>
-								<span id="code">获取验证码</span>
+								<label><?php echo L('sms');?></label>
+								<input type="text"placeholder="<?php echo L('sms_p');?>" id='sms'>
+								<span id="code"><?php echo L('sms_get');?></span>
 							</li>
 						</ul>
 						<p class="tc">
-							<button class="lhbg mod-btn" id="paypassword_confirm">确认修改</button>
+							<button class="lhbg mod-btn" id="paypassword_confirm"><?php echo L('submit');?></button>
 						</p>
 					</div>
 				</div>
@@ -101,11 +101,11 @@
 		function time(o) {
 			if (wait == 0) {
 				o.removeAttribute("class", "");   
-				o.innerText="获取验证码";
+				o.innerText="<?php echo L('sms_get');?>";
 				wait = 60;
 				} else {
 					o.setAttribute("class", "disabled");
-					o.innerText="重新发送(" + wait + "s)";
+					o.innerText="<?php echo L('sms_get_again');?>(" + wait + "s)";
 					wait--;
 					t=setTimeout(function() {
 						time(o)
@@ -126,7 +126,7 @@
 					layer.msg(data.msg,{time:2000,icon:1})
 				}else{			
 					clearTimeout(t);
-					obj.text('获取验证码');
+					obj.text("<?php echo L('sms_get');?>");
 					obj.removeClass('disabled');	
 					layer.msg(data.msg,{time:2000,icon:5});
 								
@@ -142,7 +142,7 @@
 					layer.msg(data.msg,{time:2000,icon:1})
 				}else{			
 					clearTimeout(t);
-					obj.text('获取验证码');
+					obj.text("<?php echo L('sms_get');?>");
 					obj.removeClass('disabled');	
 					layer.msg(data.msg,{time:2000,icon:5});
 								
@@ -157,22 +157,22 @@
 			var newpassword2 = $('#newpassword2').val();
 			
 			if(newpassword == ''){
-				layer.msg('新密码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('newpassword_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(newpassword2 == ''){
-				layer.msg('确认密码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('newpassword2_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(newpassword != newpassword2){
-				layer.msg('新密码和确认密码不一致',{time:2000,icon:5});
+				layer.msg("<?php echo L('newpassword2_set_noequal');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(sms == ''){
-				layer.msg('短信验证码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('sms_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
@@ -196,22 +196,22 @@
 			var sms = $('#sms').val();
 			
 			if(newpassword == ''){
-				layer.msg('新密码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('newpassword_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(newpassword2 == ''){
-				layer.msg('确认密码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('newpassword2_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(newpassword != newpassword2){
-				layer.msg('新密码和确认密码不一致',{time:2000,icon:5});
+				layer.msg("<?php echo L('newpassword2_set_noequal');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(sms == ''){
-				layer.msg('短信验证码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('sms_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>我的 - 修改资料</title>
+	<title><?php echo L('user_title');?>-<?php echo L('profile_h3');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -14,34 +14,34 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		修改资料
+		<?php echo L('profile_h3');?>
 	</h3>
 </header>
 		<div class="main modify">
 			
 				<ul>
 					<li>
-						<label>姓名</label>
-						<input type="text" placeholder="请输入真实姓名" id='realname' value="<?php echo ($info["realname"]); ?>">
+						<label><?php echo L('realname');?></label>
+						<input type="text" placeholder="<?php echo L('realname_p');?>" id='realname' value="<?php echo ($info["realname"]); ?>">
 					</li>
 					<li>
-						<label>身份证号</label>
-						<input type="text"placeholder="请输入身份证号码" id="idcard" value="<?php echo ($info["idcard"]); ?>">
+						<label><?php echo L('idcard');?></label>
+						<input type="text"placeholder="<?php echo L('idcard_p');?>" id="idcard" value="<?php echo ($info["idcard"]); ?>">
 					</li>
 					<li>
-						<label>国籍</label>
-						<input type="text"placeholder="请输入国籍" id="country" value="<?php echo ($info["country"]); ?>">
+						<label><?php echo L('country');?></label>
+						<input type="text"placeholder="<?php echo L('country_p');?>" id="country" value="<?php echo ($info["country"]); ?>">
 					</li>
 					<li>
-						<label>省份/州</label>
-						<input type="text"placeholder="请输入省份/州" id='province' value="<?php echo ($info["province"]); ?>">
+						<label><?php echo L('address');?></label>
+						<input type="text"placeholder="<?php echo L('address_p');?>" id='province' value="<?php echo ($info["province"]); ?>">
 					</li>
 					<li>
-						<label>城市</label>
-						<input type="text"placeholder="请输入城市" id='city' value="<?php echo ($info["city"]); ?>">
+						<label><?php echo L('city');?></label>
+						<input type="text"placeholder="<?php echo L('city_p');?>" id='city' value="<?php echo ($info["city"]); ?>">
 					</li>
 				</ul>
-				<p class="tc"><button class="lhbg mod-btn" id='save'>保存</button></p>
+				<p class="tc"><button class="lhbg mod-btn" id='save'><?php echo L('submit');?></button></p>
 			
 		</div>
 	</body>

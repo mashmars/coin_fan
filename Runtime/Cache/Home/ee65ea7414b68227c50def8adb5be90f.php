@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>充币</title>
+	<title><?php echo L('menu_cb');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -18,45 +18,45 @@
 			<div class="user-info">
 				<img src="<?php echo (PUB_IMG); ?>usbg.png" alt=""class="usbg">
 				<div class="user-txt">
-					<h3 class="tc">我的</h3>
+					<h3 class="tc"><?php echo L('menu_cb');?></h3>
 					<div class="flex-box user-head">
 						<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 						<div class="flex-1">
-							<h4>你好，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
+							<h4><?php echo L('hello');?>，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
 							<p><?php echo (session('phone')); ?></p>
 						</div>
 					</div>
 					<div class="tc flex-box user-total">
 						<div class="flex-1">
-							<p>挖矿收益</p>
+							<p><?php echo L('income');?></p>
 							<h4><?php echo ($shouyi*1); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>参考市值</p>
+							<p><?php echo L('shizhi');?></p>
 							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>MC币数</p>
+							<p>MC<?php echo L('coin');?></p>
 							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="charging-item">
-				<h3><i class="mon"></i>钱包地址</h3>
+				<h3><i class="mon"></i><?php echo L('wallet_address');?></h3>
 				<h4 class="ovh">
 					<span class="fl copybox"><?php echo ($qianbao); ?></span>
-					<span class="fr copy" data-clipboard-action="copy" data-clipboard-target=".copybox">复制</span>
+					<span class="fr copy" data-clipboard-action="copy" data-clipboard-target=".copybox"><?php echo L('copy');?></span>
 				</h4>
 			</div>
 			<div class="charging-item">
-				<h3><i class="qr"></i>钱包二维码</h3>
+				<h3><i class="qr"></i><?php echo L('wallet_qrcode');?></h3>
 				<p class="qrcode" id="qrcode"></p>
 			</div>
 			<div class="charging-item">
-				<h3><i class="notice"></i>充币须知</h3>
-				<p class="notice-txt">1.充币需要经过自动网络安全确认才能到账</p>
-				<p class="notice-txt">2.因为网络访问量大、确认时间长，充币通常需要30分钟左右才能到账</p>
+				<h3><i class="notice"></i><?php echo L('notice');?></h3>
+				<p class="notice-txt">1.<?php echo L('notice_1');?></p>
+				<p class="notice-txt">2.<?php echo L('notice_2');?></p>
 			</div>
 		</div>
 		<footer>
@@ -64,25 +64,25 @@
 		<li class="active">
 			<a href="<?php echo U('finance/myzr');?>">
 				<i class="charge"></i>
-				<span>充币</span>
+				<span><?php echo L('menu_cb');?></span>
 			</a>
 		</li>
 		<li>
 			<a href="<?php echo U('finance/myzc');?>">
 				<i class="carry"></i>
-				<span>提币</span>
+				<span><?php echo L('menu_tb');?></span>
 			</a>
 		</li>
 		<li>
 			<a href="<?php echo U('finance/index');?>">
 				<i class="wallet"></i>
-				<span>钱包</span>
+				<span><?php echo L('menu_qb');?></span>
 			</a>
 		</li>
 		<li >
 			<a href="<?php echo U('user/index');?>">
 				<i class="use"></i>
-				<span>我的</span>
+				<span><?php echo L('menu_wd');?></span>
 			</a>
 		</li>
 	</ul>
@@ -113,10 +113,10 @@
 		window.onload =function(){
 			var clipboard = new ClipboardJS('.copy');
 			clipboard.on('success', function(e) {
-				showmsg('钱包地址已复制到粘贴板！');
+				showmsg("<?php echo L('copyed');?>");
 			});
 			clipboard.on('error', function(e) {
-				showmsg('钱包地址复制失败请重新复制！')
+				showmsg("<?php echo L('copy_error');?>")
 			});
 		}
 	</script>

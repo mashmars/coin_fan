@@ -10,7 +10,7 @@
 
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
 
-	<title>提币</title>
+	<title><?php echo L('menu_tb');?></title>
 
 	<meta name="description" content="">
 
@@ -30,7 +30,7 @@
 
 				<i class="go"></i>
 
-				提币
+				<?php echo L('menu_tb');?>
 
 			</h3>
 
@@ -40,11 +40,11 @@
 
 			<?php if($address != null): ?><div class="charging-item">
 
-					<h3><i class="num"></i>提币数量</h3>
+					<h3><i class="num"></i><?php echo L('amount');?></h3>
 
 					<div class="charging-inpu">
 
-						<input type="number"placeholder="请输入提币数量" id='num'>
+						<input type="number"placeholder="<?php echo L('amount_p');?>" id='num'>
 
 					</div>
 
@@ -52,11 +52,11 @@
 
 				<div class="charging-item">
 
-					<h3><i class="adr"></i>钱包地址</h3>
+					<h3><i class="adr"></i><?php echo L('wallet_address');?></h3>
 
 					<div class="rel charging-inpu selection">
 
-						<input type="text"placeholder="请输入钱包地址"onfocus="this.blur()" id="address" >
+						<input type="text"placeholder="<?php echo L('wallet_address_p');?>"onfocus="this.blur()" id="address" >
 
 						<i></i>
 
@@ -64,7 +64,7 @@
 
 						<?php if(is_array($address)): $i = 0; $__LIST__ = $address;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li data-id="<?php echo ($vo["id"]); ?>" data-value="<?php echo ($vo["address"]); ?>"><?php echo ($vo["name"]); ?></li><?php endforeach; endif; else: echo "" ;endif; ?>							
 
-						<li data-id="" data-value="">地址管理</li>
+						<li data-id="" data-value=""><?php echo L('address_manage');?></li>
 
 						</ul>
 
@@ -74,25 +74,25 @@
 
 				<div class="charging-item">
 
-					<h3><i class="pwd"></i>交易密码</h3>
+					<h3><i class="pwd"></i><?php echo L('paypassword');?></h3>
 
 					<div class="rel ovh charging-inpu">
 
-						<input type="password"placeholder="请输入交易密码" id="paypassword">
-						<a href="<?php echo U('user/password');?>" class="forget-btn">忘记密码？</a>
+						<input type="password"placeholder="<?php echo L('paypassword_p');?>" id="paypassword">
+						<a href="<?php echo U('user/password');?>" class="forget-btn"><?php echo L('forget_password');?></a>
 					</div>
 
 				</div>
 
 				<div class="charging-item">
 
-					<h3><i class="cod"></i>短信验证码</h3>
+					<h3><i class="cod"></i><?php echo L('sms');?></h3>
 
 					<div class="rel charging-inpu">
 
-						<input type="text"placeholder="请输入短信验证码" id="sms">
+						<input type="text"placeholder="<?php echo L('sms_p');?>" id="sms">
 
-						<span id="code">获取验证码</span>
+						<span id="code"><?php echo L('sms_get');?></span>
 
 					</div>
 
@@ -100,7 +100,7 @@
 
 				<p class="tc">
 
-					<button class="lhbg mod-btn" id='myzc'>提币</button>
+					<button class="lhbg mod-btn" id='myzc'><?php echo L('submit');?></button>
 
 				</p>
 
@@ -108,7 +108,7 @@
 
 				<p class="tc">
 
-					<a class="lhbg mod-btn" href="<?php echo U('finance/zcwallet');?>">添加转出钱包地址</a>
+					<a class="lhbg mod-btn" href="<?php echo U('finance/zcwallet');?>"><?php echo L('add_address_button');?></a>
 
 				</p><?php endif; ?>
 
@@ -140,7 +140,7 @@
 
 				o.removeClass("disabled");   
 
-				o.text("获取验证码");
+				o.text("<?php echo L('sms_get');?>");
 
 				wait = 60;
 
@@ -148,7 +148,7 @@
 
 					o.addClass("disabled");
 
-					o.text("重新发送(" + wait + "s)");
+					o.text("<?php echo L('sms_get_again');?>(" + wait + "s)");
 
 					wait--;
 
@@ -232,7 +232,7 @@ $(function(){
 
 				clearTimeout(t);
 
-				obj.text('获取验证码');
+				obj.text("<?php echo L('sms_get');?>");
 
 				obj.removeClass('disabled');	
 
@@ -272,7 +272,7 @@ $(function(){
 
 		if(isNaN(num) || num <=0 || num == ''){
 
-			layer.msg('数量填写不正确',{time:2000,icon:5});
+			layer.msg("<?php echo L('amount_error');?>",{time:2000,icon:5});
 
 			obj.prop('disabled',false);
 
@@ -282,7 +282,7 @@ $(function(){
 
 		if(sms == ''){
 
-			layer.msg('手机验证码不能为空',{time:2000,icon:5});
+			layer.msg("<?php echo L('sms_set_empty');?>",{time:2000,icon:5});
 
 			obj.prop('disabled',false);
 
@@ -292,7 +292,7 @@ $(function(){
 
 		if(paypassword == ''){
 
-			layer.msg('支付密码不能为空',{time:2000,icon:5});
+			layer.msg("<?php echo L('paypassword_set_empty');?>",{time:2000,icon:5});
 
 			obj.prop('disabled',false);
 
@@ -302,7 +302,7 @@ $(function(){
 
 		if (typeof(address) == 'undefined'){
 
-			layer.msg('请选择钱包地址',{time:2000,icon:5});
+			layer.msg("<?php echo L('wallet_address_set_empty');?>",{time:2000,icon:5});
 
 			obj.prop('disabled',false);
 

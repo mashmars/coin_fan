@@ -8,6 +8,7 @@ class LoginController extends Controller
     /**
      * 手机登录
      */
+	 
 
     /**
      * 登录发送验证码
@@ -18,14 +19,14 @@ class LoginController extends Controller
         //判断手机号是否存在
         $id = M('user')->where(array('phone' => $phone))->getField('id');
         if (!$id) {
-            echo ajax_return(0, '手机号未注册');
+            echo ajax_return(0, L('phone_not_exist'));
             exit;
         }
         $code = mt_rand(10000, 99999);
         $result = send_sms('72923', $phone, $code);
         if ($result['info'] == 'success') {
             session($phone . 'login', $code);
-            echo ajax_return(1, '短信验证码发送成功');
+            echo ajax_return(1, L('send'));
         } else {
             echo ajax_return(0, $result['msg']);
         }
@@ -40,17 +41,17 @@ class LoginController extends Controller
         $sms = I('post.sms');
 
         if ($sms != session($phone . 'login')) {
-            echo ajax_return(0, '短信验证码不正确');
+            echo ajax_return(0, L('sms_set_error'));
             exit;
         }
         //判断手机号是否存在
         $id = M('user')->where(array('phone' => $phone))->getField('id');
         if (!$id) {
-            echo ajax_return(0, '手机号未注册');
+            echo ajax_return(0, L('phone_not_exist'));
             exit;
         }
         //可以登录
-        echo ajax_return(1, '登录成功');
+        echo ajax_return(1, L('success'));
         session('userid', $id);
         session('phone', $phone);
         session($phone . 'login', null);
@@ -65,21 +66,21 @@ class LoginController extends Controller
         $password = I('post.password');
 
         if ($password == '') {
-            echo ajax_return(0, '登录密码不能为空');
+            echo ajax_return(0, L('password_set_empty'));
             exit;
         }
         //判断手机号是否存在
         $info = M('user')->where(array('phone' => $phone))->find();
         if (!$info) {
-            echo ajax_return(0, '手机号未注册');
+            echo ajax_return(0, L('phone_not_exist'));
             exit;
         }
         if ($info['password'] != md5($password)) {
-            echo ajax_return(0, '登录密码不正确');
+            echo ajax_return(0, L('password_is_wrong'));
             exit;
         }
         //可以登录
-        echo ajax_return(1, '登录成功');
+        echo ajax_return(1, L('success'));
         session('userid', $info['id']);
         session('phone', $phone);
     }
@@ -93,14 +94,14 @@ class LoginController extends Controller
         //判断手机号是否存在
         $id = M('user')->where(array('phone' => $phone))->getField('id');
         if (!$id) {
-            echo ajax_return(0, '手机号不存在');
+            echo ajax_return(0, L('phone_not_exist'));
             exit;
         }
         $code = mt_rand(10000, 99999);
         $result = send_sms('72713', $phone, $code);
         if ($result['info'] == 'success') {
             session($phone . 'find', $code);
-            echo ajax_return(1, '短信验证码发送成功');
+            echo ajax_return(1, L('send'));
         } else {
             echo ajax_return(0, $result['msg']);
         }
@@ -116,25 +117,25 @@ class LoginController extends Controller
         $newpassword = I('post.newpassword');
         $newpassword2 = I('post.newpassword2');
         if ($sms != session($phone . 'find')) {
-            echo ajax_return(0, '短信验证码不正确');
+            echo ajax_return(0, L('sms_is_wrong'));
             exit;
         }
         if($newpassword != $newpassword2 || $newpassword == ''){
-            echo ajax_return(0,'两次密码输入不一致');exit;
+            echo ajax_return(0,L('newpassword2_set_noequal'));exit;
         }
         //判断手机号是否存在
         $info = M('user')->where(array('phone' => $phone))->find();
         if (!$info) {
-            echo ajax_return(0, '手机号未注册');
+            echo ajax_return(0, L('phone_not_exist'));
             exit;
         }
         //可以更改
         $res = M('user')->where(array('id'=>$info['id']))->setField(array('password'=>md5($newpassword)));
         if($res){
-            echo ajax_return(1, '修改成功');
+            echo ajax_return(1, L('success'));
             session($phone . 'find',null);
         }else{
-            echo ajax_return(0, '修改失败');
+            echo ajax_return(0, L('error'));
         }
     }
 
@@ -148,13 +149,13 @@ class LoginController extends Controller
         //判断手机号是否存在
         $id = M('user')->where(array('phone'=>$phone))->getField('id');
         if($id){
-            echo ajax_return(0,'手机号已注册');exit;
+            echo ajax_return(0,L('phone_exist'));exit;
         }
         $code = mt_rand(10000,99999);
         $result = send_sms('72695',$phone,$code);
         if($result['info'] == 'success'){
             session($phone.'reg',$code);
-            echo ajax_return(1,'短信验证码发送成功');
+            echo ajax_return(1,L('send'));
         }else{
             echo ajax_return(0,$result['msg']);
         }
@@ -197,38 +198,38 @@ class LoginController extends Controller
          */
         //1
         if(!$phone){
-            echo ajax_return(0,'手机号不正确');exit;
+            echo ajax_return(0,L('phone_set_empty'));exit;
         }
 		if(!$refer){
-            echo ajax_return(0,'推荐人手机号不能为空');exit;
+            echo ajax_return(0,L('refer_set_empty'));exit;
         }
         if($sms == ''){
-            echo ajax_return(0,'短信验证码不能为空');exit;
+            echo ajax_return(0,L('sms_set_empty'));exit;
         }
         if(!$password){
-            echo ajax_return(0,'登录密码设置不正确');exit;
+            echo ajax_return(0,L('password_set_empty'));exit;
         }
         if(!$paypassword){
-            echo ajax_return(0,'支付密码设置不正确');exit;
+            echo ajax_return(0,L('paypassword_set_empty'));exit;
         }
         if($password == $paypassword){
-            echo ajax_return(0,'登录密码和支付密码不能一样');exit;
+            echo ajax_return(0,L('not_same'));exit;
         }
         if($zone != 1 && $zone !=2){
-            echo ajax_return(0,'请求有误');exit;
+            echo ajax_return(0,L('error'));exit;
         }
         //2
         if($sms != session($phone . 'reg')){
-            echo ajax_return(0,'短信验证码不正确');exit;
+            echo ajax_return(0,L('sms_is_wrong'));exit;
         }
         //3
         $id = M('user')->where(array('phone'=>$phone))->getField('id');
         if($id){
-            echo ajax_return(0,'手机号已注册');exit;
+            echo ajax_return(0,L('phone_exist'));exit;
         }
         $id = M('user')->where(array('phone'=>$refer))->getField('id');
 		if(!$id){
-			echo ajax_return(0,'推荐人手机号不存在');exit;
+			echo ajax_return(0,L('refer_is_wrong'));exit;
 		}else{
 			$pid = $id;
 		}
@@ -246,10 +247,10 @@ class LoginController extends Controller
         if(check_arr($rs)){
             $mo->commit();
             session($phone . 'reg' ,null);
-            echo ajax_return(1,'注册成功');
+            echo ajax_return(1,L('success'));
         }else{
             $mo->rollback();
-            echo ajax_return(0,'注册失败');
+            echo ajax_return(0,L('error'));
         }
 
     }

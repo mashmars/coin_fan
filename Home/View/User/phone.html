@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>我的 - 手机绑定</title>
+	<title>{:L('user_title')}-{:L('phone_h3')}</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
@@ -14,28 +14,28 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		修改手机绑定
+		{:L('phone_h3')}
 	</h3>
 </header>
 		<div class="main bindingPhone">
-			<p class="tips">您的账号已启用手机绑定</p>
+			<p class="tips">{:L('phone_text')}</p>
 			
 				<ul>
 					<li>
-						<label>已绑手机号</label>
+						<label>{:L('phone_old')}</label>
 						<input type="text"value="{$Think.session.phone}" readonly>
 					</li>
 					<li>
-						<label>新手机号码</label>
-						<input type="text"placeholder="请输入新手机号码" id='newphone'>
+						<label>{:L('phone_new')}</label>
+						<input type="text"placeholder="{:L('phone_new')}" id='newphone'>
 					</li>
 					<li>
-						<label>短信验证码</label>
-						<input type="text"placeholder="请输入短信验证码" id='sms'>
-						<span id="code">获取验证码</span>
+						<label>{:L('sms')}</label>
+						<input type="text"placeholder="{:L('sms_p')}" id='sms'>
+						<span id="code">{:L('sms_get')}</span>
 					</li>
 				</ul>
-				<p class="tc"><button class="lhbg mod-btn" id='change'>更换绑定</button></p>
+				<p class="tc"><button class="lhbg mod-btn" id='change'>{:L('submit')}</button></p>
 			
 
 		</div>
@@ -50,11 +50,11 @@
 		function time(o) {
 			if (wait == 0) {
 				o.removeAttribute("class", "");   
-				o.innerText="获取验证码";
+				o.innerText="{:L('sms_get')}";
 				wait = 60;
 				} else {
 					o.setAttribute("class", "disabled");
-					o.innerText="重新发送(" + wait + "s)";
+					o.innerText="{:L('sms_get_again')}(" + wait + "s)";
 					wait--;
 					t=setTimeout(function() {
 						time(o)
@@ -69,7 +69,7 @@
 		$('#code').click(function(){
 			var phone = $('#newphone').val();
 			if(phone == ''){
-				layer.msg('新手机号码不能为空',{time:2000,icon:5});
+				layer.msg("{:L('newpassword_set_empty')}",{time:2000,icon:5});
 				return false;
 			}
 			time(this);
@@ -79,7 +79,7 @@
 					layer.msg(data.msg,{time:2000,icon:1})
 				}else{			
 					clearTimeout(t);
-					obj.text('获取验证码');
+					obj.text("{:L('sms_get')}");
 					obj.removeClass('disabled');	
 					layer.msg(data.msg,{time:2000,icon:5});
 								
@@ -91,12 +91,12 @@
 			var phone = $('#newphone').val();
 			var sms = $('#sms').val();
 			if(phone == ''){
-				layer.msg('新手机号码不能为空',{time:2000,icon:5});
+				layer.msg("{:L('newpassword_set_empty')}",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(sms == ''){
-				layer.msg('短信验证码不能为空',{time:2000,icon:5});
+				layer.msg("{:L('sms_set_empty')}",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}

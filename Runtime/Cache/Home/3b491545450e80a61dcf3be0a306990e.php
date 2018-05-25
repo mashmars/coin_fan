@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>添加转出钱包</title>
+	<title><?php echo L('address_manage');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -14,23 +14,23 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		添加转出钱包		
+		<?php echo L('address_manage');?>		
 	</h3>
 </header>
 		<div class="main change">			
 				<ul>
 					<li>
-						<label>钱包标识</label>
-						<input type="text"placeholder="请输入钱包标识" id='name' value="<?php echo ($info["name"]); ?>">
+						<label><?php echo L('wallet_sign');?></label>
+						<input type="text"placeholder="<?php echo L('wallet_sign_p');?>" id='name' value="<?php echo ($info["name"]); ?>">
 					</li>
 					<li>
-						<label>钱包地址</label>
-						<input type="text"placeholder="请输入钱包" id='address' value="<?php echo ($info["address"]); ?>">
+						<label><?php echo L('wallet_address');?></label>
+						<input type="text"placeholder="<?php echo L('wallet_address_p');?>" id='address' value="<?php echo ($info["address"]); ?>">
 					</li>
 				</ul>
-				<p><em class="tips">友情提示：</em></p>
+				<p><em class="tips"><?php echo L('wallet_notice');?>:</em></p>
 				<p class="tc">
-					<button class="lhbg mod-btn" id='zcwallet'>确定</button>
+					<button class="lhbg mod-btn" id='zcwallet'><?php echo L('submit');?></button>
 				</p>			
 		</div>
 		
@@ -47,12 +47,12 @@
 			var name = $('#name').val();
 			var address = $('#address').val();
 			if(name == ''){
-				layer.msg('钱包标识不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('wallet_sign_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(address == ''){
-				layer.msg('钱包地址不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('wallet_address_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}

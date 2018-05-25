@@ -97,7 +97,7 @@ class FinanceController extends CommonController {
         $list = 5;
         $res = M('myzr')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
         foreach($res as &$v){
-            $v['date'] = date('m月d日');
+            $v['date'] = date('m/d');
             $v['time'] = date('H:i');
         }
         echo json_encode($res);
@@ -131,13 +131,13 @@ class FinanceController extends CommonController {
 		$userid = session('userid');
 		$info = M('user_qianbao')->where(array('id'=>$id,'userid'=>$userid))->find();
 		if(!$info){
-			echo ajax_return(0,'请求有误');exit;
+			echo ajax_return(0,L('error'));exit;
 		}
 		$res = M('user_qianbao')->delete($id);
 		if($res){
-			echo ajax_return(1,'删除成功');
+			echo ajax_return(1,L('success'));
 		}else{
-			echo ajax_return(0,'删除失败');
+			echo ajax_return(0,L('error'));
 		}
 	}
 	/*地址类型
@@ -164,14 +164,14 @@ class FinanceController extends CommonController {
         $address = I('post.address');
         $id = I('post.id');
         if($name == '' || $address == ''){
-            echo ajax_return(0,'钱包标识和钱包地址不能为空');exit;
+            echo ajax_return(0,L('sign_address_set_empty'));exit;
         }
         $userid = session('userid');
 		if($id){
 			//编辑
 			$info = M('user_qianbao')->where(array('id'=>$id,'userid'=>$userid))->find();
 			if(!$info){
-				echo ajax_return(0,'请求有误');exit;
+				echo ajax_return(0,L('error'));exit;
 			}
 			$res = M('user_qianbao')->where(array('id'=>$id))->setField(array('name'=>$name,'address'=>$address));
 		}else{
@@ -180,9 +180,9 @@ class FinanceController extends CommonController {
 		}
         
         if($res){
-            echo ajax_return(1,'操作成功');exit;
+            echo ajax_return(1,L('success'));exit;
         }else{
-            echo ajax_return(0,'操作失败');exit;
+            echo ajax_return(0,L('error'));exit;
         }
     }
 
@@ -194,18 +194,18 @@ class FinanceController extends CommonController {
         $phone = session('phone');
         //如果短信存在则不让再发
         if(session($phone . 'myzc')){
-            echo ajax_return(1,'短信已发送');exit;
+            echo ajax_return(1,L('sended'));exit;
         }
 		//判断是否有转出权限
 		$user = M('user')->where(array('id'=>session('userid')))->find();
 		if(!$user['finance_status']){
-			echo ajax_return(1,'暂时无法提币，请联系管理人员');exit;
+			echo ajax_return(1,L('out_error1'));exit;
 		}
         $code = mt_rand(10000, 99999);
         $result = send_sms('72713', $phone, $code);
         if ($result['info'] == 'success') {
             session($phone . 'myzc', $code);
-            echo ajax_return(1, '短信验证码发送成功');
+            echo ajax_return(1, L('send'));
         } else {
             echo ajax_return(0, $result['msg']);
         }
@@ -225,27 +225,27 @@ class FinanceController extends CommonController {
 		//判断是否有转出权限
 		$user = M('user')->where(array('id'=>session('userid')))->find();
 		if(!$user['finance_status']){
-			echo ajax_return(1,'暂时无法提币，请联系管理人员');exit;
+			echo ajax_return(1,L('out_error1'));exit;
 		}
         //判断短信验证码是否正确
         if($sms != session($phone . 'myzc')){
-            echo ajax_return(0,'短信验证码不正确');exit;
+            echo ajax_return(0,L('sms_set_error'));exit;
         }
         //判断address 是否存在
         $address = M('user_qianbao')->where(array('userid'=>$userid,'id'=>$address))->find();
         if(!$address){
-            echo ajax_return(0,'转出地址不存在');exit;
+            echo ajax_return(0,L('address_not_exist'));exit;
         }
 
         //判断交易密码是否正确
         $password = M('user')->where(array('id'=>$userid))->getField('paypassword');
         if($password != md5($paypassword)){
-            echo ajax_return(0,'支付密码不正确');exit;
+            echo ajax_return(0,L('paypassword_set_error'));exit;
         }
 
         //判断数量是否正确
         if($mum <= 0 || !is_numeric($mum)){
-            echo ajax_return(0,'数量格式不正确');exit;
+            echo ajax_return(0,L('number_set_error'));exit;
         }
         
 		//手续费
@@ -254,7 +254,7 @@ class FinanceController extends CommonController {
 		$num = $mum - $fee;
 		$user_coin = M('user_coin')->where(array('userid'=>$userid))->find();
 		if($user_coin['lth'] < $mum){
-            echo ajax_return(0,'数量不足');exit;
+            echo ajax_return(0,L('number_set_error1'));exit;
         }
 		
 		//新增控制 最大可提数量 规则是：如果个人tb_bl==0,则走config的tb_bl全局比例，否则优先走个人的 浮点判断 必须是大于0 
@@ -270,7 +270,7 @@ class FinanceController extends CommonController {
 			}
 		}
 		if($mum > $max){
-			echo ajax_return(0,'超过可转数量');exit;
+			echo ajax_return(0,L('number_set_error2'));exit;
 		}
 		
         //可以转出
@@ -284,10 +284,10 @@ class FinanceController extends CommonController {
         if(check_arr($rs)){
             $mo->commit();
 			session($phone . 'myzc', '');
-            echo ajax_return(1,'转出申请提交成功，请等待后台审核');
+            echo ajax_return(1,L('out_success'));
         }else{
             $mo->rollback();
-            echo ajax_return(0,'转出申请提交失败');
+            echo ajax_return(0,L('out_error'));
         }
 
     }
@@ -314,7 +314,7 @@ class FinanceController extends CommonController {
         $list = 5;
         $res = M('myzc')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
         foreach($res as &$v){
-            $v['date'] = date('m月d日');
+            $v['date'] = date('m/d');
             $v['time'] = date('H:i');
         }
         echo json_encode($res);
@@ -339,7 +339,7 @@ class FinanceController extends CommonController {
         $list = 5;
         $res = M('sys_fh_log')->where(array('userid'=>$userid))->order('id desc')->page($p.','.$list)->select();
         foreach($res as &$v){
-            $v['date'] = date('m月d日');
+            $v['date'] = date('m/d');
             $v['time'] = date('H:i');
         }
         echo json_encode($res);
@@ -362,27 +362,27 @@ class FinanceController extends CommonController {
 
         
         if($money <=0 || !is_numeric($money)){
-            echo ajax_return(0,'金额不正确');exit;
+            echo ajax_return(0,L('money_set_error'));exit;
         }
 
         
         
         $info = M('user')->where(array('phone'=>$phone))->find();
         if(!$info){
-            echo ajax_return(0,'输入的对方信息不正确');exit;
+            echo ajax_return(0,L('refer_to_set_error'));exit;
         }
 		$from = M('user')->where(array('id'=>$userid))->find();
         if($from['paypassword'] != md5($password)){
-            echo ajax_return(0,'支付密码不正确');exit;
+            echo ajax_return(0,L('paypassword_set_error'));exit;
         }
 		if($info['id'] == $userid){
-            echo ajax_return(0,'不能给自己转账');exit;
+            echo ajax_return(0,L('refer_to_yourself_error'));exit;
         }
 		
 		
 		//判断是否有转出权限		
 		if(!$from['finance_status']){
-			echo ajax_return(1,'暂时无法转账，请联系管理人员');exit;
+			echo ajax_return(1,L('transfer_error'));exit;
 		}
 		//手续费
 		$zz_fee = M('config')->where('id=1')->getField('zz_fee');
@@ -422,14 +422,14 @@ class FinanceController extends CommonController {
 		
 		
 		if(!$up && !$down){
-			echo ajax_return(0,'只有直属上下级或推荐关系的账户才能转账');exit;
+			echo ajax_return(0,L('transfer_error1'));exit;
 		}
 		
 		
         $user_coin = M('user_coin')->where(array('userid'=>$userid))->lock(true)->find();
 
         if($user_coin['lth'] < $mum){
-            echo ajax_return(0,'余额不足');exit;
+            echo ajax_return(0,L('money_set_error1'));exit;
         }
 		
 		//新增控制 最大可提数量 规则是：如果个人tb_bl==0,则走config的tb_bl全局比例，否则优先走个人的 浮点判断 必须是大于0 
@@ -445,7 +445,7 @@ class FinanceController extends CommonController {
 			}
 		}
 		if($mum > $max){
-			echo ajax_return(0,'超过可转数量');exit;
+			echo ajax_return(0,L('number_set_error2'));exit;
 		}
         
         //可以转
@@ -459,10 +459,10 @@ class FinanceController extends CommonController {
 
         if(check_arr($rs)){
             $mo->commit();
-            echo ajax_return(1,'转账成功');
+            echo ajax_return(1,L('success'));
         }else{
             $mo->rollback();
-            echo ajax_return(0,'转账失败');
+            echo ajax_return(0,L('error'));
         }
     }
 	//往上找 一条线
@@ -558,7 +558,7 @@ class FinanceController extends CommonController {
         $map['_logic'] = 'or';
         $res = M('mytransfer')->where($map)->order('id desc')->page($p.','.$list)->select();
         foreach($res as &$v){
-            $v['date'] = date('m月d日');
+            $v['date'] = date('m/d');
             $v['time'] = date('H:i');
             if($v['userid'] == $userid){
                 $v['type'] = 'zc';

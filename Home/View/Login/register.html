@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>注册</title>
+	<title>{:L('register')}</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="{$Think.const.PUB_CSS}common.css">
@@ -14,38 +14,38 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		会员注册
+		{:L('register')}
 	</h3>
 </header>
 		<div class="main register">
 			
 				<ul>
-					<li><i class="icphone"></i><input type="text"placeholder="请输入手机号" id="phone"></li>
+					<li><i class="icphone"></i><input type="text"placeholder="{:L('phone')}" id="phone"></li>
 					<li class="flex-box">
 						<i class="icodetxt"></i>
-						<input type="text"placeholder="验证码" id='sms'>
-						<span class="flex-1 code">获取验证码</span>
+						<input type="text"placeholder="{:L('sms')}" id='sms'>
+						<span class="flex-1 code">{:L('sms_get')}</span>
 					</li>
-					<li><i class="icname"></i><input type="text"placeholder="姓名" id='realname'></li>
+					<li><i class="icname"></i><input type="text"placeholder="{:L('realname')}" id='realname'></li>
 					<li class="active">
-						<i class="icpay"></i><input type="password" placeholder="登录密码" id='password'>
+						<i class="icpay"></i><input type="password" placeholder="{:L('password_login')}" id='password'>
 						<!--<i class="hided"></i>-->
 					</li>
-					<li><i class="icpwd1"></i><input type="password"placeholder="支付密码" id='paypassword'></li>
-					<li><i class="icrec"></i><input type="number" placeholder="推荐人手机号码(必填)" id='refer'></li>
+					<li><i class="icpwd1"></i><input type="password"placeholder="{:L('paypassword')}" id='paypassword'></li>
+					<li><i class="icrec"></i><input type="number" placeholder="{:L('refer')}" id='refer'></li>
 				</ul>
 				<div class="reg-box">
 					<p class="tc"id="area">
-						<span class="active" data-id='1'><i></i>一区</span>
-						<span  data-id='2'><i></i>二区</span>
+						<span class="active" data-id='1'><i></i>{:L('zone1')}</span>
+						<span  data-id='2'><i></i>{:L('zone2')}</span>
 					</p>
 					<p class="agreement"id="agree">
 						<i class="active"></i>
-						<span>注册表示您已阅读并同意</span>
-						<a href="#" id='read'>《矿产链用户注册协议》</a>
+						<span>{:L('agree')}</span>
+						<a href="#" id='read'>《{:L('xieyi')}》</a>
 					</p>
-					<p class="tc reg-btn"><button class="lhbg mod-btn" id='register'>注册</button></p>
-					<p class="tr logbtn"><a href="{:U('login/password')}">已有账号去登录</a></p>
+					<p class="tc reg-btn"><button class="lhbg mod-btn" id='register'>{:L('submit')}</button></p>
+					<p class="tr logbtn"><a href="{:U('login/password')}">{:L('login')}</a></p>
 				</div>
 			
 		</div>
@@ -122,11 +122,11 @@
 		function time(o) {
 			if (wait == 0) {
 				o.removeAttribute("class", "");   
-				o.innerText="获取验证码";
+				o.innerText="{:L('sms')}";
 				wait = 120;
 				} else {
 					o.setAttribute("class", "disabled");
-					o.innerText="重新发送(" + wait + "s)";
+					o.innerText="{:L('sms_get_again')}(" + wait + "s)";
 					wait--;
 					t = setTimeout(function() {
 						time(o)
@@ -175,7 +175,7 @@ $(function(){
 	$('.code').click(function(){
 		var phone = $('#phone').val();
 		if(phone == ''){
-			layer.msg('手机号不能为空',{time:2000,icon:5});
+			layer.msg("{:L('phone_set_empty')}",{time:2000,icon:5});
 			return false;
 		}
 		time(this);
@@ -185,7 +185,7 @@ $(function(){
 				layer.msg(data.msg,{time:2000,icon:1})
 			}else{			
 				clearTimeout(t);
-				obj.text('获取验证码');
+				obj.text("{:L('sms_get')}");
 				obj.removeClass('disabled');	
 				layer.msg(data.msg,{time:2000,icon:5});
 							
@@ -206,36 +206,37 @@ $(function(){
 		var zone = $('#area .active').data('id');
 		var agree = $('#agree i').hasClass('active');
 		if(!agree){
-			layer.msg('请阅读并同意协议',{time:2000,icon:5});
+			layer.msg("{:L('agree')}",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}
 		if(phone == ''){
-			layer.msg('手机号不能为空',{time:2000,icon:5});
+			layer.msg("{:L('phone_set_empty')}",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}
 		if(sms == ''){
-			layer.msg('手机验证码不能为空',{time:2000,icon:5});
+			layer.msg("{:L('sms_set_empty')}",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}
 		if(password == ''){
-			layer.msg('登录密码不能为空',{time:2000,icon:5});
+			layer.msg("{:L('password_set_empty')}",{time:2000,icon:5});
+			obj.prop('disabled',false);
 			return false;
 		}
 		if(paypassword == ''){
-			layer.msg('支付密码不能为空',{time:2000,icon:5});
+			layer.msg("{:L('paypassword_set_empty')}",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}
 		if(password == paypassword){
-			layer.msg('登录密码和交易密码不能一样',{time:2000,icon:5});
+			layer.msg("{:L('newpassword2_set_noequal')}",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}
 		if(refer == ''){
-			layer.msg('推荐人手机号不能为空',{time:2000,icon:5});
+			layer.msg("{:L('refer_set_empty')}",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}

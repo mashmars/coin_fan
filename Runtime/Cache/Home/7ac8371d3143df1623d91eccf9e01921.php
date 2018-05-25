@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>个人中心</title>
+	<title><?php echo L('user_title');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -15,58 +15,68 @@
 			<div class="user-info">
 				<img src="<?php echo (PUB_IMG); ?>usbg.png" alt=""class="usbg">
 				<div class="user-txt">
-					<h3 class="tc">我的</h3>
+					<h3 class="tc rel"><?php echo L('user_title');?>
+					<span class="switch-btn">简体中文<i></i></span>
+					<input type="text"class="dn switch-con">
+					<ul class="switchBox">
+						<li id="1"><a href="?l=zh-cn">简体中文</a></li>
+						<li id="3"><a href="?l=zh-tw">繁体中文</a></li>
+						<li id="2"><a href="?l=en-us">English</a></li>
+					</ul>
+					
+					</h3>
 					<div class="flex-box user-head">
 						<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 						<div class="flex-1">
-							<h4>你好，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
+							<h4><?php echo L('hello');?>，<?php echo ($userinfo['realname'] ? $userinfo['realname'] : 'MC'); ?>！</h4>
 							<p><?php echo (session('phone')); ?></p>
 						</div>
 						<div class="flex-1">
-							<p>一区业绩:<?php echo ($yeji['yiqu']*1); ?></p>
-							<p>二区业绩:<?php echo ($yeji['erqu']*1); ?></p>
+							<p><?php echo L('yeji_A');?>:<?php echo ($yeji['yiqu']*1); ?></p>
+							<p><?php echo L('yeji_B');?>:<?php echo ($yeji['erqu']*1); ?></p>
 						</div>
 					</div>
 					<div class="tc flex-box user-total">
 						<div class="flex-1">
-							<p>挖矿收益</p>
+							<p><?php echo L('income');?></p>
 							<h4><?php echo ($shouyi*1); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>参考市值</p>
+							<p><?php echo L('shizhi');?></p>
 							<h4><?php echo ($usercoin['lth']*$config['price']); ?></h4>
 						</div>
 						<div class="flex-1">
-							<p>MC币数</p>
+							<p>MC<?php echo L('coin');?></p>
 							<h4><?php echo ($usercoin['lth']*1); ?></p>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			<div class="user-contain">
 				<ul>
 					<li>
 						<a href="<?php echo U('user/profile');?>">
-							<i class="modify"></i>修改资料
+							<i class="modify"></i><?php echo L('profile');?>
 							<span class="go"></span>
 						</a>
 					</li>
 					<li>
 						<a href="<?php echo U('user/password');?>">
-							<i class="pwsmanage"></i>密码管理
+							<i class="pwsmanage"></i><?php echo L('password_manage');?>
 							<span class="go"></span>
 						</a>
 					</li>
 					<li>
 						<a href="<?php echo U('user/phone');?>">
-							<i class="binding"></i>手机绑定
+							<i class="binding"></i><?php echo L('phone_bind');?>
 							<span class="go"></span>
 						</a>
 					</li>
 					
 				</ul>
 			</div>
-			<p class="tc"><button class="lhbg exit-logon">退出登录</button></p>
+			<p class="tc"><button class="lhbg exit-logon"><?php echo L('logout');?></button></p>
 			<div id='gonggao' style='display:none'>
 				<h4><?php echo ($gonggao["title"]); ?></h4>
 				<div><?php echo (html_entity_decode($gonggao["content"])); ?></div>
@@ -77,25 +87,25 @@
 		<li>
 			<a href="<?php echo U('finance/myzr');?>">
 				<i class="charge"></i>
-				<span>充币</span>
+				<span><?php echo L('menu_cb');?></span>
 			</a>
 		</li>
 		<li>
 			<a href="<?php echo U('finance/myzc');?>">
 				<i class="carry"></i>
-				<span>提币</span>
+				<span><?php echo L('menu_tb');?></span>
 			</a>
 		</li>
 		<li>
 			<a href="<?php echo U('finance/index');?>">
 				<i class="wallet"></i>
-				<span>钱包</span>
+				<span><?php echo L('menu_qb');?></span>
 			</a>
 		</li>
 		<li class="active">
 			<a href="<?php echo U('user/index');?>">
 				<i class="use"></i>
-				<span>我的</span>
+				<span><?php echo L('menu_wd');?></span>
 			</a>
 		</li>
 	</ul>
@@ -134,5 +144,20 @@
 		  }
 		});
 	}
+	
+	$('.switchBox').hide();
+	$('.switch-btn').click(function(){
+		$('.switchBox').toggle();
+		$(this).children('i').toggleClass("active");
+	});
+	var lang = "<?php echo (cookie('think_language')); ?>";
+	if(lang == 'zh-tw'){
+		var text = '繁体中文';
+	}else if (lang == 'en-us'){
+		var text = 'English';
+	}else{
+		var text = '简体中文';
+	}
+	$('.switch-btn').html(text+'<i></i>');
 	</script>
 </html>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>手机登录</title>
+	<title><?php echo L('login');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -12,26 +12,26 @@
 	</head>
 	<body>
 		<div class="main login">
-			<h3 class="tc">登录</h3>
+			<h3 class="tc"><?php echo L('login');?></h3>
 			<p class="tc loglo">
 				<img src="<?php echo (PUB_IMG); ?>log.png" alt="">
 			</p>
 			
 				<ul>
 					<li>
-						<input type="text"placeholder="手机号" id="phone">
+						<input type="text"placeholder="<?php echo L('phone');?>" id="phone">
 					</li>
 					<li>
-						<input type="text"placeholder="验证码" id="sms">
-						<span class="flex-1 code">获取验证码</span>
+						<input type="text"placeholder="<?php echo L('sms');?>" id="sms">
+						<span class="flex-1 code"><?php echo L('sms_get');?></span>
 					</li>
 				</ul>
 				
-				<p class="tc"><button class="lhbh mod-btn" id='login_phone'>登录</button></p>
+				<p class="tc"><button class="lhbh mod-btn" id='login_phone'><?php echo L('login');?></button></p>
 			
 			<p class="ovh lolink">
-				<a href="<?php echo U('login/password');?>" class="fl">使用密码登录</a>
-				<a href="<?php echo U('login/register');?>" class="fr">注册新账号</a>
+				<a href="<?php echo U('login/password');?>" class="fl"><?php echo L('use_password');?></a>
+				<a href="<?php echo U('login/register');?>" class="fr"><?php echo L('register');?></a>
 			</p>
 			
 		</div>
@@ -50,11 +50,11 @@
 		function time(o) {
 			if (wait == 0) {
 				o.removeAttribute("class", "");   
-				o.innerText="获取验证码";
+				o.innerText="<?php echo L('sms_get');?>";
 				wait = 120;
 				} else {
 					o.setAttribute("class", "disabled");
-					o.innerText="重新发送(" + wait + "s)";
+					o.innerText="<?php echo L('sms_get_again');?>(" + wait + "s)";
 					wait--;
 					t = setTimeout(function() {
 						time(o)
@@ -93,7 +93,7 @@ $(function(){
 	$('.code').click(function(){
 		var phone = $('#phone').val();
 		if(phone == ''){
-			layer.msg('手机号不能为空',{time:2000,icon:5});
+			layer.msg("<?php echo L('phone_set_empty');?>",{time:2000,icon:5});
 			return false;
 		}
 		time(this);
@@ -103,7 +103,7 @@ $(function(){
 				layer.msg(data.msg,{time:2000,icon:1})
 			}else{			
 				clearTimeout(t);
-				obj.text('获取验证码');
+				obj.text("<?php echo L('sms_get');?>");
 				obj.removeClass('disabled');	
 				layer.msg(data.msg,{time:2000,icon:5});
 							
@@ -120,12 +120,12 @@ $(function(){
 		
 		
 		if(phone == ''){
-			layer.msg('手机号不能为空',{time:2000,icon:5});
+			layer.msg("<?php echo L('phone_set_empty');?>",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}
 		if(sms == ''){
-			layer.msg('手机验证码不能为空',{time:2000,icon:5});
+			layer.msg("<?php echo L('sms_set_empty');?>",{time:2000,icon:5});
 			obj.prop('disabled',false);
 			return false;
 		}

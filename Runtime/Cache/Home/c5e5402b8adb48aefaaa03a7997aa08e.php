@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>收益记录</title>
+	<title><?php echo L('income_title');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -16,7 +16,7 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		收益记录
+		<?php echo L('income_title');?>
 	</h3>
 </header>
 </header>
@@ -25,25 +25,25 @@
 				<div id="scroller">
 					<div id="pullDown">
 						<span class="pullDownIcon"></span>
-						<span class="pullDownLabel">下拉刷新...</span>
+						<span class="pullDownLabel"><?php echo L('pulldown');?>...</span>
 					</div>
 					<?php if($res[0] != null): ?><ul id="list">
 					<?php if(is_array($res)): $i = 0; $__LIST__ = $res;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="flex-box">
 							<div class="flex-1 flex-box">
 								<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 								<div class="flex-1">
-									<h4>收益</h4>
-									<p><span><?php echo (date('m月d日',$vo["createdate"])); ?></span><span><?php echo (date('H:i',$vo["createdate"])); ?></span></p>
+									<h4><?php echo L('income');?></h4>
+									<p><span><?php echo (date('m/d',$vo["createdate"])); ?></span><span><?php echo (date('H:i',$vo["createdate"])); ?></span></p>
 								</div>
 							</div>
 							<span>+<?php echo ($vo["num"]); ?></span>
 						</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 					<?php else: ?>
-					<p class="no-list tc">暂无记录</p><?php endif; ?>
+					<p class="no-list tc"><?php echo L('no_record');?></p><?php endif; ?>
 					<div id="pullUp">
 						<span class="pullUpIcon"></span>
-						<span class="pullUpLabel">上拉加载更多...</span>
+						<span class="pullUpLabel"><?php echo L('pullup');?>...</span>
 					</div>
 				</div>
 			</div>
@@ -112,14 +112,14 @@
 						success:function(result){
 							var list = '';
 							if(result == ''){ 
-								layer.msg('没有更多数据可加载',{time:2000,icon:2});
+								layer.msg("<?php echo L('no_more_record');?>",{time:2000,icon:2});
 								return false;
 							}
 							$.each(result,function(k,v){
 								var src = "<?php echo (PUB_IMG); ?>";
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="<?php echo (PUB_IMG); ?>ht.png" alt="">';
-									list += '<div class="flex-1"><h4>收益</h4><p><span>4月3日</span><span>14:16</span></p></div></div>';
+									list += '<div class="flex-1"><h4>'+"<?php echo L('income');?>"+'</h4><p><span>'+v.date+'</span><span>'+v.time+'</span></p></div></div>';
 									list += '<span>+'+v.num+'</span></li>';
 								}
 							})
@@ -147,39 +147,39 @@
 					onRefresh: function () {
 						if (pullDownEl.className.match('loading')) {
 							pullDownEl.className = '';
-							pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = "<?php echo L('pulldown');?>...";
 						} else if (pullUpEl.className.match('loading')) {
 							pullUpEl.className = '';
-							pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = "<?php echo L('pullup');?>...";
 						}
 					},
 					onScrollMove: function () {
 						if (this.y > 5 && !pullDownEl.className.match('flip')) {
 							pullDownEl.className = 'flip';
-							pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = "<?php echo L('updating');?>...";
 							this.minScrollY = 0;
 						} else if (this.y < 5 && pullDownEl.className.match('flip')) {
 							pullDownEl.className = '';
-							pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = "<?php echo L('pulldown');?>...";
 							this.minScrollY = -pullDownOffset;
 						} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
 							pullUpEl.className = 'flip';
-							pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = "<?php echo L('updating');?>...";
 							this.maxScrollY = this.maxScrollY;
 						} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
 							pullUpEl.className = '';
-							pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = "<?php echo L('pullup');?>...";
 							this.maxScrollY = pullUpOffset;
 						}
 					},
 					onScrollEnd: function () {
 						if (pullDownEl.className.match('flip')) {
 							pullDownEl.className = 'loading';
-							pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = "<?php echo L('loading');?>...";
 							pullDownAction();   // Execute custom function (ajax call?)
 						} else if (pullUpEl.className.match('flip')) {
 							pullUpEl.className = 'loading';
-							pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = "<?php echo L('loading');?>...";
 							pullUpAction();
 						}
 					}

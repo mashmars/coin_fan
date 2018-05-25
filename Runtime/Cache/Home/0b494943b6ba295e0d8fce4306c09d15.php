@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>密码登录</title>
+	<title><?php echo L('login');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -12,27 +12,35 @@
 	</head>
 	<body>
 		<div class="main login">
-			<h3 class="tc">登录</h3>
+			<h3 class="tc rel"><?php echo L('login');?>
+			<span class="switch-btn">简体中文<i></i></span>
+				<input type="text"class="dn switch-con">
+				<ul class="switchBox">
+					<li id="1"><a href="?l=zh-cn">简体中文</a></li>
+					<li id="3"><a href="?l=zh-tw">繁体中文</a></li>
+					<li id="2"><a href="?l=en-us">English</a></li>
+				</ul>
+			</h3>
 			<p class="tc loglo">
 				<img src="<?php echo (PUB_IMG); ?>log.png" alt="">
 			</p>
 			
 				<ul>
 					<li>
-						<input type="text"placeholder="手机号" id='phone'>
+						<input type="text"placeholder="<?php echo L('phone');?>" id='phone'>
 					</li>
 					<li>
-						<input type="password"placeholder="密码" id="password">
+						<input type="password"placeholder="<?php echo L('password');?>" id="password">
 						<!--<i class="hided"></i>-->
 					</li>
 				</ul>
-				<p class="tr forget"><a href="<?php echo U('login/findpassword');?>">忘记密码？</a></p>
+				<p class="tr forget"><a href="<?php echo U('login/findpassword');?>"><?php echo L('forget_password');?></a></p>
 				
-				<p class="tc"><button class="lhbh mod-btn" id='login_password'>登录</button></p>
+				<p class="tc"><button class="lhbh mod-btn" id='login_password'><?php echo L('login');?></button></p>
 			
 			<p class="ovh lolink">
-				<a href="<?php echo U('login/phone');?>" class="fl">使用验证码登录</a>
-				<a href="<?php echo U('login/register');?>" class="fr">注册新账号</a>
+				<a href="<?php echo U('login/phone');?>" class="fl"><?php echo L('use_phone');?></a>
+				<a href="<?php echo U('login/register');?>" class="fr"><?php echo L('register');?></a>
 			</p>
 			
 		</div>
@@ -82,6 +90,23 @@
 					}
 			});
 		}
+		
+		$('.switchBox').hide();
+		$('.switch-btn').click(function(){
+			$('.switchBox').toggle();
+			$(this).children('i').toggleClass("active");
+		});
+		var lang = "<?php echo (cookie('think_language')); ?>";
+		if(lang == 'zh-tw'){
+			var text = '繁体中文';
+		}else if (lang == 'en-us'){
+			var text = 'English';
+		}else{
+			var text = '简体中文';
+		}
+		$('.switch-btn').html(text+'<i></i>');
+		
+		
 	</script>
 	<script>
 	$(function(){
@@ -92,12 +117,12 @@
 			var password = $('#password').val();
 			
 			if(phone == ''){
-				layer.msg('手机号不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('phone_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(password == ''){
-				layer.msg('登录密码不能为空',{time:2000,icon:5});
+				layer.msg("<?php echo L('password_set_empty');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}

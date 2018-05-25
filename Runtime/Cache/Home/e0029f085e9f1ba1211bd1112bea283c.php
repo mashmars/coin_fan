@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>转账</title>
+	<title><?php echo L('transfer');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -14,29 +14,29 @@
 		<header>
 	<h3 class="tc lhbg">
 		<i class="go"></i>
-		账户转账
+		<?php echo L('transfer');?>
 	</h3>
 </header>
 		<div class="main transferAccounts">
 			
 				<ul class="real-item">					
 					<li class="fix">
-						<label>手机号码</label>
-						<input type="text"placeholder="请输入对方手机号码" id='phone'>
+						<label><?php echo L('phone');?></label>
+						<input type="text"placeholder="<?php echo L('duifang_phone_p');?>" id='phone'>
 					</li>
 				</ul>
 				<div class="amount">
-					<p>转账金额</p>
+					<p><?php echo L('transfer_money');?></p>
 					<p class="flex-box"><i ></i><input type="number"class="flex-1" id='money'></p>
-					<p>可用余额: <span id='coin'><?php echo ($usercoin['lth']*1); ?></span></p>
+					<p><?php echo L('keyong_money');?>: <span id='coin'><?php echo ($usercoin['lth']*1); ?></span></p>
 				</div>
 				<ul class="real-item">
 					<li class="fix">
-						<label>交易密码</label>
-						<input type="password"placeholder="请输入交易密码" id='password'>
+						<label><?php echo L('paypassword');?></label>
+						<input type="password"placeholder="<?php echo L('paypassword_p');?>" id='password'>
 					</li>
 				</ul>
-				<p class="tc"><button class="lhbg mod-btn" id='transfer'>确认转账</button></p>
+				<p class="tc"><button class="lhbg mod-btn" id='transfer'><?php echo L('submit');?></button></p>
 			
 		</div>
 	</body>
@@ -54,17 +54,17 @@
 			var password = $('#password').val();
 			var coin = parseFloat($('#coin').text());
 			if(phone == ''){
-				layer.msg('请填写对方手机号',{time:2000,icon:5});
+				layer.msg("<?php echo L('duifang_phone_p');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(password == ''){
-				layer.msg('请填写交易密码',{time:2000,icon:5});
+				layer.msg("<?php echo L('paypassword_p');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}
 			if(money == '' || isNaN(money) || money <=0 || money > coin){
-				layer.msg('转出金额不正确',{time:2000,icon:5});
+				layer.msg("<?php echo L('transfer_money_error');?>",{time:2000,icon:5});
 				obj.prop('disabled',false);
 				return false;
 			}

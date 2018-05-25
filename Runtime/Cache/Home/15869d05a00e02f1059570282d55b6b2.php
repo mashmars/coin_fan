@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-	<title>钱包管理</title>
+	<title><?php echo L('wallet_manage');?></title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="<?php echo (PUB_CSS); ?>common.css">
@@ -13,7 +13,7 @@
 		<header>
 			<h3 class="tc lhbg">
 				<i class="go"></i>
-				钱包管理
+				<?php echo L('wallet_manage');?>
 			</h3>
 		</header>
 		<div class="main purseAddress">
@@ -23,13 +23,13 @@
 						<h3 class="ovh">
 							<img src="<?php echo (PUB_IMG); ?>log.png" alt="" class="fl">
 							<span class="fl">MC</span>
-							<em class="fr">标识:<?php echo ($vo["name"]); ?></em>
+							<em class="fr"><?php echo L('wallet_sign');?>:<?php echo ($vo["name"]); ?></em>
 						</h3>
 						<p><?php echo ($vo["address"]); ?></p>
 					</div>
 					<p class="purse-btn">
-						<a href="javascript:;" class='del' data-id="<?php echo ($vo["id"]); ?>">删除</a>
-						<a href="<?php echo U('finance/zcwallet',array('id'=>$vo['id']));?>">修改</a>
+						<a href="javascript:;" class='del' data-id="<?php echo ($vo["id"]); ?>"><?php echo L('delete');?></a>
+						<a href="<?php echo U('finance/zcwallet',array('id'=>$vo['id']));?>"><?php echo L('modify');?></a>
 					</p>
 				</li><?php endforeach; endif; else: echo "" ;endif; ?>
 			</ul>
@@ -46,7 +46,7 @@
 	$(function(){
 		$('.del').click(function(){
 			var obj = $(this),id=$(this).data('id');
-			layer.confirm('是否确认删除此地址?',function(){
+			layer.confirm("<?php echo L('delete_confirm');?>",function(){
 				$.post("<?php echo U('finance/ajax_address_del');?>",{id:id},function(data){
 					if(data.info == 'success'){
 						layer.msg(data.msg,{time:2000,icon:1},function(){
