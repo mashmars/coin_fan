@@ -43,7 +43,7 @@
 							<div class="flex-1 flex-box">
 								<img src="<?php echo (PUB_IMG); ?>ht.png" alt="">
 								<div class="flex-1">
-									<h4><?php if($vo["status"] == 1): echo L('confirmed'); elseif($vo["status"] == 2): echo L('refused'); else: echo L('padding'); endif; ?></h4>
+									<h4><?php if($vo["status"] == 1): echo L('confirmed'); elseif($vo["status"] == 2): echo L('refused'); else: echo L('pending'); endif; ?></h4>
 									<p><span><?php echo (date('m/d',$vo["createdate"])); ?></span><span><?php echo (date('H:i',$vo["createdate"])); ?></span></p>
 								</div>
 							</div>
@@ -132,7 +132,7 @@
 								}else if(v.status ==2){
 									status ="<?php echo L('refused');?>";
 								}else{
-									status = "<?php echo L('padding');?>";
+									status = "<?php echo L('pending');?>";
 								}
 								if(v.id){
 									list += '<li class="flex-box"><div class="flex-1 flex-box"><img src="<?php echo (PUB_IMG); ?>ht.png" alt="">';
