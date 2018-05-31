@@ -214,7 +214,7 @@ class QueueController extends Controller
 		$sys_jtfh = M('sys_jtfh')->where(array('status=1'))->select(); //所有静态分红
 		$sys_dtfh = M('sys_dtfh')->where(array('status=1'))->select(); //所有动态分红
 		//所有币数
-		$user_coin = M('user_coin')->where(array('lth'=>array('gt',0)))->select();
+		$user_coin = M('user_coin')->alias('a')->join('left join user b on a.userid=b.id')->where(array('lth'=>array('gt',0),'fh_status'=>1))->field('a.*')->select();
         //核对每天只能分红一次
         $start = strtotime(date('Y-m-d'));
         $end = $start + 24*3600-1;

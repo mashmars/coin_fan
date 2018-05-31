@@ -81,7 +81,8 @@
 				<th width="100">姓名</th>								
 				<th width="100">时间</th>								
 				<th width="100">提币状态</th>								
-				<th width="100">提币比例</th>								
+				<th width="100">提币比例</th>
+				<th width="100">分红状态</th>				
 				<th width="170">操作</th>
 			</tr>
 		</thead>
@@ -101,6 +102,12 @@
 				</if>
 				</td>	
 				<td>{$vo['tb_bl']*1}</td>
+				<td>
+				<if condition="$vo.fh_status eq 1">
+				<span class="label label-success radius">分红</span>
+				<else /><span class="label label-danger radius">不分红</span>
+				</if>
+				</td>
 				<td class="td-manage">				
 				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onclick="member_add('编辑用户基本信息','{:U('user/member_edit',array('id'=>$vo['id']))}','','510')"   title="编辑用户信息">编辑</a>  
 				<a style="text-decoration:none" class="btn btn-secondary-outline radius size-MINI" onClick="login(this,'{$vo.id}')" href="javascript:;" title="登入">登入</a>  
